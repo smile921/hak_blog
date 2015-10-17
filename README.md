@@ -1,2 +1,2 @@
 # hak_blog
-[http://smile921.github.io/hak_blog]home
+[home](http://smile921.github.io/hak_blog)
