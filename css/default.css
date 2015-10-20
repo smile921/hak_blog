@@ -45,10 +45,16 @@ body {
     background: url("../images/bg.png")
 }
 */
-
+#adage {
+    font-size: 34px;
+    margin: 0px 30%;
+    padding: 40px 10px 0px 30px;
+    font-family: monospace;
+    font-weight:bold;
+}
 .container-1{
 margin: 8% auto 0;
-padding: 10%;
+padding: 0 10%;
 }
 .container {
   background: #ffe;
