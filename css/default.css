@@ -45,16 +45,25 @@ body {
     background: url("../images/bg.png")
 }
 */
+
 ul li{
   list-style: disc;
   padding: 1px 10px;
+  font-size: 18px;
+  color: #000;
+  font-weight: bold;
 }
 ul li a {
   display: inline-block;
   font-family: Helvetica,monospace;
-  font-size:1.6;
-  color:#fff;
+  font-size: 20px;
+  color: #000;
+  font-weight: bold;
 }
+ul li a:hover{
+  color: #1006FB;
+} 
+
 #hd-block{
   width: 100%;
   height: 300px;
