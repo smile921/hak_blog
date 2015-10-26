@@ -1,3 +1,4 @@
+<<<<<<< Updated upstream
 
 html, body, div, span, object, iframe,
 h1, h2, h3, h4, h5, h6, p, blockquote, pre,
@@ -178,16 +179,21 @@ div.info {
   color: #d3d3d3;
   height: 265px;
   margin-top: 95px;
-  overflow: auto;
+  overflow: hidden;
+  padding-top: 40px;
 }
 .footer  .fcontainer {
   margin: 100px ;
   position: relative;
-  width: 100%;
-  max-width: 889px;
+  margin: 0 auto;
 }
 .footer .site-title-wrapper {
   margin: 80px auto 35px;
+
+}
+.footer .site-title-wrapper h1 {
+  font-size: 18px;
+  
 }
 .footer  .site-title-wrapper {
   display: table;
@@ -197,7 +203,9 @@ div.info {
 
   display: inline-block;
 }
-p{
-
+.footer p{
+  margin-top: 20px;
+  text-align: center;
   margin: 15px auto;
 }
+ 
