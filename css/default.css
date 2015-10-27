@@ -84,8 +84,14 @@ ul li a:hover{
     font-weight:bold;
 }
 .container-1{
-margin: 2% auto 0;
-padding: 0 10%;
+margin: 0% auto 0;
+padding: 150px 10%;
+    
+    background-color: #e1eab1;
+    background-image: -moz-radial-gradient(50% 50%,circle cover,#ddd,#e1eab1 60%);
+    background-image: -ms-radial-gradient(50% 50%,circle cover,#ddd,#e1eab1 60%);
+    background-image: -webkit-radial-gradient(50% 50%,circle cover,#ddd,#e1eab1 60%);
+    background-image: radial-gradient(50% 50%,circle cover,#ddd,#e1eab1 60%);
 }
 .container {
   background: #ffe;
@@ -178,9 +184,9 @@ div.info {
   background: #666;
   color: #d3d3d3;
   height: 265px;
-  margin-top: 95px;
+  margin-top: 0px;
   overflow: hidden;
-  padding-top: 40px;
+  padding-top: 75px;
 }
 .footer  .fcontainer {
   margin: 100px ;
