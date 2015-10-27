@@ -12,7 +12,7 @@ Pixiewps is a tool written in C used to bruteforce offline the WPS pin exploitin
 
 Pixiewps requires libssl. To install it:
 
-```
+```bash
     sudo apt-get install libssl-dev
 ```
 
@@ -20,7 +20,7 @@ Pixiewps requires libssl. To install it:
 
 Pixiewps can be built and installed by running:
 
-```
+```bash
     ~/pixiewps$ cd src
     ~/pixiewps/src$ make
     ~/pixiewps/src$ sudo make install
@@ -28,7 +28,7 @@ Pixiewps can be built and installed by running:
 
 # USAGE
 
-```
+```bash
  Usage: pixiewps <arguments>
 
  Required Arguments:
@@ -55,7 +55,7 @@ Pixiewps can be built and installed by running:
 
 A common usage example is:
 
-```
+```bash
     pixiewps --pke <pke> --pkr <pkr> --e-hash1 <e-hash1> --e-hash2 <e-hash2> --authkey <authkey> --e-nonce <e-nonce>
 ```
 
@@ -69,7 +69,7 @@ then the AP might be vulnerable and Pixiewps should be run again with the same s
 
 # DESCRIPTION OF ARGUMENTS
 
-```
+```bash
     -e, --pke
 
         Enrollee's DH public key, found in M1.
@@ -146,7 +146,7 @@ When using the **offline attack**, **if** the AP is vulnerable, it may take only
 
 # Requirements
 
-```
+```bash
 apt-get -y install build-essential libpcap-dev sqlite3 libsqlite3-dev aircrack-ng pixiewps
 ```
 _The example uses [Kali Linux](https://www.kali.org/) as the Operating System (OS) as `pixiewps` is included._

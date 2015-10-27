@@ -221,8 +221,10 @@ div.info {
  * @author Lea Verou
  */
 
-code[class*="language-"],
-pre[class*="language-"] {
+
+
+code[class*="sourceCode"],
+pre[class*="sourceCode"] {
   color: black;
   text-shadow: 0 1px white;
   font-family: Consolas, Monaco, 'Andale Mono', monospace;
@@ -242,21 +244,24 @@ pre[class*="language-"] {
   hyphens: none;
 }
 
-pre[class*="language-"]::-moz-selection, pre[class*="language-"] ::-moz-selection,
-code[class*="language-"]::-moz-selection, code[class*="language-"] ::-moz-selection {
+ 
+pre[class*="sourceCode"]::-moz-selection, 
+pre[class*="sourceCode"] ::-moz-selection,
+code[class*="sourceCode"]::-moz-selection, 
+code[class*="sourceCode"] ::-moz-selection {
   text-shadow: none;
   background: #b3d4fc;
 }
 
-pre[class*="language-"]::selection, pre[class*="language-"] ::selection,
-code[class*="language-"]::selection, code[class*="language-"] ::selection {
+pre[class*="sourceCode"]::selection, pre[class*="sourceCode"] ::selection,
+code[class*="sourceCode"]::selection, code[class*="sourceCode"] ::selection {
   text-shadow: none;
   background: #b3d4fc;
 }
 
 @media print {
-  code[class*="language-"],
-  pre[class*="language-"] {
+  code[class*="sourceCode"],
+  pre[class*="sourceCode"] {
     text-shadow: none;
   }
   #header,
@@ -269,18 +274,18 @@ code[class*="language-"]::selection, code[class*="language-"] ::selection {
 }
 
 /* Code blocks */
-pre[class*="language-"] {
+pre[class*="sourceCode"] {
   padding: 0em 0em 0.5em 0em;
   overflow: auto;
 }
 
-:not(pre) > code[class*="language-"],
-pre[class*="language-"] {
+:not(pre) > code[class*="sourceCode"],
+pre[class*="sourceCode"] {
   background: #f5f2f0;
 }
 
 /* Inline code */
-:not(pre) > code[class*="language-"] {
+:not(pre) > code[class*="sourceCode"] {
   padding: .1em;
   border-radius: .3em;
 }
@@ -316,7 +321,7 @@ pre[class*="language-"] {
 .token.operator,
 .token.entity,
 .token.url,
-.language-css .token.string,
+.sourceCodecss .token.string,
 .style .token.string {
   color: #a67f59;
   background: hsla(0,0%,100%,.5);
