@@ -53,21 +53,21 @@
 <li><p>最后一个例子，我编写了一个简单的程序用于搭建一个 Web 界面。我觉得应该使用 Python，但是这样做的话，我需要找出如何利用 Python 的类库来为 Web 页面提供服务的办法。 我在此之前已经在 Java（采用 Jetty）中实现过这个功能了，所以使用 Java 的话，我可以在更短的时间内将其做好并且运行起来。 这个时候，我开始意识到，随着我在第三方 Java 库上面的知识积累以及在实用工具方面的不断成长，使用其它语言的成本已经变得越来越高了。 我需要把这些事情搞清楚再写一遍，而不是从已有的项目中复制和粘贴。注意，这不仅适用于 Java，它也适用于任何使用单一语言的场景。</p></li>
 </ul>
 <p>对于 Java，最大的争论在于它的语法繁琐。 可能吧，但那又怎样呢？我认为真正的争论是写 Java 代码需要更长的时间。 我怀疑在最初的10分钟之后这是很真实的。 当然你不得不写 public static void main，但那又能花多少时间呢？当然你也必须这样写：</p>
-<pre><code>    Map&lt;String,User&gt; userIdMap = new HashMap&lt;String,User&gt;();</code></pre>
+<div class="sourceCode"><pre class="sourceCode java"><code class="sourceCode java">    Map&lt;String,User&gt; userIdMap = <span class="kw">new</span> HashMap&lt;String,User&gt;();</code></pre></div>
 <p>而不是：</p>
-<pre><code>	userIdMap = {}</code></pre>
+<div class="sourceCode"><pre class="sourceCode java"><code class="sourceCode java">	userIdMap = {}</code></pre></div>
 <p>如果从一个更大的情景来看，这算长吗？一天之中能多花多少分钟，2天呢？而在 Python 更加接近实际的代码看起来是这样：</p>
-<pre><code>     # Map from user ID to User object.userIdMap = {}</code></pre>
+<div class="sourceCode"><pre class="sourceCode java"><code class="sourceCode java">     # Map from user ID to User object.<span class="fu">userIdMap</span> = {}</code></pre></div>
 <p>（如果没按照上述方式编写 Python 代码，那么你就可能面临更大的问题。 缺乏文档的 Python 程序是很难维护的。） 我们面临的问题是，程序员认为不用动脑筋的工作是痛苦且浪费时间。 我在这里引用某个论坛中的一条帖子，很好地证明了这一点：</p>
 <pre><code>	当你不得不为极其明显的对象增加类型声明时，没有比这更无聊的了，比如 Foo x = new Foo()。– [@pazsxn](http://alexgaynor.net/2010/nov/04/staticly-typed-language-id-actually-want-use/)</code></pre>
 <p>实际上不是这样，额外键入 Foo 并非“很无聊”。只是三个字符而已。 由于这项工作无需动脑，致使其副作用被严重夸大了，但这只是小事一桩。程序员真正不愿意做的事，是为了处理列表事项而编写某种类型的命令：</p>
-<pre><code>	if command = &quot;up&quot;:
-		  up()
-	elif command = &quot;status&quot;:
-		  status()
-	elif command = &quot;revert&quot;:
-		  revert()
-	...</code></pre>
+<div class="sourceCode"><pre class="sourceCode java"><code class="sourceCode java">	<span class="kw">if</span> command = <span class="st">&quot;up&quot;</span>:
+		  <span class="fu">up</span>()
+	elif command = <span class="st">&quot;status&quot;</span>:
+		  <span class="fu">status</span>()
+	elif command = <span class="st">&quot;revert&quot;</span>:
+		  <span class="fu">revert</span>()
+	...</code></pre></div>
 <p>因此，他们将会编写一些自认为聪明的自动调度代码，但这样做需要花费更长的时间，而且肯定会让后来的程序员产生迷惑：revert()  方法是怎样调用的呢。 即便如此，程序员却错误地觉得好像这样做会是在节约时间。 这其实是一个动态语言的陷阱。它让你自我感觉更有效率，但除了编写一个新程序的前10分钟之外，其他时间并非如此。 你只是通过手工编写了一些愚蠢的调度代码，到最后，你还得在那些真正的工作上花费精力。</p>
 <div class="figure">
 <img src="../images/22591-1958c718201af0c7.png" alt="loading" />
@@ -94,9 +94,9 @@
 <p>使用 Python 开发是快乐的，我<strong>同意</strong>这个观点。我热爱 Python。 当我写一个数独求解程序时，我会使用 Python。 但是对于更大些的项目，它是个错误的工具，而且对于和支付有关的任何规模的项目来说， 它也是个错误的工具，因为这可能会给你的老板带来一定损失。</p>
 <p>我甚至想把这个思路发挥到极致 - 使用 Java 编写 shell 脚本。 除了一个简单的包装器之外，我发现 shell 脚本最终都会发展到一种情景，即仅仅为了从 bash 中的一个数组中移除一些中间元素，需要我在晦涩难懂的语法中反复寻找方法。 这是多么蹩脚的语言啊！错误的工具呀！还是使用 Java 吧。 如果你觉得在 shell 上运行命令显得很愚蠢，编写一个工具函数就可以解决这个问题。</p>
 <p>我已经编写了一个 Java 启动器脚本，这样我就可以将其写在 Java 程序的头部：</p>
-<pre><code>#!/usr/bin/env java_launcher
-# vim:ft=java
-# lib:/home/lk/lib/teamten.jar</code></pre>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="co">#!/usr/bin/env java_launcher</span>
+<span class="co"># vim:ft=java</span>
+<span class="co"># lib:/home/lk/lib/teamten.jar</span></code></pre></div>
 <p>我可以让这个 Java 程序执行，并且同时去掉 .java 扩展名。 脚本提取头部内容，编译并缓存 class 文件，然后使用指定的 jar 包去运行。 这原本是 Python 的特有优势：对于简单的一次性程序，就无需构建脚本啦。</p>
 <p>专注于单一的语言将会产生一个有趣的影响： 激励我完善我的<a href="https://github.com/lkesteloot/teamten">个人工具函数库</a>(上面的 teamten.jar)，因为我的努力不再需要分散到几个语言之中了。 举个例子，我写了一个图片处理的类库。和你在 Java 和 Python 中能找到的任何类库相比，这个类库不仅速度快而且质量更高。 这花费了我的一些时间，但我认为这是值得的， 因为我发现，我无法使用 Python 脚本更好地更好地实现裁剪一张图片的功能。 我现在可以充满自信地把对 Java 的投资作为我未来职业和个人技术的一个重要组成部分。</p>
 <p>最后还有一个在众多编译型静态类型语言中，我为什么特别选择 Java 的问题。 C 和 C++ 的优势（轻微的性能优势，可嵌入性，适合编写图形化库）不适用于我的工作。 C# 挺不错，但不是跨平台的。Scala 太复杂了。 其他语言像 D 和 Go 都太新了，因此我不能把工作赌在它们上面。</p>
