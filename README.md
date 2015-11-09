@@ -13,4 +13,4 @@
 
 to run a local site for test just run ./site watch then browse http://127.0.0.1:8000
 
-[用telnet 发送邮件](https://github.com/smile921/blog.ioo/edit/gh-pages/_posts/2015-10-12-telnet.adoc)
+[用telnet 发送邮件](https://github.com/smile921/blog.ioo/blob/gh-pages/_posts/2015-10-12-telnet.adoc)
