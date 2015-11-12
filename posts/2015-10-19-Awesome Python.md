@@ -1,3 +1,9 @@
+---
+title:  Awesome Python !
+date:   2015-11-2 23:52:38
+categories: Python,Awesome 
+---
+
 # Awesome Python [![Awesome](https://cdn.rawgit.com/sindresorhus/awesome/d7305f38d29fed78fa85652e3a63e154dd8e8829/media/badge.svg)](https://github.com/sindresorhus/awesome)
 
 A curated list of awesome Python frameworks, libraries and software. Inspired by [awesome-php](https://github.com/ziadoz/awesome-php).

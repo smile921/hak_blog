@@ -1,3 +1,9 @@
+---
+title:  Awesome Common Lisp !
+date:   2015-11-1 23:52:38
+categories: Lisp,Awesome 
+---
+
 # Awesome Common Lisp [![Awesome](https://cdn.rawgit.com/sindresorhus/awesome/d7305f38d29fed78fa85652e3a63e154dd8e8829/media/badge.svg)](https://github.com/sindresorhus/awesome)
 
 A curated list of _awesome_ Common Lisp stuff. I give preference to
