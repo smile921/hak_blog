@@ -4,6 +4,14 @@ date:   2015-02-11 23:52:38
 categories: Demo  
 ---
 
+### awesome 数据可视化收集
+
+数据可视化的类型 [http://www.datavizcatalogue.com/](http://www.datavizcatalogue.com/)
+文本可视化案例集 [http://textvis.lnu.se/](http://textvis.lnu.se/)
+时间型数据可视化案例集 [http://survey.timeviz.net/](http://survey.timeviz.net/)
+树的可视化案例集 [http://vcg.informatik.uni-rostock.de/~hs162/treeposter/poster.html](http://vcg.informatik.uni-rostock.de/~hs162/treeposter/poster.html)
+弦的可视化案例集 [http://www.datavizcatalogue.com/](http://www.datavizcatalogue.com/)
+ Mike bostock[http://bost.ocks.org/mike/](http://bost.ocks.org/mike/)
 TODO
 
 代码高亮
