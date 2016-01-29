@@ -1,5 +1,0 @@
-C:\Users\breens\Documents\Visual Studio 2013\Projects\NHttp\NHttp\bin\Release\NHttp.dll
-C:\Users\breens\Documents\Visual Studio 2013\Projects\NHttp\NHttp\bin\Release\NHttp.pdb
-C:\Users\breens\Documents\Visual Studio 2013\Projects\NHttp\NHttp\obj\Release\NHttp.csprojResolveAssemblyReference.cache
-C:\Users\breens\Documents\Visual Studio 2013\Projects\NHttp\NHttp\obj\Release\NHttp.dll
-C:\Users\breens\Documents\Visual Studio 2013\Projects\NHttp\NHttp\obj\Release\NHttp.pdb
