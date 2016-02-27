@@ -1,0 +1,1764 @@
+%!PS-Adobe-1.0
+%%Pages: (atend)
+%%EndComments
+%%BeginProlog
+% This copyright applies to everything between here and the %%EndProlog:
+% Copyright (C) 1997 Aladdin Enterprises, Menlo Park, CA.  All rights reserved.
+mark
+/currentglobal { false }
+/setglobal { pop }
+/packedarray { array astore readonly }
+/setcmykcolor {
+1 exch sub
+4 -1 roll 1 exch sub 1 index mul
+4 -1 roll 1 exch sub 2 index mul
+4 -2 roll exch 1 exch sub mul
+setrgbcolor
+}
+/sethalftonephase { pop pop }
+/setpagedevice {
+statusdict /pageparams get exec
+4 index /PageSize .knownget { aload pop 6 -2 roll pop pop 4 2 roll } if
+4 index /Orientation .knownget { 3 -1 roll pop exch } if
+statusdict /setpageparams get exec
+/PageOffset .knownget { aload pop translate } if
+}
+/setoverprint { pop }
+/setstrokeadjust { pop }
+/.copydict { dup 3 -1 roll { put dup } forall pop }
+/.dicttomark {
+counttomark 2 idiv dup dict begin { def } repeat pop currentdict end
+}
+/.knownget { 2 copy known { get true } { pop pop false } ifelse }
+/.setdefaultscreen { }
+counttomark 2 idiv {
+1 index where { pop pop pop } { bind executeonly def } ifelse
+} repeat pop
+currentglobal true setglobal
+systemdict /pdfmark known not
+{ userdict /pdfmark { cleartomark } bind put } if
+userdict /GS_PDF_ProcSet 127 dict dup begin
+/bdef { bind def } bind def
+/numargsdict 100 dict def
+/!		
+{ //numargsdict 3 index 3 -1 roll put def
+} bdef
+/~		
+{ exch cvx 1 packedarray cvx exch !
+} bdef
+/nodict 1 dict def
+nodict /self { //nodict } executeonly put
+nodict readonly pop
+/beginpage
+{ //nodict 20 dict .copydict begin graphicsbeginpage textbeginpage
+} bdef
+/endpage
+{ showpage end
+} bdef
+/graphicsbeginpage { initgraphics  0 g  0 G } bdef
+/gput		
+{ exch currentdict //nodict eq { /self dup load end 5 dict begin def } if
+currentdict length currentdict maxlength ge 
+{ currentdict dup length 3 mul 2 idiv 1 add dict .copydict end begin 
+}
+if def
+} bdef
+/q_
+{ gsave //nodict begin
+} bdef
+/q /q_ load 0 !
+/Q_
+{ currentdict /self .knownget { exec //nodict eq { end grestore } if } if
+} bdef
+/Q /Q_ load 0 !
+/d /setdash 2 ~
+/i /setflat 1 ~
+/j /setlinejoin 1 ~
+/J /setlinecap 1 ~
+/M /setmiterlimit 1 ~
+/w /setlinewidth 1 ~
+/fcput		
+{ /FillColorSpace gput /FillColor gput
+} bdef
+/scput		
+{ /StrokeColorSpace gput /StrokeColor gput
+} bdef
+/csdevgray [/DeviceGray] readonly def
+/csdevrgb [/DeviceRGB] readonly def
+/csdevcmyk [/DeviceCMYK] readonly def
+/cslabinit mark
+/DecodeABC [{16 add 116 div} bind {500 div} bind {200 div} bind]
+/MatrixABC [1 1 1 1 0 0 0 0 -1]
+/DecodeLMN [
+{dup 6 29 div ge {dup dup mul mul} {4 29 div sub 108 841 div mul} ifelse
+0.9505 mul} bind
+{dup 6 29 div ge {dup dup mul mul} {4 29 div sub 108 841 div mul} ifelse
+} bind
+{dup 6 29 div ge {dup dup mul mul} {4 29 div sub 108 841 div mul} ifelse
+1.0890 mul} bind
+]
+.dicttomark readonly def
+/nullpattern1 mark
+/PatternType 1 /PaintType 1 /TilingType 3 /BBox [0 0 0 0]
+/XStep 1 /YStep 1 /PaintProc { }
+.dicttomark readonly def
+/nullpattern2 nullpattern1 dup length dict copy readonly def
+/CSdict 11 dict dup begin
+/DeviceGray { 0 exch } bdef
+/DeviceRGB { [0 0 0] cvx exch } bdef
+/DeviceCMYK { [0 0 0 1] cvx exch } bdef
+/Indexed
+{ dup 1 get csset exch pop
+dup 2 index 1 get eq
+{ pop }
+{ exch 4 array copy dup 1 4 -1 roll put }
+ifelse 0 exch
+} bdef
+/CalGray
+{ systemdict /setcolorrendering known
+{ 1 get dup /Gamma .knownget
+{ dup length 1 add dict .copydict
+dup /DecodeA 4 -1 roll /exp load 2 packedarray cvx put
+}
+if /CIEBasedA exch 2 array astore 0 exch
+}
+{ pop //csdevgray csset
+}
+ifelse
+} bdef
+/CalRGB
+{ systemdict /setcolorrendering known
+{ 1 get dup /Gamma known 1 index /Matrix known or
+{ dup length 2 add dict .copydict
+dup /Matrix .knownget { 1 index /MatrixABC 3 -1 roll put } if
+dup /Gamma .knownget
+{ [ exch { /exp load 2 packedarray cvx } forall
+] 1 index /DecodeABC 3 -1 roll put
+}
+if
+}
+if /CIEBasedABC exch 2 array astore [0 0 0] cvx exch
+}
+{ pop //csdevrgb csset
+}
+ifelse
+} bdef
+/CalCMYK { pop //csdevcmyk csset } bdef	
+/Lab
+{ systemdict /setcolorrendering known
+{ 1 get dup length 3 add dict .copydict
+dup /Range .knownget not { [-100 100 -100 100] } if
+[-100 0 null null null null] dup 2 4 -1 roll putinterval
+1 index /RangeABC 3 -1 roll put
+//cslabinit exch copy
+/CIEBasedABC exch 2 array astore [0 0 0] cvx exch
+}
+{ (****** Lab color space not supported. ******\n) print flush
+/setcolorspace cvx /undefined signalerror
+}
+ifelse
+} bdef
+/Pattern
+{ //nullpattern1 1 index type /nametype ne
+{ 1 index length 0 ne { pop //nullpattern2 } if
+} if
+matrix makepattern exch
+} bdef
+/Separation { 1 exch } bdef
+end def
+/csset			
+{ dup dup type /nametype ne { 0 get } if //CSdict exch get exec
+} bdef
+/g { //csdevgray fcput } 1 !
+/G { //csdevgray scput } 1 !
+/rg { 3 array astore cvx //csdevrgb fcput } 3 !
+/RG { 3 array astore cvx //csdevrgb scput } 3 !
+/k { 4 array astore cvx //csdevcmyk fcput } 4 !
+/K { 4 array astore cvx //csdevcmyk scput } 4 !
+/cs { csset fcput } 1 !
+/CS { csset scput } 1 !
+/sc1 { /FillColor gput } 1 !
+/SC1 { /StrokeColor gput } 1 !
+/sc2 { /FillColor gput } 2 !
+/SC2 { /StrokeColor gput } 2 !
+/sc3 { /FillColor load astore pop } 3 !
+/SC3 { /StrokeColor load astore pop } 3 !
+/sc4 { /FillColor load astore pop } 4 !
+/SC4 { /StrokeColor load astore pop } 4 !
+/sc5 { /FillColor gput } 5 !
+/SC5 { /StrokeColor gput } 5 !
+/setfillcolor { FillColor FillColorSpace setgcolor } def
+/setstrokecolor { StrokeColor StrokeColorSpace setgcolor } def
+/CIdict mark			
+/DeviceGray 1   /DeviceRGB 3   /DeviceCMYK 4
+/CIEBaseA 1   /CIEBaseABC 3   /CIEBasedDEF 3   /CIEBaseDEFG 4
+.dicttomark def
+/Cdict 11 dict dup begin	
+/DeviceGray { pop setgray } bdef
+/DeviceRGB { pop setrgbcolor } bdef
+/DeviceCMYK { pop setcmykcolor } bdef
+/CIEBasedA
+{ dup currentcolorspace eq { pop } { setcolorspace } ifelse setcolor } bdef
+/CIEBasedABC /CIEBasedA load def
+/CIEBasedDEF /CIEBasedA load def
+/CIEBasedDEFG /CIEBasedA load def
+/Indexed /setcolorspace where
+{ pop /CIEBasedA load }
+{ /setindexedcolor cvx }
+ifelse def
+/Pattern
+{ dup currentcolorspace eq { pop } { setcolorspace } ifelse
+dup /Matrix get makepattern setcolor
+} bdef
+/Separation /CIEBasedA load def
+end def
+/setindexedcolor		
+{ mark 3 -1 roll
+2 index 3 get	
+dup type /stringtype eq
+{ //CIdict 4 index 1 get 0 get get		
+dup 4 -1 roll mul exch getinterval { 255 div } forall
+}
+{ exec
+}
+ifelse
+counttomark 2 add -2 roll pop
+1 get setgcolor
+} bdef
+/setgcolor	
+{ 1 index null eq
+{ pop pop }
+{ dup 0 get //Cdict exch get exec }
+ifelse
+} bdef
+/fsexec		
+{		
+{ currentpoint } stopped
+{ $error /newerror false put   cvx exec }
+{ 3 -1 roll cvx exec moveto }
+ifelse
+} bdef
+/cmmatrix matrix def
+/cm { //cmmatrix astore concat } 6 !
+/m /moveto 2 ~
+/l /lineto 2 ~
+/c /curveto 6 ~
+/h /closepath 0 ~
+/v { currentpoint 6 2 roll curveto } 4 !
+/y { 2 copy curveto } 4 !
+/re
+{ 4 2 roll moveto  exch dup 0 rlineto  0 3 -1 roll rlineto  neg 0 rlineto
+closepath
+} 4 !
+/S_ { setstrokecolor /stroke fsexec } bdef
+/S { S_ } 0 !
+/f { setfillcolor /fill fsexec } 0 !
+/f* { setfillcolor /eofill fsexec } 0 !
+/n_ { newpath } bdef		
+/n { n_ } 0 !
+/s { closepath S_ } 0 !
+/B_ { gsave setfillcolor fill grestore S_ } bdef
+/B /B_ load 0 !
+/b { closepath B_ } 0 !
+/B*_ { gsave setfillcolor eofill grestore S_ } bdef
+/B* /B*_ load 0 !
+/b* { closepath B*_ } 0 !
+/Wdict 4 dict dup begin
+/S_ { gsave setstrokecolor stroke grestore n_ } bdef
+/f { gsave setfillcolor fill grestore n_ } 0 !
+/f* { gsave setfillcolor eofill grestore n_ } 0 !
+/n_ { end clip newpath } bdef
+end readonly def
+/W { //Wdict begin } 0 !
+/W*dict 4 dict dup begin
+/S_ { gsave setstrokecolor stroke grestore n_ } bdef
+/f { gsave setfillcolor fill grestore n_ } 0 !
+/f* { gsave setfillcolor eofill grestore n_ } 0 !
+/n_ { end eoclip newpath } bdef
+end readonly def
+/W* { //W*dict begin } 0 !
+/Is		
+{ dup /DataSource get string /readstring cvx /currentfile cvx
+3 index /FilterProc .knownget
+{ dup dup 0 get /ASCIIHexDecode eq exch length 2 eq and
+{ pop exch pop /readhexstring cvx exch }
+{ exch exec exch exec }
+ifelse
+}
+if 3 1 roll /pop cvx 4 packedarray cvx
+} bdef
+/EI { } def	
+/csimage
+{ /setcolorspace where
+{ pop dup /ColorSpace get csset setcolorspace pop image }
+{ .colorspaceimage }
+ifelse
+} def		
+/ID	
+{ Is dup 3 -1 roll dup /ImageMask get
+{ setfillcolor dup /Interpolate .knownget not { false } if
+{ dup /DataSource 4 -1 roll put /imagemask cvx exec
+}
+{  { /Width /Height /Decode /ImageMatrix }
+{ 1 index exch get exch }
+forall pop exch 0 get 0 ne exch
+5 -1 roll imagemask
+}
+ifelse
+}
+{ dup /ColorSpace get /DeviceGray eq
+1 index /BitsPerComponent get 8 le and
+1 index /Decode get dup 1 get 1 eq exch 0 get 0 eq and and
+1 index /Interpolate .knownget not { false } if not and
+{  { /Width /Height /BitsPerComponent /ImageMatrix }
+{ 1 index exch get exch }
+forall pop 5 -1 roll image
+}
+{ dup /DataSource 4 -1 roll put csimage
+}
+ifelse
+}
+ifelse
+dup type /filetype ne		
+{ dup 2 get /readhexstring eq
+{  { dup 0 get exec read pop (>) 0 get eq { exit } if } loop
+}
+if pop
+}
+{ pop
+}
+ifelse EI
+} 1 !
+/IDx	
+{ Is 1 index /DataSource 3 -1 roll put
+csimage EI
+} 1 !
+/textbeginpage
+{ /TextSpacing 0 def		
+/TextLeading 0 def		
+/TextRenderingMode 0 def	
+/TextRise 0 def		
+/WordSpacing 0 def		
+/TextHScaling 1.0 def	
+/TextFont null def
+/Show { showfirst } def
+} bdef
+/settextmatrix
+{ TextMatrix concat
+TextHScaling 1 ne { TextHScaling 1 scale } if
+TextRise 0 ne { 0 TextRise translate } if
+} bdef
+/settextstate { TextSaveMatrix setmatrix settextmatrix } bdef
+/BT
+{ currentdict /TextMatrix .knownget
+{ identmatrix pop }
+{ matrix /TextMatrix gput }
+ifelse
+currentdict /TextOrigin .knownget
+{ dup 0 0 put 1 0 put }
+{ [0 0] cvx /TextOrigin gput }
+ifelse
+{ showfirst } /Show gput
+currentdict /TextSaveMatrix .knownget not
+{ matrix dup /TextSaveMatrix gput }
+if currentmatrix pop settextmatrix 0 0 moveto
+TextFont dup null eq { pop } { setfont } ifelse
+} bind 0 !
+/ET
+{ TextSaveMatrix setmatrix
+} bind 0 !
+/Tc_ { /TextSpacing gput { showfirst } /Show gput } bdef
+/Tc { Tc_ } 1 !
+/TL { /TextLeading gput } bind 1 !
+/Tr { /TextRenderingMode gput { showfirst } /Show gput } bind 1 !
+/Ts { /TextRise gput settextstate } bind 1 !
+/Tw_ { /WordSpacing gput { showfirst } /Show gput } bdef
+/Tw { Tw_ } 1 !
+/Tz { 100 div /TextHScaling gput settextstate } bind 1 !
+/Tf		
+{ dup 1 eq { pop } { scalefont } ifelse
+dup setfont /TextFont gput
+} 2 !
+/FRD		
+{ /FontSetInit /ProcSet findresource begin ReadData
+} 2 !
+/.copyfontdict		
+{ 1 index /FID known
+1 index { 2 index /UniqueID known or 2 index /XUID known or } if
+{		
+exch dup length 1 add dict exch
+{		
+1 index /FID eq 4 index
+{ 2 index /UniqueID eq or 2 index /XUID eq or }
+if not { 3 copy put } if pop pop
+}
+forall exch
+}
+if pop
+} bdef
+/.updatefont		
+{ 2 index 4 1 roll
+dup null ne
+{ 3 -1 roll true .copyfontdict dup /Metrics 4 -1 roll put exch }
+{ pop }
+ifelse
+dup null ne 1 index 3 index /Encoding get ne and
+{ exch false .copyfontdict dup /Encoding 4 -1 roll put }
+{ pop }
+ifelse exch 1 index ne
+} bdef
+/Td_
+{ TextOrigin exch 4 -1 roll add 3 1 roll add
+2 copy /TextOrigin load astore pop moveto
+} bdef
+/Td { Td_ } 2 !
+/TD { dup neg /TextLeading gput Td_ } 2 !
+/T*_ { 0 TextLeading neg Td_ } bdef
+/T* { T*_ } 0 !
+/Tm
+{ TextMatrix astore pop settextstate
+0 0 /TextOrigin load astore pop
+0 0 moveto
+} 6 !
+/textrenderingprocs [		
+{ tf } { tS } { tB } { tn }
+4 copy
+] readonly def
+/setshowstate
+{ WordSpacing 0 eq TextSpacing 0 eq and
+{ TextRenderingMode 0 eq
+{ { setfillcolor show } }
+{ { false charpath textrenderingprocs TextRenderingMode get exec } }
+ifelse
+}
+{ TextRenderingMode 0 eq
+{ WordSpacing 0 eq
+{ { setfillcolor TextSpacing exch 0 exch ashow } }
+{ TextSpacing 0 eq
+{ { setfillcolor WordSpacing exch 0 exch 32 exch widthshow } }
+{ { setfillcolor WordSpacing exch TextSpacing exch 0 32 4 2 roll 0 exch awidthshow } }
+ifelse
+}
+ifelse
+}
+{ { WordSpacing TextSpacing 2 index
+0 1 2 index length 1 sub
+{ 2 copy 1 getinterval false charpath
+4 copy get 32 eq { add } { exch pop } ifelse 0 rmoveto
+pop
+}
+for pop pop pop pop
+textrenderingprocs TextRenderingMode get exec
+}
+}
+ifelse
+}
+ifelse /Show gput
+} bdef
+/showfirst { setshowstate Show } def
+/Tj { Show } 1 !
+/' { T*_ Show } 1 !
+/" { exch Tc_ exch Tw_ T*_ Show } 3 !
+/TJ
+{ counttomark -1 1
+{ -1 roll dup type /stringtype eq
+{ Show
+}
+{ -1000 div
+currentfont /ScaleMatrix .knownget { 0 get mul } if
+0 rmoveto
+}
+ifelse
+}
+for pop
+} ([) cvn !
+/tf { setfillcolor currentpoint fill moveto } bdef
+/tn { currentpoint newpath moveto } bdef
+/Tmatrix matrix def
+/tS
+{ setstrokecolor
+currentpoint //Tmatrix currentmatrix TextSaveMatrix setmatrix stroke
+setmatrix moveto
+} bdef
+/tB { gsave tf grestore tS } bdef
+end readonly put		
+setglobal
+%%EndProlog
+[ /Count 1 /Page 1 /View [/XYZ
+-4
+842
+null] /Title () /OUT pdfmark
+[ /Count 2 /Page 1 /View [/XYZ
+-4
+842
+null] /Title () /OUT pdfmark
+[ /Page 1 /View [/XYZ
+-4
+842
+null] /Title (PNG Support in the GNOME Project Documentation) /OUT pdfmark
+[ /Page 1 /View [/XYZ
+-4
+514.4
+null] /Title (Using the GNOME PNG Support Custom DTD and Stylesheets) /OUT pdfmark
+%%Page: 1 1
+GS_PDF_ProcSet begin
+mark /PageOffset [0
+0]
+/PageSize [612
+792]
+.dicttomark userdict /_48 2 index put setpagedevice
+beginpage
+0 g
+0 G
+0.1 0 0 0.1 0 0 cm
+q
+q
+10 0 0 10 0 0 cm
+BT
+/Times-Bold findfont StandardEncoding null .updatefont { /_ exch definefont } if
+ userdict /_49 2 index put 15 Tf
+1 0 0 1 71 742 Tm
+(PNG) Tj
+31.665 0 Td
+( Support in the GNOME Project ) Tj
+212.49 0 Td
+(Documentation) Tj
+/Times-Roman findfont [/.notdef
+/.notdef
+/.notdef
+/.notdef
+/.notdef
+/.notdef
+/.notdef
+/.notdef
+/.notdef
+/.notdef
+/.notdef
+/.notdef
+/.notdef
+/.notdef
+/.notdef
+/.notdef
+/.notdef
+/.notdef
+/.notdef
+/.notdef
+/.notdef
+/.notdef
+/.notdef
+/.notdef
+/.notdef
+/.notdef
+/.notdef
+/.notdef
+/.notdef
+/.notdef
+/.notdef
+/.notdef
+/space
+/exclam
+/quotedbl
+/numbersign
+/dollar
+/percent
+/ampersand
+/quoteright
+/parenleft
+/parenright
+/asterisk
+/plus
+/comma
+/hyphen
+/period
+/slash
+/zero
+/one
+/two
+/three
+/four
+/five
+/six
+/seven
+/eight
+/nine
+/colon
+/semicolon
+/less
+/equal
+/greater
+/question
+/at
+/A
+/B
+/C
+/D
+/E
+/F
+/G
+/H
+/I
+/J
+/K
+/L
+/M
+/N
+/O
+/P
+/Q
+/R
+/S
+/T
+/U
+/V
+/W
+/X
+/Y
+/Z
+/bracketleft
+/backslash
+/bracketright
+/asciicircum
+/underscore
+/quoteleft
+/a
+/b
+/c
+/d
+/e
+/f
+/g
+/h
+/i
+/j
+/k
+/l
+/m
+/n
+/o
+/p
+/q
+/r
+/s
+/t
+/u
+/v
+/w
+/x
+/y
+/z
+/braceleft
+/bar
+/braceright
+/asciitilde
+/.notdef
+/.notdef
+/parenleft
+/parenright
+/.notdef
+/.notdef
+/.notdef
+/.notdef
+/.notdef
+/.notdef
+/.notdef
+/.notdef
+/.notdef
+/.notdef
+/.notdef
+/.notdef
+/.notdef
+/.notdef
+/.notdef
+/.notdef
+/.notdef
+/.notdef
+/.notdef
+/.notdef
+/.notdef
+/.notdef
+/.notdef
+/.notdef
+/.notdef
+/.notdef
+/.notdef
+/.notdef
+/.notdef
+/.notdef
+/exclamdown
+/cent
+/sterling
+/fraction
+/yen
+/florin
+/section
+/currency
+/quotesingle
+/quotedblleft
+/guillemotleft
+/guilsinglleft
+/guilsinglright
+/fi
+/fl
+/.notdef
+/endash
+/dagger
+/daggerdbl
+/periodcentered
+/.notdef
+/paragraph
+/bullet
+/quotesinglbase
+/quotedblbase
+/quotedblright
+/guillemotright
+/ellipsis
+/perthousand
+/.notdef
+/questiondown
+/.notdef
+/grave
+/acute
+/circumflex
+/tilde
+/macron
+/breve
+/dotaccent
+/dieresis
+/.notdef
+/ring
+/cedilla
+/.notdef
+/hungarumlaut
+/ogonek
+/caron
+/emdash
+/.notdef
+/.notdef
+/.notdef
+/.notdef
+/.notdef
+/.notdef
+/.notdef
+/.notdef
+/.notdef
+/.notdef
+/.notdef
+/.notdef
+/.notdef
+/.notdef
+/.notdef
+/.notdef
+/AE
+/.notdef
+/ordfeminine
+/.notdef
+/.notdef
+/.notdef
+/.notdef
+/Lslash
+/Oslash
+/OE
+/ordmasculine
+/.notdef
+/.notdef
+/.notdef
+/.notdef
+/.notdef
+/ae
+/.notdef
+/.notdef
+/.notdef
+/dotlessi
+/.notdef
+/.notdef
+/lslash
+/oslash
+/oe
+/germandbls
+/.notdef
+/.notdef
+/.notdef
+/.notdef] null .updatefont { /_ exch definefont } if
+ userdict /_50 2 index put 11 Tf
+-244.155 -24.2 Td
+(In response to the issues that have been raised recently concerning the patents on the LZW) Tj
+0 -13.2 Td
+(compression often used in GIFs \201http://www.gnu.org/philosophy/gif.html\202, the GNOME Project) Tj
+0 -13.2 Td
+(Documentation will be migrating to the use of ) Tj
+205.931 0 Td
+(PNGs.) Tj
+-205.931 -24.2 Td
+(This will cause some confusion in the creation of documentation using the DocBook DTD as it does) Tj
+0 -13.2 Td
+(not have native support for PNGs. To solve this problem I have created customized components for) Tj
+0 -13.2 Td
+(DocBook that will allow us to support PNGs in our ) Tj
+228.558 0 Td
+(documentation.) Tj
+-228.558 -24.2 Td
+(I have a sent an official RFE \201Request for Enhancement\202 to the DocBook committee on behalf of the) Tj
+0 -13.2 Td
+(GNOME Project and have been told that it ) Tj
+/Times-Italic findfont StandardEncoding null .updatefont { /_ exch definefont } if
+ userdict /_51 2 index put 11 Tf
+190.641 0 Td
+(will) Tj
+_50 11 Tf
+16.5109 0 Td
+( be added to the 3.2 release of DocBook. Once it is) Tj
+-207.152 -13.2 Td
+(officially supported we can all return to the normal way of creating ) Tj
+298.154 0 Td
+(documents.) Tj
+-298.154 -24.2 Td
+(Below there is a short description on how to use the customized components to create GIF free) Tj
+0 -13.2 Td
+(GNOME Documents. Those of you who maintain any document should edit it to included the) Tj
+0 -13.2 Td
+(customizations. If you need help I will be glad to assist you. Hopefully in the next few weeks we will) Tj
+0 -13.2 Td
+(no longer have GIFs in our ) Tj
+121.594 0 Td
+(documentation.) Tj
+_49 15 Tf
+-121.594 -30 Td
+(Using) Tj
+36.6749 0 Td
+( the GNOME PNG Support Custom DTD and ) Tj
+298.35 0 Td
+(Stylesheets) Tj
+_50 11 Tf
+-335.025 -24.2 Td
+(There are a few things you will need to do to make your GNOME DocBook document PNG ) Tj
+0 -13.2 Td
+(compliant:) Tj
+ET
+Q
+1 i
+847.5 4384.3 m
+847.5 4399.49 835.188 4411.8 820 4411.8 c
+804.812 4411.8 792.5 4399.49 792.5 4384.3 c
+792.5 4369.12 804.812 4356.8 820 4356.8 c
+835.188 4356.8 847.5 4369.12 847.5 4384.3 c
+f
+q
+10 0 0 10 0 0 cm
+BT
+_50 11 Tf
+1 0 0 1 93 434.8 Tm
+(1. - You will need to get the ) Tj
+126.181 0 Td
+(png-support ) Tj
+55.9129 0 Td
+(DTD) Tj
+22.605 0 Td
+( and put it where you currently store your DTDs) Tj
+-204.699 -13.2 Td
+(like DocBook. ) Tj
+ET
+Q
+847.5 4032.3 m
+847.5 4047.49 835.188 4059.8 820 4059.8 c
+804.812 4059.8 792.5 4047.49 792.5 4032.3 c
+792.5 4017.12 804.812 4004.8 820 4004.8 c
+835.188 4004.8 847.5 4017.12 847.5 4032.3 c
+f
+847.5 3790.3 m
+847.5 3805.49 835.188 3817.8 820 3817.8 c
+804.812 3817.8 792.5 3805.49 792.5 3790.3 c
+792.5 3775.12 804.812 3762.8 820 3762.8 c
+835.188 3762.8 847.5 3775.12 847.5 3790.3 c
+f
+q
+10 0 0 10 0 0 cm
+BT
+_50 11 Tf
+1 0 0 1 93 375.4 Tm
+(2. - You will need to add the new DTD to your SGML Catalog file. Your Catalog file location) Tj
+0 -13.2 Td
+(may vary depending on your system. On my Red Hat box it is in ) Tj
+_51 11 Tf
+286.902 0 Td
+(/usr/lib/sgml/CATALOG) Tj
+_50 11 Tf
+107.58 0 Td
+(. You) Tj
+-394.481 -13.2 Td
+(will need to add the following line to your Catalog file: ) Tj
+/Courier findfont [/.notdef
+/.notdef
+/.notdef
+/.notdef
+/.notdef
+/.notdef
+/.notdef
+/.notdef
+/.notdef
+/.notdef
+/.notdef
+/.notdef
+/.notdef
+/.notdef
+/.notdef
+/.notdef
+/.notdef
+/.notdef
+/.notdef
+/.notdef
+/.notdef
+/.notdef
+/.notdef
+/.notdef
+/.notdef
+/.notdef
+/.notdef
+/.notdef
+/.notdef
+/.notdef
+/.notdef
+/.notdef
+/space
+/exclam
+/quotedbl
+/numbersign
+/dollar
+/percent
+/ampersand
+/quoteright
+/parenleft
+/parenright
+/asterisk
+/plus
+/comma
+/hyphen
+/period
+/slash
+/zero
+/one
+/two
+/three
+/four
+/five
+/six
+/seven
+/eight
+/nine
+/colon
+/semicolon
+/less
+/equal
+/greater
+/question
+/at
+/A
+/B
+/C
+/D
+/E
+/F
+/G
+/H
+/I
+/J
+/K
+/L
+/M
+/N
+/O
+/P
+/Q
+/R
+/S
+/T
+/U
+/V
+/W
+/X
+/Y
+/Z
+/bracketleft
+/backslash
+/bracketright
+/asciicircum
+/underscore
+/quoteleft
+/a
+/b
+/c
+/d
+/e
+/f
+/g
+/h
+/i
+/j
+/k
+/l
+/m
+/n
+/o
+/p
+/q
+/r
+/s
+/t
+/u
+/v
+/w
+/x
+/y
+/z
+/braceleft
+/bar
+/braceright
+/asciitilde
+/.notdef
+/.notdef
+/parenleft
+/parenright
+/.notdef
+/.notdef
+/.notdef
+/.notdef
+/.notdef
+/.notdef
+/.notdef
+/.notdef
+/.notdef
+/.notdef
+/.notdef
+/.notdef
+/.notdef
+/.notdef
+/.notdef
+/.notdef
+/.notdef
+/.notdef
+/.notdef
+/.notdef
+/.notdef
+/.notdef
+/.notdef
+/.notdef
+/.notdef
+/.notdef
+/.notdef
+/.notdef
+/.notdef
+/.notdef
+/exclamdown
+/cent
+/sterling
+/fraction
+/yen
+/florin
+/section
+/currency
+/quotesingle
+/quotedblleft
+/guillemotleft
+/guilsinglleft
+/guilsinglright
+/fi
+/fl
+/.notdef
+/endash
+/dagger
+/daggerdbl
+/periodcentered
+/.notdef
+/paragraph
+/bullet
+/quotesinglbase
+/quotedblbase
+/quotedblright
+/guillemotright
+/ellipsis
+/perthousand
+/.notdef
+/questiondown
+/.notdef
+/grave
+/acute
+/circumflex
+/tilde
+/macron
+/breve
+/dotaccent
+/dieresis
+/.notdef
+/ring
+/cedilla
+/.notdef
+/hungarumlaut
+/ogonek
+/caron
+/emdash
+/.notdef
+/.notdef
+/.notdef
+/.notdef
+/.notdef
+/.notdef
+/.notdef
+/.notdef
+/.notdef
+/.notdef
+/.notdef
+/.notdef
+/.notdef
+/.notdef
+/.notdef
+/.notdef
+/AE
+/.notdef
+/ordfeminine
+/.notdef
+/.notdef
+/.notdef
+/.notdef
+/Lslash
+/Oslash
+/OE
+/ordmasculine
+/.notdef
+/.notdef
+/.notdef
+/.notdef
+/.notdef
+/ae
+/.notdef
+/.notdef
+/.notdef
+/dotlessi
+/.notdef
+/.notdef
+/lslash
+/oslash
+/oe
+/germandbls
+/.notdef
+/.notdef
+/.notdef
+/.notdef] null .updatefont { /_ exch definefont } if
+ userdict /_52 2 index put 9 Tf
+8 -27.0999 Td
+(PUBLIC "-//GNOME//DTD DocBook PNG Variant V1.0//EN" "png-support.dtd") Tj
+ET
+Q
+847.5 2975.31 m
+847.5 2990.49 835.188 3002.81 820 3002.81 c
+804.812 3002.81 792.5 2990.49 792.5 2975.31 c
+792.5 2960.12 804.812 2947.81 820 2947.81 c
+835.188 2947.81 847.5 2960.12 847.5 2975.31 c
+f
+847.5 2733.31 m
+847.5 2748.49 835.188 2760.81 820 2760.81 c
+804.812 2760.81 792.5 2748.49 792.5 2733.31 c
+792.5 2718.12 804.812 2705.81 820 2705.81 c
+835.188 2705.81 847.5 2718.12 847.5 2733.31 c
+f
+q
+10 0 0 10 0 0 cm
+BT
+_50 11 Tf
+1 0 0 1 93 269.701 Tm
+(3. - Your documents will need to have the header changed to call the custom DTD. This is simple) Tj
+0 -13.2 Td
+(but will not work until you have completed task numbers 1 and 2. ) Tj
+0 -24.2 Td
+(Use this header in your ) Tj
+104.786 0 Td
+(documents:) Tj
+-104.786 -24.2 Td
+(For ) Tj
+18.029 0 Td
+(Books:) Tj
+_52 9 Tf
+-10.029 -27.1 Td
+(<!DOCTYPE Book PUBLIC "-//GNOME//DTD DocBook PNG Variant V1.0//EN">) Tj
+_50 11 Tf
+-8 -30.2 Td
+(For Articles: ) Tj
+_52 9 Tf
+8 -27.1 Td
+(<!DOCTYPE Article PUBLIC "-//GNOME//DTD DocBook PNG Variant V1.0//EN">) Tj
+ET
+Q
+Q
+endpage
+end
+%%Page: 2 2
+GS_PDF_ProcSet begin
+mark /PageOffset [0
+0]
+/PageSize [612
+792]
+.dicttomark userdict /_49 2 index put setpagedevice
+beginpage
+0 g
+0 G
+0.1 0 0 0.1 0 0 cm
+q
+1 i
+847.5 7474.3 m
+847.5 7489.49 835.188 7501.8 820 7501.8 c
+804.812 7501.8 792.5 7489.49 792.5 7474.3 c
+792.5 7459.11 804.812 7446.8 820 7446.8 c
+835.188 7446.8 847.5 7459.11 847.5 7474.3 c
+f
+q
+10 0 0 10 0 0 cm
+BT
+/Times-Roman findfont [/.notdef
+/.notdef
+/.notdef
+/.notdef
+/.notdef
+/.notdef
+/.notdef
+/.notdef
+/.notdef
+/.notdef
+/.notdef
+/.notdef
+/.notdef
+/.notdef
+/.notdef
+/.notdef
+/.notdef
+/.notdef
+/.notdef
+/.notdef
+/.notdef
+/.notdef
+/.notdef
+/.notdef
+/.notdef
+/.notdef
+/.notdef
+/.notdef
+/.notdef
+/.notdef
+/.notdef
+/.notdef
+/space
+/exclam
+/quotedbl
+/numbersign
+/dollar
+/percent
+/ampersand
+/quoteright
+/parenleft
+/parenright
+/asterisk
+/plus
+/comma
+/hyphen
+/period
+/slash
+/zero
+/one
+/two
+/three
+/four
+/five
+/six
+/seven
+/eight
+/nine
+/colon
+/semicolon
+/less
+/equal
+/greater
+/question
+/at
+/A
+/B
+/C
+/D
+/E
+/F
+/G
+/H
+/I
+/J
+/K
+/L
+/M
+/N
+/O
+/P
+/Q
+/R
+/S
+/T
+/U
+/V
+/W
+/X
+/Y
+/Z
+/bracketleft
+/backslash
+/bracketright
+/asciicircum
+/underscore
+/quoteleft
+/a
+/b
+/c
+/d
+/e
+/f
+/g
+/h
+/i
+/j
+/k
+/l
+/m
+/n
+/o
+/p
+/q
+/r
+/s
+/t
+/u
+/v
+/w
+/x
+/y
+/z
+/braceleft
+/bar
+/braceright
+/asciitilde
+/.notdef
+/.notdef
+/parenleft
+/parenright
+/.notdef
+/.notdef
+/.notdef
+/.notdef
+/.notdef
+/.notdef
+/.notdef
+/.notdef
+/.notdef
+/.notdef
+/.notdef
+/.notdef
+/.notdef
+/.notdef
+/.notdef
+/.notdef
+/.notdef
+/.notdef
+/.notdef
+/.notdef
+/.notdef
+/.notdef
+/.notdef
+/.notdef
+/.notdef
+/.notdef
+/.notdef
+/.notdef
+/.notdef
+/.notdef
+/exclamdown
+/cent
+/sterling
+/fraction
+/yen
+/florin
+/section
+/currency
+/quotesingle
+/quotedblleft
+/guillemotleft
+/guilsinglleft
+/guilsinglright
+/fi
+/fl
+/.notdef
+/endash
+/dagger
+/daggerdbl
+/periodcentered
+/.notdef
+/paragraph
+/bullet
+/quotesinglbase
+/quotedblbase
+/quotedblright
+/guillemotright
+/ellipsis
+/perthousand
+/.notdef
+/questiondown
+/.notdef
+/grave
+/acute
+/circumflex
+/tilde
+/macron
+/breve
+/dotaccent
+/dieresis
+/.notdef
+/ring
+/cedilla
+/.notdef
+/hungarumlaut
+/ogonek
+/caron
+/emdash
+/.notdef
+/.notdef
+/.notdef
+/.notdef
+/.notdef
+/.notdef
+/.notdef
+/.notdef
+/.notdef
+/.notdef
+/.notdef
+/.notdef
+/.notdef
+/.notdef
+/.notdef
+/.notdef
+/AE
+/.notdef
+/ordfeminine
+/.notdef
+/.notdef
+/.notdef
+/.notdef
+/Lslash
+/Oslash
+/OE
+/ordmasculine
+/.notdef
+/.notdef
+/.notdef
+/.notdef
+/.notdef
+/ae
+/.notdef
+/.notdef
+/.notdef
+/dotlessi
+/.notdef
+/.notdef
+/lslash
+/oslash
+/oe
+/germandbls
+/.notdef
+/.notdef
+/.notdef
+/.notdef] null .updatefont { /_ exch definefont } if
+ userdict /_50 2 index put 11 Tf
+1 0 0 1 93 743.8 Tm
+(4. - Either add to your custom Stylesheets or use the main GDP custom stylesheet - ) Tj
+368.774 0 Td
+(gdp-both.dsl) Tj
+55.3079 0 Td
+(. ) Tj
+-424.082 -24.2 Td
+(If you are adding to your own custom stylesheets you should add the following ) Tj
+350.746 0 Td
+(lines:) Tj
+/Courier findfont [/.notdef
+/.notdef
+/.notdef
+/.notdef
+/.notdef
+/.notdef
+/.notdef
+/.notdef
+/.notdef
+/.notdef
+/.notdef
+/.notdef
+/.notdef
+/.notdef
+/.notdef
+/.notdef
+/.notdef
+/.notdef
+/.notdef
+/.notdef
+/.notdef
+/.notdef
+/.notdef
+/.notdef
+/.notdef
+/.notdef
+/.notdef
+/.notdef
+/.notdef
+/.notdef
+/.notdef
+/.notdef
+/space
+/exclam
+/quotedbl
+/numbersign
+/dollar
+/percent
+/ampersand
+/quoteright
+/parenleft
+/parenright
+/asterisk
+/plus
+/comma
+/hyphen
+/period
+/slash
+/zero
+/one
+/two
+/three
+/four
+/five
+/six
+/seven
+/eight
+/nine
+/colon
+/semicolon
+/less
+/equal
+/greater
+/question
+/at
+/A
+/B
+/C
+/D
+/E
+/F
+/G
+/H
+/I
+/J
+/K
+/L
+/M
+/N
+/O
+/P
+/Q
+/R
+/S
+/T
+/U
+/V
+/W
+/X
+/Y
+/Z
+/bracketleft
+/backslash
+/bracketright
+/asciicircum
+/underscore
+/quoteleft
+/a
+/b
+/c
+/d
+/e
+/f
+/g
+/h
+/i
+/j
+/k
+/l
+/m
+/n
+/o
+/p
+/q
+/r
+/s
+/t
+/u
+/v
+/w
+/x
+/y
+/z
+/braceleft
+/bar
+/braceright
+/asciitilde
+/.notdef
+/.notdef
+/parenleft
+/parenright
+/.notdef
+/.notdef
+/.notdef
+/.notdef
+/.notdef
+/.notdef
+/.notdef
+/.notdef
+/.notdef
+/.notdef
+/.notdef
+/.notdef
+/.notdef
+/.notdef
+/.notdef
+/.notdef
+/.notdef
+/.notdef
+/.notdef
+/.notdef
+/.notdef
+/.notdef
+/.notdef
+/.notdef
+/.notdef
+/.notdef
+/.notdef
+/.notdef
+/.notdef
+/.notdef
+/exclamdown
+/cent
+/sterling
+/fraction
+/yen
+/florin
+/section
+/currency
+/quotesingle
+/quotedblleft
+/guillemotleft
+/guilsinglleft
+/guilsinglright
+/fi
+/fl
+/.notdef
+/endash
+/dagger
+/daggerdbl
+/periodcentered
+/.notdef
+/paragraph
+/bullet
+/quotesinglbase
+/quotedblbase
+/quotedblright
+/guillemotright
+/ellipsis
+/perthousand
+/.notdef
+/questiondown
+/.notdef
+/grave
+/acute
+/circumflex
+/tilde
+/macron
+/breve
+/dotaccent
+/dieresis
+/.notdef
+/ring
+/cedilla
+/.notdef
+/hungarumlaut
+/ogonek
+/caron
+/emdash
+/.notdef
+/.notdef
+/.notdef
+/.notdef
+/.notdef
+/.notdef
+/.notdef
+/.notdef
+/.notdef
+/.notdef
+/.notdef
+/.notdef
+/.notdef
+/.notdef
+/.notdef
+/.notdef
+/AE
+/.notdef
+/ordfeminine
+/.notdef
+/.notdef
+/.notdef
+/.notdef
+/Lslash
+/Oslash
+/OE
+/ordmasculine
+/.notdef
+/.notdef
+/.notdef
+/.notdef
+/.notdef
+/ae
+/.notdef
+/.notdef
+/.notdef
+/dotlessi
+/.notdef
+/.notdef
+/lslash
+/oslash
+/oe
+/germandbls
+/.notdef
+/.notdef
+/.notdef
+/.notdef] null .updatefont { /_ exch definefont } if
+ userdict /_51 2 index put 9 Tf
+-342.746 -27.1 Td
+(;;What graphics extensions allowed?) Tj
+0 -10.8 Td
+(\201define %graphic-extensions% ) Tj
+0 -10.8 Td
+('\201"gif" "png" "jpg" "jpeg" "tif" "tiff" "eps" "epsf" \202\202) Tj
+0 -21.6 Td
+(;;What is the default extension for images?) Tj
+0 -10.8 Td
+(\201define %graphic-default-extension% "png"\202) Tj
+_50 11 Tf
+-30 -30.2 Td
+(If I have left anything off please let me know at ) Tj
+/Times-Italic findfont StandardEncoding null .updatefont { /_ exch definefont } if
+ userdict /_52 2 index put 11 Tf
+212.311 0 Td
+(dcm@redhat.com) Tj
+_50 11 Tf
+78.2429 0 Td
+( ) Tj
+ET
+Q
+Q
+endpage
+end
+%%Trailer
+%%Pages: 2
