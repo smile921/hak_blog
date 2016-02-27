@@ -1,0 +1,183 @@
+#!/bin/bash -e
+
+function usage()
+{
+	cat <<END
+Usage: $(basename $0) [-s] (list|setup|install|uninstall|bin|search) tool
+
+Where:
+	-s		allow running things with sudo (i.e., to install debs)
+	tool		the name of the tool. if "all", does the action on all
+			tools
+
+Actions:
+	setup		set up the environment (adds ctf-tools/bin to your
+			\$PATH in .bashrc)
+	list		list all tools (-i: only installed, -u: only
+			uninstalled)
+	install		installs a tool
+	uninstall	uninstalls a tool
+	reinstall	reinstalls a tool
+	upgrade		upgrades a tool
+	bin		re-links tool binaries into ctf-tools/bin
+	search		search description and name of tools
+
+END
+}
+
+function tool_log()
+{
+	echo "$(tput setaf 4 2>/dev/null)TOOLS | $TOOL |$(tput sgr0 2>/dev/null) $@"
+}
+
+while [[ $1 == -* ]]
+do
+	case $1 in
+		-s)
+			export ALLOW_SUDO=1
+			;;
+		*)
+			usage
+			exit
+			;;
+	esac
+	shift
+done
+
+[ -z "$ALLOW_SUDO" ] && export ALLOW_SUDO=0
+
+ACTION=$1
+TOOL=$2
+
+if [ "$TOOL" == "all" ]
+then
+	for t in $($0 list)
+	do
+		$0 $ACTION $t
+	done
+elif [ -z "$TOOL" -a "$ACTION" != "list" -a "$ACTION" != "setup" ]
+then
+	usage
+	exit
+fi
+
+cd $(dirname "${BASH_SOURCE[0]}")/..
+
+case $ACTION in
+	setup)
+		PACKAGE_REQS="build-essential libtool g++ gcc texinfo curl wget automake autoconf python-dev git subversion unzip"
+		PACKAGE_COUNT=$(echo $PACKAGE_REQS | tr ' ' '\n' | wc -l)
+		if [ $(dpkg -l $PACKAGE_REQS | grep "^ii" | wc -l) -ne $PACKAGE_COUNT ]
+		then
+			if [ "$ALLOW_SUDO" -eq 1 ]
+			then
+				sudo apt-get -y install $PACKAGE_REQS
+			else
+				TOOL=SETUP tool_log "Please install the following packages: $PACKAGE_REQS"
+			fi
+		fi
+
+		if ! dpkg --print-foreign-architectures | grep -q i386
+		then
+			if [ "$ALLOW_SUDO" -eq 1 ]
+			then
+				sudo dpkg --add-architecture i386
+				sudo apt-get update
+			else
+				TOOL=SETUP tool_log "Certain tools need i386 libraries (enable with 'dpkg --add-architecture i386; apt-get update')."
+			fi
+		fi
+
+		echo "PATH=\"$PWD/bin:\$PATH\"" >> ~/.bashrc
+        	if [ -e ~/.zshrc ]
+        	then
+			echo "PATH=\"$PWD/bin:\$PATH\"" >> ~/.zshrc
+        	fi
+
+		;;
+	list)
+		for t in *
+		do
+			[ ! -e "$t/install" ] && continue
+			echo $t
+		done
+		;;
+	bin)
+		cd bin
+		ln -sf ../$TOOL/bin/* .
+		tool_log "bin symlinks updated"
+		cd ..
+		;;
+	install)
+		cd $TOOL
+		if git status --ignored . | egrep -q 'Untracked|Ignored'
+		then
+			tool_log "appears to already be installed. Uninstall first?"
+			exit 0
+		fi
+
+		tool_log "starting install, logging to $PWD/install.log"
+		rm -f install.log
+		[ -x ./install-root -a "$ALLOW_SUDO" -eq 1 ] && sudo ./install-root >> install.log 2>&1
+		if ./install >>install.log 2>&1
+		then
+			tool_log "install finished"
+		else
+			tool_log "INSTALL FAILED"
+			cat install.log >&2
+			exit 1
+		fi
+
+		cd ..
+		$0 bin $TOOL
+		;;
+	uninstall)
+		cd $TOOL
+
+		[ -x ./uninstall ] && ./uninstall
+		git clean -dffx .
+		tool_log "uninstall finished"
+
+		cd ..
+		;;
+	upgrade)
+		cd $TOOL
+		if [ -x ./upgrade ]
+		then
+			./upgrade
+			tool_log "upgrade complete!"
+		else
+			tool_log "no upgrade script -- reinstalling"
+			$0 uninstall $TOOL
+			$0 install $TOOL
+		fi
+		;;
+	reinstall)
+		$0 uninstall $TOOL
+		$0 install $TOOL
+		;;
+	search)
+		cat README.md | grep "<\!--tool-->" | sed "s/<\!--[^-]*-->//g" | grep -i "$TOOL"
+		;;
+	test)
+		if ! cat README.md | grep "<\!--tool-->" | grep "| \[$TOOL\](" | grep -q -- "--test--"
+		then
+			tool_log "Tests not enabled."
+		else
+			$0 install $TOOL
+
+			cd $TOOL
+			if [ -f ./test ]
+			then
+				tool_log "Running test script."
+				./test
+				tool_log "test script succeeded!"
+			else
+				tool_log "Install succeeded. No test script!"
+			fi
+		fi
+		;;
+	*)
+		echo "TOOLS | ERROR | unknown action $ACTION"
+		;;
+esac
