@@ -1,0 +1,280 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <title>WIFI WPS 破解大法</title>
+        <script type="text/javascript" src="../js/favico-0.3.9.min.js"></script>
+        <link rel="stylesheet" type="text/css" href="../css/default.css" />
+        <link rel="shortcut icon" type="image/x-icon" href="../images/favicon.ico"> 
+ 
+    </head>
+    <body>
+     <header id="hd-block">
+    <h1 id="adage">不为有趣之事，何以遣无涯之生</h1>
+     </header>
+    <div class="container-1">
+        <div id="header">
+            <div id="logo">
+                <a href="../">曾经的脚印</a>
+            </div>
+            <div id="navigation">
+                <a href="../">Home</a>
+                <a href="../about.html">About</a>
+                <a href="../contact.html">Contact</a>
+                <a href="../archive.html">Archive</a>
+            </div>
+        </div>
+
+        <div id="content">
+            <h1>WIFI WPS 破解大法</h1>
+
+            <div class="info">
+    Posted on August 10, 2015
+    
+        by somebody
+    
+</div>
+
+<h1 id="wifi-wps-破解大法">WIFI WPS 破解大法</h1>
+<h1 id="pixiewps-overview">Pixiewps Overview</h1>
+<p>Pixiewps is a tool written in C used to bruteforce offline the WPS pin exploiting the low or non-existing entropy of some APs (pixie dust attack). It is meant for educational purposes only. All credits for the research go to Dominique Bongard.</p>
+<h1 id="dependencies">DEPENDENCIES</h1>
+<p>Pixiewps requires libssl. To install it:</p>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash">    <span class="kw">sudo</span> apt-get install libssl-dev</code></pre></div>
+<h1 id="installation">INSTALLATION</h1>
+<p>Pixiewps can be built and installed by running:</p>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash">    <span class="kw">~/pixiewps</span>$ <span class="kw">cd</span> src
+    <span class="kw">~/pixiewps/src</span>$ <span class="kw">make</span>
+    <span class="kw">~/pixiewps/src</span>$ <span class="kw">sudo</span> make install</code></pre></div>
+<h1 id="usage">USAGE</h1>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"> <span class="kw">Usage</span>: pixiewps <span class="kw">&lt;</span>arguments<span class="kw">&gt;</span>
+
+ <span class="kw">Required</span> Arguments:
+
+    <span class="kw">-e</span>, --pke           : Enrollee public key
+    <span class="kw">-r</span>, --pkr           : Registrar public key
+    <span class="kw">-s</span>, --e-hash1       : Enrollee Hash1
+    <span class="kw">-z</span>, --e-hash2       : Enrollee Hash2
+    <span class="kw">-a</span>, --authkey       : Authentication session key
+
+ <span class="kw">Optional</span> Arguments:
+
+    <span class="kw">-n</span>, --e-nonce       : Enrollee nonce
+    <span class="kw">-m</span>, --r-nonce       : Registrar nonce
+    <span class="kw">-b</span>, --e-bssid       : Enrollee BSSID
+    <span class="kw">-S</span>, --dh-small      : Small Diffie-Hellman keys (PKr not needed)   [<span class="kw">No</span>]
+    <span class="kw">-f</span>, --force         : Bruteforce the whole keyspace                [No]
+    <span class="kw">-v</span>, --verbosity     : Verbosity level 1-3, 1 is quietest            [3]
+
+    <span class="kw">-h</span>, --help          : Display this usage screen</code></pre></div>
+<h1 id="usage-example">USAGE EXAMPLE</h1>
+<p>A common usage example is:</p>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash">    <span class="kw">pixiewps</span> --pke <span class="kw">&lt;</span>pke<span class="kw">&gt;</span> --pkr <span class="kw">&lt;</span>pkr<span class="kw">&gt;</span> --e-hash1 <span class="kw">&lt;</span>e-hash1<span class="kw">&gt;</span> --e-hash2 <span class="kw">&lt;</span>e-hash2<span class="kw">&gt;</span> --authkey <span class="kw">&lt;</span>authkey<span class="kw">&gt;</span> --e-nonce <span class="kw">&lt;</span>e-nonce<span class="kw">&gt;</span></code></pre></div>
+<p>which requires a modified version of Reaver or Bully which prints <em>AuthKey</em>. The recommended version is <a href="https://github.com/t6x/reaver-wps-fork-t6x">reaver-wps-fork-t6x</a>.</p>
+<p>If the following message is shown:</p>
+<blockquote>
+<p>[!] The AP /might be/ vulnerable. Try again with –force or with another (newer) set of data.</p>
+</blockquote>
+<p>then the AP might be vulnerable and Pixiewps should be run again with the same set of data along with the option <code>--force</code> or alternatively with a newer set of data.</p>
+<h1 id="description-of-arguments">DESCRIPTION OF ARGUMENTS</h1>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash">    <span class="kw">-e</span>, --pke
+
+        <span class="kw">Enrollee</span><span class="st">'s DH public key, found in M1.</span>
+
+<span class="st">    -r, --pkr</span>
+
+<span class="st">        Registrar'</span>s DH public key, found in M2 or can be avoided by specifying
+        <span class="kw">--dh-small</span> in both Reaver and Pixiewps.
+
+    <span class="kw">-s</span>, --e-hash1
+
+        <span class="kw">Enrollee</span> Hash-1, found in M3.
+
+    <span class="kw">-z</span>, --e-hash2
+
+        <span class="kw">Enrollee</span> Hash-2, found in M3.
+
+    <span class="kw">-a</span>, --authkey
+
+        <span class="kw">Registration</span> Protocol authentication session key. Although for this parameter a
+        <span class="kw">modified</span> version of Reaver or Bully is needed, it can be avoided by specifying
+        <span class="kw">small</span> Diffie-Hellman keys in both Reaver and Pixiewps and supplying --e-nonce,
+        <span class="kw">--r-nonce</span> and --e-bssid.
+
+    <span class="kw">-n</span>, --e-nonce
+
+        <span class="kw">Enrollee</span><span class="st">'s nonce, found in M1.</span>
+
+<span class="st">    -m, --r-nonce</span>
+
+<span class="st">        Registrar'</span>s nonce, found in M2.
+
+    <span class="kw">-b</span>, --e-bssid
+
+        <span class="kw">Enrollee</span><span class="st">'s BSSID.</span>
+
+<span class="st">    -S, --dh-small</span>
+
+<span class="st">        Small Diffie-Hellman keys. The same option MUST be specified in Reaver</span>
+<span class="st">        (1.3 or later versions) too. This option should be avoided when possible.</span>
+
+<span class="st">    -f, --force</span>
+
+<span class="st">        Force Pixiewps to bruteforce the whole keyspace (only for one type of PRNG).</span>
+<span class="st">        It could take up to several minutes to complete.</span>
+
+<span class="st">    -v, --verbosity</span>
+
+<span class="st">        Verbosity level (1-3). Level 3 displays the most information.</span>
+
+<span class="st">    -h, --help</span>
+
+<span class="st">        Display usage screen.</span></code></pre></div>
+<h1 id="reaver-wps-fork-t6x-overview">reaver-wps-fork-t6x Overview</h1>
+<p><strong>Reaver</strong> has been designed to be a robust and practical attack against <strong>Wi-Fi Protected Setup (WPS)</strong> registrar PINs in order to <strong>recover WPA/WPA2 passphrases</strong>. It has been tested against a wide variety of access points and WPS implementations.</p>
+<p>The <strong>original</strong> Reaver implements a <strong>online brute force attack</strong> against, as described in <a href="http://sviehb.files.wordpress.com/2011/12/viehboeck_wps.pdf" class="uri">http://sviehb.files.wordpress.com/2011/12/viehboeck_wps.pdf</a>. <strong>reaver-wps-fork-t6x</strong> is a <strong>community forked version</strong>, which has included <strong>various bug fixes</strong> and additional attack method (the <strong>offline Pixie Dust</strong> attack).</p>
+<p><strong>Depending on the target’s Access Point (AP)</strong>, to recover the plain text WPA/WPA2 passphrase the <strong>average</strong> amount of time for the transitional <strong>online brute force</strong> method is <strong>between 4-10 hours</strong>. In practice, it will generally take half this time to guess the correct WPS pin and recover the passphrase. When using the <strong>offline attack</strong>, <strong>if</strong> the AP is vulnerable, it may take only a matter of <strong>seconds to minutes</strong>.</p>
+<ul>
+<li>The original Reaver (v1.4) can be found here: <a href="https://code.google.com/p/reaver-wps/" class="uri">https://code.google.com/p/reaver-wps/</a>.</li>
+<li>The discontinued community edition of Reaver (v1.5) that was used as the starting point: <a href="https://code.google.com/p/reaver-wps-fork/" class="uri">https://code.google.com/p/reaver-wps-fork/</a>.</li>
+<li>reaver-wps-fork-t6x community edition of Reaver (which includes the Pixie Dust attack): <a href="https://github.com/t6x/reaver-wps-fork-t6x" class="uri">https://github.com/t6x/reaver-wps-fork-t6x</a>.</li>
+<li>For more information about the Pixie Dust attack (including <strong>which APs are vulnerable</strong>) can be found here: <a href="https://github.com/wiire/pixiewps" class="uri">https://github.com/wiire/pixiewps</a>, <a href="https://forums.kali.org/showthread.php?24286-WPS-Pixie-Dust-Attack-(Offline-WPS-Attack)" class="uri">https://forums.kali.org/showthread.php?24286-WPS-Pixie-Dust-Attack-(Offline-WPS-Attack)</a> &amp; <a href="https://docs.google.com/spreadsheets/d/1tSlbqVQ59kGn8hgmwcPTHUECQ3o9YhXR91A_p7Nnj5Y/edit?usp=sharing" class="uri">https://docs.google.com/spreadsheets/d/1tSlbqVQ59kGn8hgmwcPTHUECQ3o9YhXR91A_p7Nnj5Y/edit?usp=sharing</a></li>
+</ul>
+<hr />
+<h1 id="requirements">Requirements</h1>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">apt-get</span> -y install build-essential libpcap-dev sqlite3 libsqlite3-dev aircrack-ng pixiewps</code></pre></div>
+<p><em>The example uses <a href="https://www.kali.org/">Kali Linux</a> as the Operating System (OS) as <code>pixiewps</code> is included.</em></p>
+<p>You <strong>must</strong> already have Wiire’s Pixiewps installed. The latest version can be found here: <a href="https://github.com/wiire/pixiewps" class="uri">https://github.com/wiire/pixiewps</a>.</p>
+<hr />
+<h1 id="setup">Setup</h1>
+<p><strong>Download</strong></p>
+<p><code>git clone https://github.com/t6x/reaver-wps-fork-t6x</code></p>
+<p>or</p>
+<p><code>wget https://github.com/t6x/reaver-wps-fork-t6x/archive/master.zip &amp;&amp; unzip master.zip</code></p>
+<p><strong>Build</strong></p>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">cd</span> reaver-wps-fork-t6x*/
+<span class="kw">cd</span> src/
+<span class="kw">./configure</span>
+<span class="kw">make</span></code></pre></div>
+<p><strong>Install</strong></p>
+<p><code>sudo make install</code></p>
+<hr />
+<h1 id="reaver-usage">Reaver Usage</h1>
+<pre><code>Reaver v1.5.2 WiFi Protected Setup Attack Tool
+Copyright (c) 2011, Tactical Network Solutions, Craig Heffner &lt;cheffner@tacnetsol.com&gt;
+mod by t6_x &lt;t6_x@hotmail.com&gt; &amp; DataHead &amp; Soxrok2212 &amp; Wiire &amp; kib0rg
+
+Required Arguments:
+        -i, --interface=&lt;wlan&gt;          Name of the monitor-mode interface to use
+        -b, --bssid=&lt;mac&gt;               BSSID of the target AP
+
+Optional Arguments:
+        -m, --mac=&lt;mac&gt;                 MAC of the host system
+        -e, --essid=&lt;ssid&gt;              ESSID of the target AP
+        -c, --channel=&lt;channel&gt;         Set the 802.11 channel for the interface (implies -f)
+        -o, --out-file=&lt;file&gt;           Send output to a log file [stdout]
+        -s, --session=&lt;file&gt;            Restore a previous session file
+        -C, --exec=&lt;command&gt;            Execute the supplied command upon successful pin recovery
+        -D, --daemonize                 Daemonize reaver
+        -a, --auto                      Auto detect the best advanced options for the target AP
+        -f, --fixed                     Disable channel hopping
+        -5, --5ghz                      Use 5GHz 802.11 channels
+        -v, --verbose                   Display non-critical warnings (-vv for more)
+        -q, --quiet                     Only display critical messages
+        -K  --pixie-dust=&lt;number&gt;       [1] Run pixiewps with PKE, PKR, E-Hash1, E-Hash2, E-Nonce and Authkey (Ralink, Broadcom &amp; Realtek)
+        -Z, --no-auto-pass              Do NOT run reaver to auto retrieve WPA password if pixiewps attack is successful
+        -h, --help                      Show help
+
+Advanced Options:
+        -p, --pin=&lt;wps pin&gt;             Use the specified 4 or 8 digit WPS pin
+        -d, --delay=&lt;seconds&gt;           Set the delay between pin attempts [1]
+        -l, --lock-delay=&lt;seconds&gt;      Set the time to wait if the AP locks WPS pin attempts [60]
+        -g, --max-attempts=&lt;num&gt;        Quit after num pin attempts
+        -x, --fail-wait=&lt;seconds&gt;       Set the time to sleep after 10 unexpected failures [0]
+        -r, --recurring-delay=&lt;x:y&gt;     Sleep for y seconds every x pin attempts
+        -t, --timeout=&lt;seconds&gt;         Set the receive timeout period [5]
+        -T, --m57-timeout=&lt;seconds&gt;     Set the M5/M7 timeout period [0.20]
+        -A, --no-associate              Do not associate with the AP (association must be done by another application)
+        -N, --no-nacks                  Do not send NACK messages when out of order packets are received
+        -S, --dh-small                  Use small DH keys to improve crack speed
+        -L, --ignore-locks              Ignore locked state reported by the target AP
+        -E, --eap-terminate             Terminate each WPS session with an EAP FAIL packet
+        -n, --nack                      Target AP always sends a NACK [Auto]
+        -w, --win7                      Mimic a Windows 7 registrar [False]
+        -X, --exhaustive                Set exhaustive mode from the beginning of the session [False]
+        -1, --p1-index                  Set initial array index for the first half of the pin [False]
+        -2, --p2-index                  Set initial array index for the second half of the pin [False]
+        -P, --pixiedust-loop            Set into PixieLoop mode (doesn't send M4, and loops through to M3) [False]
+        -W, --generate-pin              Default Pin Generator by devttys0 team [1] Belkin [2] D-Link
+        -H, --pixiedust-log             Enables logging of sequence completed PixieHashes
+
+Example:
+        reaver -i wlan0mon -b 00:AA:BB:11:22:33 -vvv -K 1</code></pre>
+<h2 id="k-pixie-dust">-K // –pixie-dust</h2>
+<p>The <code>-K 1</code> option performances the offline attack, Pixie Dust <em>(<code>pixiewps</code>)</em>, by automatically passing the <strong>PKE</strong>, <strong>PKR</strong>, <strong>E-Hash1</strong>, <strong>E-Hash2</strong>, <strong>E-Nonce</strong> and <strong>Authkey</strong> variables. <code>pixiewps</code> will then try to attack <strong>Ralink</strong>, <strong>Broadcom</strong> and <strong>Realtek</strong> detected chipset. <strong>Special note</strong>: If you are attacking a <strong>Realtek AP</strong>, <strong>do NOT</strong> use small DH Keys (<code>-S</code>) option.</p>
+<h2 id="h-pixiedust-log">-H // –pixiedust-log</h2>
+<p>The <code>-H</code> option is a switch to enable logging of PixieHashes, <strong>saved hashes</strong> will be saved in the <strong>executing directory</strong>. This option requires you to have at the least <code>-vvv</code> switch on and will work with <code>-K 1</code> &amp; <code>-P</code> appropriately.</p>
+<p>The files saved are named after the bssid (MAC) of the target, and with an extention of <code>.pixie</code>. On the inside of these saved logs, you will find all the required <strong>PixieDust hashes</strong>, along with a <strong>quick copy &amp; paste ready full command</strong> to use it on <code>pixiewps</code>. You also have the option to execute it. Just pop in the file into your favorite shell, and execute it <em>(<code>chmod +x &lt;filename&gt;</code> may be required)</em>.</p>
+<h2 id="p-pixiedust-loop">-P // –pixiedust-loop</h2>
+<p>When using the <code>-P</code> option, Reaver goes into a loop mode that breaks the WPS protocol by not using M4 message to <strong>hopefully avoid lockouts</strong>. This is to <strong>ONLY</strong> be used for PixieHash collecting to use with <code>pixiewps</code>, <strong>NOT</strong> to brute forcing ‘online’ pins.</p>
+<p>This option was made with intent of:</p>
+<ul>
+<li>Collecting repetitive hashes for further comparison and or analysis / <strong>discovery of new vulnerable chipsets</strong>, routers etc..</li>
+<li><strong>Time sensitive attacks</strong> where the hash collecting continues repetitively until your time frame is met.</li>
+<li>For <strong>scripting purposes</strong> of whom want to use a possible lockout preventable way of PixieHash gathering for your use case.</li>
+</ul>
+<hr />
+<h1 id="wash-usage">Wash Usage</h1>
+<pre><code>Wash v1.5.2 WiFi Protected Setup Scan Tool
+Copyright (c) 2011, Tactical Network Solutions, Craig Heffner &lt;cheffner@tacnetsol.com&gt;
+mod by t6_x &lt;t6_x@hotmail.com&gt; &amp; DataHead &amp; Soxrok2212 &amp; Wiire &amp; kib0rg
+
+Required Arguments:
+        -i, --interface=&lt;iface&gt;              Interface to capture packets on
+        -f, --file [FILE1 FILE2 FILE3 ...]   Read packets from capture files
+
+Optional Arguments:
+        -c, --channel=&lt;num&gt;                  Channel to listen on [auto]
+        -o, --out-file=&lt;file&gt;                Write data to file
+        -n, --probes=&lt;num&gt;                   Maximum number of probes to send to each AP in scan mode [15]
+        -D, --daemonize                      Daemonize wash
+        -C, --ignore-fcs                     Ignore frame checksum errors
+        -5, --5ghz                           Use 5GHz 802.11 channels
+        -s, --scan                           Use scan mode
+        -u, --survey                         Use survey mode [default]
+        -P, --file-output-piped              Allows Wash output to be piped. Example. wash x|y|z...
+        -g, --get-chipset                    Pipes output and runs reaver alongside to get chipset
+        -h, --help                           Show help
+
+Example:
+        wash -i wlan0mon</code></pre>
+<h2 id="g-get-chipset">-g // –get-chipset</h2>
+<p>The option <code>-g</code> of Wash, automatically runs Reaver to receive the chipset data. <strong>If</strong> the AP does not respond to them quickly, this option will be <strong>slow to display the data</strong>, because Reaver will stay running until getting the data or until you reach your timeout limit (30 seconds).</p>
+<hr />
+
+        </div>
+        <script type="text/javascript">
+
+                var favicon=new Favico({
+                    bgColor : '#5CB85C',
+                    textColor : '#ff0',
+                });
+                favicon.badge(921);
+        </script>
+        </div>
+
+     
+ <footer class="footer">
+        <div class="fcontainer">
+            <div class="site-title-wrapper">
+                <h1 class="site-title-another "><a title="首页" href="../">首页</a><span>|</span></h1>
+                <h1 class="site-title-another "><a title="咖啡" href="../">咖啡</a><span>|</span></h1>
+                <h1 class="site-title-another "><a title="博客" href="http://smile921.github.io/ruhaskell/">博客</a></h1>
+            </div>
+
+            <p class="footer-copyright">© 2015 / smile921,&nbsp;&nbsp;ALL RIGHTS RESERVED.&nbsp;&nbsp;PUBLISHED WITH  <a href="http://jaspervdj.be/hakyll">Hakyll</a></p>
+        </div>
+</footer>
+    </body>
+</html>

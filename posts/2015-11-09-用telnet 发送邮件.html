@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <title>用telnet 发送邮件</title>
+        <script type="text/javascript" src="../js/favico-0.3.9.min.js"></script>
+        <link rel="stylesheet" type="text/css" href="../css/default.css" />
+        <link rel="shortcut icon" type="image/x-icon" href="../images/favicon.ico"> 
+ 
+    </head>
+    <body>
+     <header id="hd-block">
+    <h1 id="adage">不为有趣之事，何以遣无涯之生</h1>
+     </header>
+    <div class="container-1">
+        <div id="header">
+            <div id="logo">
+                <a href="../">曾经的脚印</a>
+            </div>
+            <div id="navigation">
+                <a href="../">Home</a>
+                <a href="../about.html">About</a>
+                <a href="../contact.html">Contact</a>
+                <a href="../archive.html">Archive</a>
+            </div>
+        </div>
+
+        <div id="content">
+            <h1>用telnet 发送邮件</h1>
+
+            <div class="info">
+    Posted on November  9, 2015
+    
+</div>
+
+<h2 id="使用telnet连接smtp服务器">使用telnet连接smtp服务器</h2>
+<ol style="list-style-type: decimal">
+<li>使用telnet连接smtp服务器</li>
+<li>发送一个helo或者ehlo指令</li>
+<li>验证用户（使用邮件名登陆）</li>
+<li>使用mail命令准备发送邮件</li>
+<li>使用rcpt命令指定对方邮箱地址</li>
+<li>使用data命令开始输入内容</li>
+<li>输入test或者hello world类似字样（即邮件内容）</li>
+<li>输入邮件内容结束标志.</li>
+<li>退出smtp服务器</li>
+</ol>
+<p>使用telnet连接smtp服务器很简单，这里连接163的smtp服务器为smtp.163.com端口为25</p>
+<table>
+<tbody>
+<tr class="odd">
+<td align="right">telnet smtp.163.com 25</td>
+</tr>
+</tbody>
+</table>
+<p>helo和ehlo指令的作用是向服务器标识用户身份，返回邮件服务器身份</p>
+<table>
+<tbody>
+<tr class="odd">
+<td align="right">helo 163.com</td>
+</tr>
+</tbody>
+</table>
+<p>验证用户这里要注意下，使用auth login进行验证时用户名和密码是经过base64编码过后的字符 我们输入auth login回车 然 后你会看见一个334状态码和一个VXNlcm5hbWU6字符串，用base64解码后你会发现这是Username:的意思，也就是说这时输入经过 base64编码后的字符串，至于如何得到base64编码后的字符串，在linux下可以使用base64这个命令得到</p>
+<table>
+<tbody>
+<tr class="odd">
+<td align="right">echo -n test@163.com | base64</td>
+</tr>
+</tbody>
+</table>
+<p>将输出的字符串复制到telnet里回车，这里记住用户名是包括@163.com的 + 然后接着是输入密码，和上面一样，密码也是经过base64编码后的字符串 + 完成后你会看到了登陆成功的提示 + 接下来使用mail指令开始写一个邮件，格式是这样的 +</p>
+<table>
+<tbody>
+<tr class="odd">
+<td align="right">mail from:<script type="text/javascript">
+<!--
+h='&#x31;&#54;&#x33;&#46;&#x63;&#x6f;&#x6d;';a='&#64;';n='&#x79;&#x6f;&#x75;&#110;&#x61;&#x6d;&#x65;';e=n+a+h;
+document.write('<a h'+'ref'+'="ma'+'ilto'+':'+e+'" clas'+'s="em' + 'ail">'+e+'<\/'+'a'+'>');
+// -->
+</script><noscript>youname at 163 dot com</noscript></td>
+</tr>
+</tbody>
+</table>
+<p>yourname是你的用户名 + 然后指定要将邮件发往何方 +</p>
+<table>
+<tbody>
+<tr class="odd">
+<td align="right">rcpt to:<script type="text/javascript">
+<!--
+h='&#120;&#120;&#120;&#46;&#x63;&#x6f;&#x6d;';a='&#64;';n='&#100;&#x73;&#116;';e=n+a+h;
+document.write('<a h'+'ref'+'="ma'+'ilto'+':'+e+'" clas'+'s="em' + 'ail">'+e+'<\/'+'a'+'>');
+// -->
+</script><noscript>dst at xxx dot com</noscript></td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>. dst@xxx.com是对方的邮件地址</li>
+<li>. 这里可以有多个rcpt指令，格式如上 +</li>
+<li>. 然后使用data指令开始写邮件内容 +</li>
+<li>. subject:主题 +</li>
+<li>. from:<来自哪里> +</li>
+<li>. to:<送往何方> +</li>
+<li>. 邮件内容 +</li>
+<li>. . + 注意结束data指令的标志是一个回车一个点再一个回车，这时邮件已经发送了 + quit退出服务器 +</li>
+</ul>
+
+        </div>
+        <script type="text/javascript">
+
+                var favicon=new Favico({
+                    bgColor : '#5CB85C',
+                    textColor : '#ff0',
+                });
+                favicon.badge(921);
+        </script>
+        </div>
+
+     
+ <footer class="footer">
+        <div class="fcontainer">
+            <div class="site-title-wrapper">
+                <h1 class="site-title-another "><a title="首页" href="../">首页</a><span>|</span></h1>
+                <h1 class="site-title-another "><a title="咖啡" href="../">咖啡</a><span>|</span></h1>
+                <h1 class="site-title-another "><a title="博客" href="http://smile921.github.io/ruhaskell/">博客</a></h1>
+            </div>
+
+            <p class="footer-copyright">© 2015 / smile921,&nbsp;&nbsp;ALL RIGHTS RESERVED.&nbsp;&nbsp;PUBLISHED WITH  <a href="http://jaspervdj.be/hakyll">Hakyll</a></p>
+        </div>
+</footer>
+    </body>
+</html>
