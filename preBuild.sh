@@ -15,3 +15,4 @@ cp -rfv js _site/
 cp -rfv font _site/
 cp -rfv images _site/
 cp -rfv js _site/
+cp -fv README.md _site/
