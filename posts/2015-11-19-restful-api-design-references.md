@@ -1,5 +1,9 @@
+---
+title:  REST API 设计参考 
+categories: rest  
+---
 
-
+# REST API 设计参考 
 
 我创建这个 [repository](https://github.com/aisuhua/restful-api-design-references)，是因为我希望收集一些比较好的有关于 RESTful API 设计的参考文献。
 

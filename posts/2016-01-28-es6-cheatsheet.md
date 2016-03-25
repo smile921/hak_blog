@@ -1,3 +1,8 @@
+---
+title:  es6-cheatsheet
+categories: es6  
+---
+
 # es6-cheatsheet
 
 A cheatsheet containing ES2015 [ES6] tips, tricks, best practices and code

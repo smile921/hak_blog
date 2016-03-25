@@ -1,3 +1,8 @@
+---
+title:  Windows-Tools on CD-ROM (or USB stick)!
+categories: Windows-Tools
+---
+
 Windows-Tools on CD-ROM (or USB stick)
 ======================================
 

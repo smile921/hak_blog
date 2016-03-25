@@ -1,8 +1,14 @@
+---
+title:  How To Read Source Code!
+categories: how to
+---
+
+# 如何阅读源代码 
+
 原题目：[How To Read Source Code]，原作者：Aria Stewart
 
 中文翻译：
 
-[在博客中查看]
 
 这篇文章基于我在Oneshot Nodeconf Christchurch的一个演讲。
 
