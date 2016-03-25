@@ -3,7 +3,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-        <title>设置静态路由表，双网卡内外网一起用!</title>
+        <title>学习资料!</title>
         <script type="text/javascript" src="../js/favico-0.3.9.min.js"></script>
         <link rel="stylesheet" type="text/css" href="../css/default.css" />
         <link rel="shortcut icon" type="image/x-icon" href="../images/favicon.ico"> 
@@ -30,26 +30,20 @@
         </div>
 
         <div id="content">
-            <h1>设置静态路由表，双网卡内外网一起用!</h1>
+            <h1>学习资料!</h1>
 
             <div class="info">
-    Posted on November 11, 2015
+    Posted on February 11, 2015
     
 </div>
 
-<p>现象描述，目前在公司需要使用双网卡，一个无线路上外网，一个有线连接内外。 由于部分原因需要频繁的在两者间切换。一般就是频繁的禁用一个网卡，两外一个自然可以用，需要切换时在禁用当前启用两外一个即可，多数都没什么问题但是唯独不能同时上两个网的内容。</p>
-<p>自然的想到设置静态路由,例如： 一个路由获取的是（外网） 192.168.0.101 255.255.255.0 192.168.0.1 一个路由获取到的是（内网） 172.32.3.101 255.255.255.0 172.32.3.1 一个路由获取到的是（内网） 192.168.3.101 255.255.255.0 192.168.3.1 可以如下设置静态路由</p>
-<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash">    <span class="kw">route</span> delete 0.0.0.0
-    <span class="kw">route</span> delete 172.32.1.0
-    <span class="kw">route</span> delete 12.1.1.0
-    <span class="kw">route</span> delete 192.168.3.0
- 
-    <span class="kw">route</span> add -p 12.1.1.0 mask 255.255.255.0 172.32.3.1 metric 20
-    <span class="kw">route</span> add -p 172.32.1.0 mask 255.255.255.0 172.32.3.1 metric 20
-    <span class="kw">route</span> add -p 192.168.3.0 mask 255.255.255.0 192.168.3.1 metric 20
-    <span class="kw">route</span> add -p 0.0.0.0 mask 0.0.0.0 192.168.0.1 metric 10
-    <span class="kw">route</span> print -4 </code></pre></div>
-<p>如此设置过之后，便可以内网同时使用了</p>
+<p>有两个建议吧。 完成《building machine learning systems withpython》书上的所有projects， 这本书除了封面其他里面的内容还是挺实用的。中文书名为 《机器学习系统设计》 完成kaggle playground和 101上的所有比赛，具体tutorial可以戳</p>
+<p><a href="Getting%20Started%20With%20Python%20For%20Data%20Science">https://www.kaggle.com/wiki/GettingStartedWithPythonForDataScience</a></p>
+<p><a href="Getting%20Started%20With%20Python%20II%20Getting%20Started%20with%20Pandas:%20Kaggle's%20Titanic%20Competition">https://www.kaggle.com/c/titanic-gettingStarted/details/getting-started-with-python-ii</a></p>
+<p><a href="getting-started-with-python-ii">https://www.kaggle.com/c/titanic/details/getting-started-with-python-ii</a> 另外补充一个用scikitlearn构建文本挖掘系统的教程，个人觉得写的很好，基本上做一遍大概的流程就很清晰了：</p>
+<p>[http://www.threedweb.cn/article-12-1.html]scikit-learn文本挖掘系统学习（已完成）</p>
+<p>另外可以看这篇blog:<br />
+<a href="大数据竞赛平台——Kaggle">http://blog.csdn.net/u012162613/article/details/41929171</a> <a href="Kaggle-Solution%20github">https://github.com/wepe/Kaggle-Solution/tree/master/Digit%20Recognizer</a> 入门 ——————————— 分割线补充： 我做过的比较好玩的应该是下载了豆瓣某一个爆照组的所有照片，然后结合发布者ID在其主页上找寻相关信息，然后按照地域进行统计算分布，然后在google map上画了出来… 不过这个就没什么含金量了，现在在水推荐系统。</p>
 
         </div>
         <script type="text/javascript">
