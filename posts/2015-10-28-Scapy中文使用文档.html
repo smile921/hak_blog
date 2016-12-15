@@ -5,10 +5,11 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
         <title>Scapy中文使用文档</title>
         <script type="text/javascript" src="../js/favico-0.3.9.min.js"></script>
-        <link rel="stylesheet" type="text/css" href="../css/default.css" />
+        <link rel="stylesheet" href="../css/default-highlight.css">
+		<link rel="stylesheet" type="text/css" href="../css/default.css" />
         <link rel="shortcut icon" type="image/x-icon" href="../images/favicon.ico"> 
-        <link rel="stylesheet" href="../css/school-book.css">
-        <!-- <link rel="stylesheet" href="/css/default-highlight.css"> -->
+       <!-- <link rel="stylesheet" href="/css/school-book.css"> -->
+        
         <script type="text/javascript" src="../js/highlight-pack.js"></script>
         <script>hljs.initHighlightingOnLoad();</script>
     </head>
@@ -90,7 +91,7 @@ INFO: Can't import PyX. Won't be able to use psdump() or pdfdump().</code></pre>
 &gt;&gt;&gt; IP(proto=55)/TCP()
 &lt;IP frag=0 proto=55 |&lt;TCP |&gt;&gt;</code></pre>
 <div class="figure">
-<img src="../images/fieldsmanagement.png" alt />
+<img src="../images/fieldsmanagement.png" />
 
 </div>
 <p>每一个数据包都可以被建立或分解（注意：在Python中<code>_</code>（下划线）是上一条语句执行的结果）：</p>
@@ -135,7 +136,7 @@ FA 97 00 14 00 50 00 00 00 00 00 00 00 00 50 02  .....P........P.
 <pre><code>&gt;&gt;&gt; a[423].pdfdump(layer_shift=1)
 &gt;&gt;&gt; a[423].psdump(&quot;/tmp/isakmp_pkt.eps&quot;,layer_shift=1)</code></pre>
 <div class="figure">
-<img src="../images/isakmp_dump.png" alt />
+<img src="../images/isakmp_dump.png" />
 
 </div>
 <pre><code>命令      效果
@@ -704,7 +705,7 @@ Network         Netmask         Gateway         Iface
 &gt;&gt;&gt; a.plot(lambda x:x[1].id)
 &lt;Gnuplot._Gnuplot.Gnuplot instance at 0xb7d6a74c&gt;</code></pre>
 <div class="figure">
-<img src="../images/ipid.png" alt />
+<img src="../images/ipid.png" />
 
 </div>
 <h2 id="tcp-traceroute-2">TCP traceroute (2)</h2>
@@ -801,17 +802,17 @@ Received 190 packets, got 190 answers, remaining 10 packets
 &gt;&gt;&gt; res.graph(type=&quot;ps&quot;,target=&quot;| lp&quot;)   # piped to postscript printer
 &gt;&gt;&gt; res.graph(target=&quot;&gt; /tmp/graph.svg&quot;) # saved to file</code></pre>
 <div class="figure">
-<img src="../images/graph_traceroute.png" alt />
+<img src="../images/graph_traceroute.png" />
 
 </div>
 <p>如果你安装了VPython，你就可以用3D来表示traceroute。右边的按钮是旋转图案，中间的按钮是放大缩小，左边的按钮是移动图案。如果你单击一个球，它的IP地址就会出现/消失。如果你按住Ctrl单击一个球，就会扫描21,22,23,25,80和443端口，并显示结果：</p>
 <pre><code>&gt;&gt;&gt; res.trace3D()</code></pre>
 <div class="figure">
-<img src="../images/trace3d_1.png" alt />
+<img src="../images/trace3d_1.png" />
 
 </div>
 <div class="figure">
-<img src="../images/trace3d_2.png" alt />
+<img src="../images/trace3d_2.png" />
 
 </div>
 <h2 id="wireless-frame-injection">Wireless frame injection</h2>

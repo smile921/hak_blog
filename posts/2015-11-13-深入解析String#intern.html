@@ -5,10 +5,11 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
         <title>深入解析String#intern</title>
         <script type="text/javascript" src="../js/favico-0.3.9.min.js"></script>
-        <link rel="stylesheet" type="text/css" href="../css/default.css" />
+        <link rel="stylesheet" href="../css/default-highlight.css">
+		<link rel="stylesheet" type="text/css" href="../css/default.css" />
         <link rel="shortcut icon" type="image/x-icon" href="../images/favicon.ico"> 
-        <link rel="stylesheet" href="../css/school-book.css">
-        <!-- <link rel="stylesheet" href="/css/default-highlight.css"> -->
+       <!-- <link rel="stylesheet" href="/css/school-book.css"> -->
+        
         <script type="text/javascript" src="../js/highlight-pack.js"></script>
         <script>hljs.initHighlightingOnLoad();</script>
     </head>
@@ -118,7 +119,7 @@ oop StringTable::lookup(int index, jchar* name,
 <hr />
 <p>它的大体实现结构就是:JAVA 使用 jni 调用c++实现的StringTable的intern方法, StringTable 的intern方法跟Java中的HashMap的实现是差不多的, 只是不能自动扩容。默认大小是1009。 要注意的是，String的String Pool是一个固定大小的Hashtable，默认值大小长度是1009， 如果放进String pool的String非常多，就会造成Hash冲突严重，从而导致链表会很长 ，而链表长了后直接会造成的影响就是当调用String.intern时性能会大幅下降（因为要一个一个找）。 在 jdk6中StringTable是固定的，就是1009的长度，所以如果常量池中的字符串过多就会导致效率下降很快。 在jdk7中，StringTable的长度可以通过一个参数指定：-XX:StringTableSize=99991</p>
 <p>二，jdk6 和 jdk7 下 intern 的区别 相信很多 JAVA 程序员都做做类似 String s = new String(“abc”) 这个语句创建了几个对象的题目。 这种题目主要就是为了考察程序员对字符串对象的常量池掌握与否。 上述的语句中是创建了2个对象，第一个对象是“abc”字符串存储在常量池中，第二个对象在JAVA Heap中的 String 对象。 来看一段代码：</p>
-<table>
+<table style="width:5%;">
 <colgroup>
 <col width="5%" />
 </colgroup>
@@ -135,7 +136,7 @@ oop StringTable::lookup(int index, jchar* name,
 </tbody>
 </table>
 <p>具体为什么稍后再解释，然后将s3.intern(); 语句下调一行，放到String s4 = “11”; 后面。将s.intern();  放到String s2 = “1”; 后面。是什么结果呢</p>
-<table>
+<table style="width:5%;">
 <colgroup>
 <col width="5%" />
 </colgroup>
@@ -157,7 +158,7 @@ oop StringTable::lookup(int index, jchar* name,
 <p><img src="http://upload-images.jianshu.io/upload_images/22591-cff2ef737481642a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="jdk7图2" /> 来看第二段代码，从上边第二幅图中观察。第一段代码和第二段代码的改变就是 s3.intern();  的顺序是放在String s4 = “11”; 后了。这样，首先执行String s4 = “11”; 声明 s4 的时候常量池中是不存在“11”对象的，执行完毕后，“11“对象是 s4 声明产生的新对象。然后再执行s3.intern(); 时，常量池中“11”对象已经存在了，因此 s3 和 s4 的引用是不同的。 第二段代码中的 s 和 s2 代码中，s.intern(); ，这一句往后放也不会有什么影响了，因为对象池中在执行第一句代码String s = new String(”1”); 的时候已经生成“1”对象了。下边的s2声明都是直接从常量池中取地址引用的。 s 和 s2 的引用地址是不会相等的。</p>
 <p>小结 从上述的例子代码可以看出 jdk7 版本对 intern 操作和常量池都做了一定的修改。主要包括2点： 将String常量池 从 Perm 区移动到了 Java Heap区 String#intern  方法时，如果存在堆中的对象，会直接保存对象的引用，而不会重新创建对象。</p>
 <p>三，使用 intern 1,intern 正确使用例子 接下来我们来看一下一个比较常见的使用String#intern 方法的例子。 代码如下：</p>
-<table>
+<table style="width:5%;">
 <colgroup>
 <col width="5%" />
 </colgroup>
@@ -174,7 +175,7 @@ oop StringTable::lookup(int index, jchar* name,
 </tbody>
 </table>
 <p>运行的参数是：-Xmx2g -Xms2g -Xmn1500M  上述代码是一个演示代码，其中有两条语句不一样，一条是使用 intern，一条是未使用 intern。结果如下图 2160ms<img src="http://upload-images.jianshu.io/upload_images/22591-e756efb0036962c2.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="使用 intern" /> 826ms<img src="http://upload-images.jianshu.io/upload_images/22591-2bba03c0c69de8ca.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="未使用 intern" /> 通过上述结果，我们发现不使用 intern 的代码生成了1000w 个字符串，占用了大约640m 空间。 使用了 intern 的代码生成了1345个字符串，占用总空间 133k 左右。其实通过观察程序中只是用到了10个字符串，所以准确计算后应该是正好相差100w 倍。虽然例子有些极端，但确实能准确反应出 intern 使用后产生的巨大空间节省。 细心的同学会发现使用了 intern 方法后时间上有了一些增长。这是因为程序中每次都是用了 new String  后，然后又进行 intern 操作的耗时时间，这一点如果在内存空间充足的情况下确实是无法避免的， 但我们平时使用时，内存空间肯定不是无限大的，不使用 intern 占用空间导致 jvm 圾回收的时间是要远远大于这点时间的。 毕竟这里使用了1000w次intern 才多出来1秒钟多的时间。 2，intern 不当使用 看过了 intern 的使用和 intern 的原理等，我们来看一个不当使用 intern 操作导致的问题。 在使用 fastjson 进行接口读取的时候，我们发现在读取了近70w条数据后，我们的日志打印变的非常缓慢， 每打印一次日志用时30ms左右，如果在一个请求中打印2到3条日志以上会发现请求有一倍以上的耗时。 在重新启动 jvm 后问题消失。继续读取接口后，问题又重现。接下来我们看一下出现问题的过程。 1，根据 log4j 打印日志查找问题原因 在使用log4j#info 打印日志的时候时间非常长。所以使用 housemd 软件跟踪 info 方法的耗时堆栈。</p>
-<table>
+<table style="width:5%;">
 <colgroup>
 <col width="5%" />
 </colgroup>
@@ -233,30 +234,30 @@ private native static StackTraceElement[][] dumpThreads(Thread[] threads);
 oop classname = StringTable::intern((char*) str, CHECK_0);  
 oop methodname = StringTable::intern(method-&gt;name(), CHECK_0);  
 oop filename = StringTable::intern(source, CHECK_0);</code></pre>
-<table>
+<table style="width:5%;">
 <colgroup>
 <col width="5%" />
 </colgroup>
 <thead>
 <tr class="header">
-<th align="left">这三段代码是获取类名、方法名、和文件名。因为类名、方法名、文件名都是存储在字符串常量池中的， 所以每次获取它们都是通过String#intern 方法。但没有考虑到的是默认的 StringPool 的长度是1009且不可变的。因此一旦常量池中的字符串达到的一定的规模后，性能会急剧下降。 3,fastjson 不当使用 String#intern 导致这个 intern 变慢的原因是因为 fastjson 对String#intern 方法的使用不当造成的。跟踪 fastjson 中的实现代码发现，</th>
+<th>这三段代码是获取类名、方法名、和文件名。因为类名、方法名、文件名都是存储在字符串常量池中的， 所以每次获取它们都是通过String#intern 方法。但没有考虑到的是默认的 StringPool 的长度是1009且不可变的。因此一旦常量池中的字符串达到的一定的规模后，性能会急剧下降。 3,fastjson 不当使用 String#intern 导致这个 intern 变慢的原因是因为 fastjson 对String#intern 方法的使用不当造成的。跟踪 fastjson 中的实现代码发现，</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td align="left">com.alibaba.fastjson.parser.JSONScanner#scanFieldSymbol() if (ch == ‘&quot;’) { bp = index; this.ch = ch = buf[bp]; strVal = symbolTable.addSymbol(buf, start, index - start - 1, hash); break; } com.alibaba.fastjson.parser.SymbolTable#addSymbol(): /** * Constructs a new entry from the specified symbol information and next entry reference. */ public Entry(char[] ch, int offset, int length, int hash, Entry next){ characters = new char[length]; System.arraycopy(ch, offset, characters, 0, length); symbol = new String(characters).intern(); this.next = next; this.hashCode = hash; this.bytes = null; } fastjson 中对所有的 json 的 key 使用了 intern 方法，缓存到了字符串常量池中， 这样每次读取的时候就会非常快，大大减少时间和空间。而且 json 的 key 通常都是不变的。 这个地方没有考虑到大量的 json key 如果是变化的，那就会给字符串常量池带来很大的负担。</td>
+<td>com.alibaba.fastjson.parser.JSONScanner#scanFieldSymbol() if (ch == ‘&quot;’) { bp = index; this.ch = ch = buf[bp]; strVal = symbolTable.addSymbol(buf, start, index - start - 1, hash); break; } com.alibaba.fastjson.parser.SymbolTable#addSymbol(): /** * Constructs a new entry from the specified symbol information and next entry reference. */ public Entry(char[] ch, int offset, int length, int hash, Entry next){ characters = new char[length]; System.arraycopy(ch, offset, characters, 0, length); symbol = new String(characters).intern(); this.next = next; this.hashCode = hash; this.bytes = null; } fastjson 中对所有的 json 的 key 使用了 intern 方法，缓存到了字符串常量池中， 这样每次读取的时候就会非常快，大大减少时间和空间。而且 json 的 key 通常都是不变的。 这个地方没有考虑到大量的 json key 如果是变化的，那就会给字符串常量池带来很大的负担。</td>
 </tr>
 <tr class="even">
-<td align="left">这个问题 fastjson 在1.1.24版本中已经将这个漏洞修复了。程序加入了一个最大的缓存大小， 超过这个大小后就不会再往字符串常量池中放了。</td>
+<td>这个问题 fastjson 在1.1.24版本中已经将这个漏洞修复了。程序加入了一个最大的缓存大小， 超过这个大小后就不会再往字符串常量池中放了。</td>
 </tr>
 <tr class="odd">
-<td align="left">[1.1.24版本的com.alibaba.fastjson.parser.SymbolTable#addSymbol() Line:113]代码</td>
+<td>[1.1.24版本的com.alibaba.fastjson.parser.SymbolTable#addSymbol() Line:113]代码</td>
 </tr>
 <tr class="even">
-<td align="left">public static final int MAX_SIZE = 1024;</td>
+<td>public static final int MAX_SIZE = 1024;</td>
 </tr>
 <tr class="odd">
-<td align="left">if (size &gt;= MAX_SIZE) { return new String(buffer, offset, len); }</td>
+<td>if (size &gt;= MAX_SIZE) { return new String(buffer, offset, len); }</td>
 </tr>
 </tbody>
 </table>
