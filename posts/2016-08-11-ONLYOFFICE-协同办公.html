@@ -1,0 +1,252 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <title>ONLYOFFICE 协同办公</title>
+        <script type="text/javascript" src="../js/favico-0.3.9.min.js"></script>
+        <link rel="stylesheet" href="../css/default-highlight.css">
+		<link rel="stylesheet" type="text/css" href="../css/default.css" />
+        <link rel="shortcut icon" type="image/x-icon" href="../images/favicon.ico"> 
+       <!-- <link rel="stylesheet" href="/css/school-book.css"> -->
+        
+        <script type="text/javascript" src="../js/highlight-pack.js"></script>
+        <script>hljs.initHighlightingOnLoad();</script>
+    </head>
+    <body>
+     <header id="hd-block">
+    <h1 id="adage">不为有趣之事，何以遣无涯之生</h1>
+     </header>
+    <div class="container-1">
+        <div id="header">
+            <div id="logo">
+                <a href="../">曾经的脚印</a>
+            </div>
+            <div id="navigation">
+                <a href="../">Home</a>
+                <a href="../about.html">About</a>
+                <a href="../contact.html">Contact</a>
+                <a href="../archive.html">Archive</a>
+            </div>
+        </div>
+
+        <div id="content">
+            <h1>ONLYOFFICE 协同办公</h1>
+
+            <div class="info">
+    Posted on August 11, 2016
+    
+</div>
+
+<h2 id="onlyoffice">onlyOffice</h2>
+<h3 id="collaborative-system-for-managing-documents-projects-customer-relations-and-emails-in-one-place">Collaborative system for managing documents, projects, customer relations and emails in one place</h3>
+<ul>
+<li>在线编辑文档</li>
+<li>客户关系管理</li>
+<li>邮件服务</li>
+<li>文档管理</li>
+<li>项目管理</li>
+<li><p>ONLYOFFICE Community Server is a free open source collaborative system developed to manage documents, projects, customer relationship and email correspondence, all in one place.</p></li>
+<li>Cross platform solution: Linux, Windows</li>
+<li>Document management</li>
+<li>Integration with Google Drive, Box, Dropbox, OneDrive, OwnCloud</li>
+<li>File sharing</li>
+<li>Document embedding</li>
+<li>Access rights management</li>
+<li>Customizable CRM</li>
+<li>Web-to-lead form</li>
+<li>Invoicing system</li>
+<li>Project Management</li>
+<li>Gantt Chart</li>
+<li>Milestones, task dependencies and subtasks</li>
+<li>Time tracking</li>
+<li>Automated reports</li>
+<li>Blogs, forums, polls, wiki</li>
+<li>Calendar</li>
+<li>Email Aggregator</li>
+<li>People module (employee database)</li>
+<li>Instant Messenger</li>
+<li><p>Support of more than 20 languages</p></li>
+</ul>
+<h2 id="running-docker-image">Running Docker Image</h2>
+<pre><code>sudo docker run -i -t -d -p 80:80 onlyoffice/communityserver</code></pre>
+<p>This command will install ONLYOFFICE Community Server and all the dependencies it needs.</p>
+<h2 id="configuring-docker-image">Configuring Docker Image</h2>
+<h3 id="auto-restart">Auto-restart</h3>
+<p>To make Docker auto-restart containers on reboot, please use the –restart=always in the docker run command:</p>
+<pre><code>sudo docker run -i -t -d -p 80:80 --restart=always onlyoffice/communityserver</code></pre>
+<h3 id="storing-data">Storing Data</h3>
+<p>All the data are stored in the specially-designated directories, <strong>data volumes</strong>, at the following location: * <strong>/var/log/onlyoffice</strong> for ONLYOFFICE Community Server logs * <strong>/var/www/onlyoffice/Data</strong> for ONLYOFFICE Community Server data * <strong>/var/lib/mysql</strong> for MySQL database data</p>
+<p>To get access to your data from outside the container, you need to mount the volumes. It can be done by specifying the ‘-v’ option in the docker run command.</p>
+<pre><code>sudo docker run -i -t -d -p 80:80 \
+    -v /app/onlyoffice/CommunityServer/logs:/var/log/onlyoffice  \
+    -v /app/onlyoffice/CommunityServer/data:/var/www/onlyoffice/Data  \
+    -v /app/onlyoffice/CommunityServer/mysql:/var/lib/mysql  onlyoffice/communityserver</code></pre>
+<p>Storing the data on the host machine allows you to easily update ONLYOFFICE once the new version is released without losing your data.</p>
+<h3 id="using-mysql">Using MySQL</h3>
+<p>ONLYOFFICE uses <strong>MySQL 5.5</strong> to store its data.</p>
+<p>By default the MySQL server is started internally. But you can easily configure the image to use an external MySQL database.</p>
+<p>If you have an external MySQL server installed on your machine, execute the following command:</p>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash">	<span class="kw">sudo</span> docker run -i -t -d -p 80:80 -p 5222:5222 -p 443:443 \
+	-e MYSQL_SERVER_HOST=<span class="st">&quot;127.0.0.1&quot;</span> \
+	-e MYSQL_SERVER_PORT=<span class="st">&quot;3306&quot;</span> \
+	-e MYSQL_SERVER_DB_NAME=<span class="st">&quot;onlyoffice&quot;</span> \
+	-e MYSQL_SERVER_USER=<span class="st">&quot;usr_onlyoffice&quot;</span> \
+	-e MYSQL_SERVER_PASS=<span class="st">&quot;onlyoffice123&quot;</span> \
+	onlyoffice/communityserver</code></pre></div>
+<h3 id="running-onlyoffice-community-server-on-different-port">Running ONLYOFFICE Community Server on Different Port</h3>
+<p>To change the port, use the -p command. E.g.: to make your portal accessible via port 8080 execute the following command:</p>
+<pre><code>sudo docker run -i -t -d -p 8080:80 onlyoffice/communityserver</code></pre>
+<h3 id="exposing-additional-ports">Exposing Additional Ports</h3>
+<p>The container ports to be exposed for <strong>incoming connections</strong> are the folloing:</p>
+<ul>
+<li><strong>80</strong> for plain HTTP</li>
+<li><strong>443</strong> when HTTPS is enabled (see below)</li>
+<li><strong>5222</strong> for XMPP-compatible instant messaging client (for ONLYOFFICE Talk correct work)</li>
+</ul>
+<p>You can expose ports by specifying the ‘-p’ option in the docker run command.</p>
+<pre><code>sudo docker run -i -t -d -p 80:80  -p 443:443  -p 5222:5222   onlyoffice/communityserver</code></pre>
+<p>For <strong>outgoing connections</strong> you need to expose the following ports:</p>
+<ul>
+<li><strong>80</strong> for HTTP</li>
+<li><strong>443</strong> for HTTPS</li>
+</ul>
+<p>Additional ports to be exposed for the mail client correct work:</p>
+<ul>
+<li><strong>25</strong> for SMTP</li>
+<li><strong>465</strong> for SMTPS</li>
+<li><strong>143</strong> for IMAP</li>
+<li><strong>993</strong> for IMAPS</li>
+<li><strong>110</strong> for POP3</li>
+<li><strong>995</strong> for POP3S</li>
+</ul>
+<h3 id="running-onlyoffice-community-server-using-https">Running ONLYOFFICE Community Server using HTTPS</h3>
+<pre><code>    sudo docker run -i -t -d -p 80:80  -p 443:443 \
+    -v /app/onlyoffice/CommunityServer/data:/var/www/onlyoffice/Data  onlyoffice/communityserver</code></pre>
+<p>Access to the onlyoffice application can be secured using SSL so as to prevent unauthorized access. While a CA certified SSL certificate allows for verification of trust via the CA, a self signed certificates can also provide an equal level of trust verification as long as each client takes some additional steps to verify the identity of your website. Below the instructions on achieving this are provided.</p>
+<p>To secure the application via SSL basically two things are needed:</p>
+<ul>
+<li><strong>Private key (.key)</strong></li>
+<li><strong>SSL certificate (.crt)</strong></li>
+</ul>
+<p>So you need to create and install the following files:</p>
+<pre><code>    /app/onlyoffice/CommunityServer/data/certs/onlyoffice.key
+    /app/onlyoffice/CommunityServer/data/certs/onlyoffice.crt</code></pre>
+<p>When using CA certified certificates, these files are provided to you by the CA. When using self-signed certificates you need to generate these files yourself. Skip the following section if you are have CA certified SSL certificates.</p>
+<h4 id="generation-of-self-signed-certificates">Generation of Self Signed Certificates</h4>
+<p>Generation of self-signed SSL certificates involves a simple 3 step procedure.</p>
+<p><strong>STEP 1</strong>: Create the server private key</p>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">openssl</span> genrsa -out onlyoffice.key 2048</code></pre></div>
+<p><strong>STEP 2</strong>: Create the certificate signing request (CSR)</p>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">openssl</span> req -new -key onlyoffice.key -out onlyoffice.csr</code></pre></div>
+<p><strong>STEP 3</strong>: Sign the certificate using the private key and CSR</p>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">openssl</span> x509 -req -days 365 -in onlyoffice.csr -signkey onlyoffice.key -out onlyoffice.crt</code></pre></div>
+<p>You have now generated an SSL certificate that’s valid for 365 days.</p>
+<h4 id="strengthening-the-server-security">Strengthening the server security</h4>
+<p>This section provides you with instructions to <a href="https://raymii.org/s/tutorials/Strong_SSL_Security_On_nginx.html">strengthen your server security</a>. To achieve this you need to generate stronger DHE parameters.</p>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">openssl</span> dhparam -out dhparam.pem 2048</code></pre></div>
+<h4 id="installation-of-the-ssl-certificates">Installation of the SSL Certificates</h4>
+<p>Out of the four files generated above, you need to install the <code>onlyoffice.key</code>, <code>onlyoffice.crt</code> and <code>dhparam.pem</code> files at the onlyoffice server. The CSR file is not needed, but do make sure you safely backup the file (in case you ever need it again).</p>
+<p>The default path that the onlyoffice application is configured to look for the SSL certificates is at <code>/var/www/onlyoffice/Data/certs</code>, this can however be changed using the <code>SSL_KEY_PATH</code>, <code>SSL_CERTIFICATE_PATH</code> and <code>SSL_DHPARAM_PATH</code> configuration options.</p>
+<p>The <code>/var/www/onlyoffice/Data/</code> path is the path of the data store, which means that you have to create a folder named certs inside <code>/app/onlyoffice/CommunityServer/data/</code> and copy the files into it and as a measure of security you will update the permission on the <code>onlyoffice.key</code> file to only be readable by the owner.</p>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">mkdir</span> -p /app/onlyoffice/CommunityServer/data/certs
+<span class="kw">cp</span> onlyoffice.key /app/onlyoffice/CommunityServer/data/certs/
+<span class="kw">cp</span> onlyoffice.crt /app/onlyoffice/CommunityServer/data/certs/
+<span class="kw">cp</span> dhparam.pem /app/onlyoffice/CommunityServer/data/certs/
+<span class="kw">chmod</span> 400 /app/onlyoffice/CommunityServer/data/certs/onlyoffice.key</code></pre></div>
+<p>You are now just one step away from having our application secured.</p>
+<h4 id="available-configuration-parameters">Available Configuration Parameters</h4>
+<p><em>Please refer the docker run command options for the <code>--env-file</code> flag where you can specify all required environment variables in a single file. This will save you from writing a potentially long docker run command.</em></p>
+<p>Below is the complete list of parameters that can be set using environment variables.</p>
+<ul>
+<li><strong>ONLYOFFICE_HTTPS_HSTS_ENABLED</strong>: Advanced configuration option for turning off the HSTS configuration. Applicable only when SSL is in use. Defaults to <code>true</code>.</li>
+<li><strong>ONLYOFFICE_HTTPS_HSTS_MAXAGE</strong>: Advanced configuration option for setting the HSTS max-age in the onlyoffice nginx vHost configuration. Applicable only when SSL is in use. Defaults to <code>31536000</code>.</li>
+<li><strong>SSL_CERTIFICATE_PATH</strong>: The path to the SSL certificate to use. Defaults to <code>/var/www/onlyoffice/Data/certs/onlyoffice.crt</code>.</li>
+<li><strong>SSL_KEY_PATH</strong>: The path to the SSL certificate’s private key. Defaults to <code>/var/www/onlyoffice/Data/certs/onlyoffice.key</code>.</li>
+<li><strong>SSL_DHPARAM_PATH</strong>: The path to the Diffie-Hellman parameter. Defaults to <code>/var/www/onlyoffice/Data/certs/dhparam.pem</code>.</li>
+<li><strong>SSL_VERIFY_CLIENT</strong>: Enable verification of client certificates using the <code>CA_CERTIFICATES_PATH</code> file. Defaults to <code>false</code></li>
+<li><strong>MYSQL_SERVER_HOST</strong>: The IP address or the name of the host where the server is running.</li>
+<li><strong>MYSQL_SERVER_PORT</strong>: The port number.</li>
+<li><strong>MYSQL_SERVER_DB_NAME</strong>: The name of a MySQL database to be created on image startup.</li>
+<li><strong>MYSQL_SERVER_USER</strong>: The new user name with superuser permissions for the MySQL account.</li>
+<li><strong>MYSQL_SERVER_PASS</strong>: The password set for the MySQL account.</li>
+</ul>
+<h2 id="installing-onlyoffice-community-server-integrated-with-document-and-mail-servers">Installing ONLYOFFICE Community Server integrated with Document and Mail Servers</h2>
+<p>ONLYOFFICE Community Server is a part of ONLYOFFICE Community Edition that comprises also Document Server and Mail Server. To install them, follow these easy steps:</p>
+<p><strong>STEP 1</strong>: Create the ‘onlyoffice’ network.</p>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">docker</span> network create --driver bridge onlyoffice</code></pre></div>
+<p>Than launch containers on it using the ‘docker run –net onlyoffice’ option:</p>
+<p><strong>STEP 1</strong>: Install ONLYOFFICE Document Server.</p>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">sudo</span> docker run --net onlyoffice -i -t -d --restart=always --name onlyoffice-document-server \
+	-v /app/onlyoffice/DocumentServer/data:/var/www/onlyoffice/Data \
+	-v /app/onlyoffice/DocumentServer/logs:/var/log/onlyoffice \
+	onlyoffice/documentserver</code></pre></div>
+<p><strong>STEP 2</strong>: Install ONLYOFFICE Mail Server.</p>
+<p>For the mail server correct work you need to specify its hostname ‘yourdomain.com’. To learn more, refer to the <a href="https://github.com/ONLYOFFICE/Docker-MailServer" title="ONLYOFFICE Mail Server documentation">ONLYOFFICE Mail Server documentation</a>.</p>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">sudo</span> docker run --net onlyoffice --privileged -i -t -d --restart=always --name onlyoffice-mail-server \
+	-p 25:25 -p 143:143 -p 587:587 \
+	-v /app/onlyoffice/MailServer/data:/var/vmail \
+	-v /app/onlyoffice/MailServer/data/certs:/etc/pki/tls/mailserver \
+	-v /app/onlyoffice/MailServer/logs:/var/log \
+	-v /app/onlyoffice/MailServer/mysql:/var/lib/mysql \
+	-h yourdomain.com \
+	onlyoffice/mailserver</code></pre></div>
+<p><strong>STEP 3</strong>: Install ONLYOFFICE Community Server</p>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">sudo</span> docker run --net onlyoffice -i -t -d --restart=always --name onlyoffice-community-server \
+	-p 80:80 -p 5222:5222 -p 443:443 \
+	-v /app/onlyoffice/CommunityServer/data:/var/www/onlyoffice/Data \
+	-v /app/onlyoffice/CommunityServer/mysql:/var/lib/mysql \
+	-v /app/onlyoffice/CommunityServer/logs:/var/log/onlyoffice \
+	-v /app/onlyoffice/DocumentServer/data:/var/www/onlyoffice/DocumentServerData \
+	-e DOCUMENT_SERVER_PORT_80_TCP_ADDR=onlyoffice-document-server \
+	-e MAIL_SERVER_DB_HOST=onlyoffice-mail-server \
+	onlyoffice/communityserver</code></pre></div>
+<p>Alternatively, you can use an automatic installation script to install the whole ONLYOFFICE Community Edition at once. For the mail server correct work you need to specify its hostname ‘yourdomain.com’.</p>
+<p><strong>STEP 1</strong>: Download the Community Edition Docker script file</p>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">wget</span> http://download.onlyoffice.com/install/opensource-install.sh</code></pre></div>
+<p><strong>STEP 2</strong>: Install ONLYOFFICE Community Edition executing the following command:</p>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">bash</span> opensource-install.sh -md yourdomain.com</code></pre></div>
+<p>Or, use <a href="https://docs.docker.com/compose/install" title="docker-compose">docker-compose</a>. For the mail server correct work you need to specify its hostname ‘yourdomain.com’. Assuming you have docker-compose installed, execute the following command:</p>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">wget</span> https://raw.githubusercontent.com/ONLYOFFICE/Docker-CommunityServer/master/docker-compose.yml
+<span class="kw">docker-compose</span> up -d</code></pre></div>
+<h2 id="upgrading-onlyoffice-community-server">Upgrading ONLYOFFICE Community Server</h2>
+<p>To upgrade to a newer release, please follow there easy steps:</p>
+<p><strong>STEP 1</strong>: Make sure that all the container volumes are mounted following the <strong>Storing Data</strong> section instructions:</p>
+<pre><code>sudo docker inspect --format='{{range $p,$conf:=.HostConfig.Binds}}{{$conf}};{{end}}' {{COMMUNITY_SERVER_ID}} </code></pre>
+<p>where {{COMMUNITY_SERVER_ID}} stands for a container name or ID</p>
+<p><strong>STEP 2</strong> Remove the current container sudo docker rm -f {{COMMUNITY_SERVER_ID}}</p>
+<p><strong>STEP 3</strong> Remove the current image sudo docker rmi -f $(sudo docker images | grep onlyoffice/communityserver | awk ‘{ print $3 }’)</p>
+<p><strong>STEP 4</strong> Run the new image with the same map paths</p>
+<pre><code>sudo docker run -i -t -d -p 80:80 \
+-v /app/onlyoffice/CommunityServer/logs:/var/log/onlyoffice  \
+-v /app/onlyoffice/CommunityServer/data:/var/www/onlyoffice/Data  \
+-v /app/onlyoffice/CommunityServer/mysql:/var/lib/mysql  onlyoffice/communityserver</code></pre>
+<h2 id="project-information">Project Information</h2>
+<p>Official website: <a href="http://onlyoffice.org" title="http://www.onlyoffice.org">http://www.onlyoffice.org</a></p>
+<p>Code repository: <a href="https://github.com/ONLYOFFICE/CommunityServer" class="uri" title="https://github.com/ONLYOFFICE/CommunityServer">https://github.com/ONLYOFFICE/CommunityServer</a></p>
+
+        </div>
+        <script type="text/javascript">
+
+                var favicon=new Favico({
+                    bgColor : '#5CB85C',
+                    textColor : '#ff0',
+                });
+                favicon.badge(921);
+        </script>
+        </div>
+
+     
+ <footer class="footer">
+        <div class="fcontainer">
+            <div class="site-title-wrapper">
+                <h1 class="site-title-another "><a title="首页" href="../">首页</a><span>|</span></h1>
+                <h1 class="site-title-another "><a title="咖啡" href="../">咖啡</a><span>|</span></h1>
+                <h1 class="site-title-another "><a title="博客" href="http://smile921.github.io/ruhaskell/">博客</a></h1>
+            </div>
+
+            <p class="footer-copyright">© 2015 / smile921,&nbsp;&nbsp;ALL RIGHTS RESERVED.&nbsp;&nbsp;PUBLISHED WITH  <a href="http://jaspervdj.be/hakyll">Hakyll</a></p>
+        </div>
+</footer>
+    </body>
+</html>

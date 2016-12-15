@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <title>mysql  root密码重置</title>
+        <script type="text/javascript" src="../js/favico-0.3.9.min.js"></script>
+        <link rel="stylesheet" href="../css/default-highlight.css">
+		<link rel="stylesheet" type="text/css" href="../css/default.css" />
+        <link rel="shortcut icon" type="image/x-icon" href="../images/favicon.ico"> 
+       <!-- <link rel="stylesheet" href="/css/school-book.css"> -->
+        
+        <script type="text/javascript" src="../js/highlight-pack.js"></script>
+        <script>hljs.initHighlightingOnLoad();</script>
+    </head>
+    <body>
+     <header id="hd-block">
+    <h1 id="adage">不为有趣之事，何以遣无涯之生</h1>
+     </header>
+    <div class="container-1">
+        <div id="header">
+            <div id="logo">
+                <a href="../">曾经的脚印</a>
+            </div>
+            <div id="navigation">
+                <a href="../">Home</a>
+                <a href="../about.html">About</a>
+                <a href="../contact.html">Contact</a>
+                <a href="../archive.html">Archive</a>
+            </div>
+        </div>
+
+        <div id="content">
+            <h1>mysql  root密码重置</h1>
+
+            <div class="info">
+    Posted on August 30, 2016
+    
+</div>
+
+<p>新装的mysql 或者用过一段时间的测试机mysql数据库忘了密码，又不想重装。想来应该有办法可以重置密码。 首先想到mysqladmin 但是尝试在后无果，还是需要密码。经过一番查找尝试还是有高人，废话不多说了，光说不练假把式。看我如何操作</p>
+<p><code>/etc/init.d/mysql stop 	mysqld_safe --user=mysql --skip-grant-tables --skip-networking &amp; 	mysql -u root mysql 	update user  set password=password('mysqlroot@') where user='root'; 	FLUSH PRIVILEGES; 	/etc/init.d/mysql restart 	mysql -uroot -p 	输入先设置的密码 ok</code></p>
+<p>## python 操作mysql</p>
+<p>``` #!/bin/python #coding=utf-8 import MySQLdb import time from collections import OrderedDict from colorama import init, Fore</p>
+<p>class Mysql(object):</p>
+<pre><code>'''
+    获取当前系统时间 
+    2016-08-30 11:13:18
+'''
+def get_current_time(self):
+    created_time = time.strftime(
+        '[%Y-%m-%d %H:%M:%S]',
+        time.localtime(
+            time.time()))
+    created_time = created_time.split('[')[1]
+    created_time = created_time.split(']')[0]
+    return created_time
+
+'''
+    host
+    user
+    password
+    db
+    port
+'''
+def __init__(self, host, user, passwd, db, port):
+    try:
+        self.db = MySQLdb.connect(
+            host=host,
+            user=user,
+            passwd=passwd,
+            db=db,
+            port=port,
+            charset='utf8')
+        self.cur = self.db.cursor()
+    except MySQLdb.Error as e:
+        print Fore.RED + '连接数据库失败'
+        print Fore.RED + self.get_current_time(), '[%Y-%m-%d %H:%M:%S]', time.localtime(time.time())
+
+'''
+    table 表名称
+    my_dict 要插入的数据，一个有序字典
+'''
+def insert_data(self, table, my_dict):
+    try:
+        cols = ','.join(my_dict.keys())
+        values = '&quot;,&quot;'.join(my_dict.values())
+        values = '&quot;' + values + '&quot;'
+        try:
+          #  print &quot;table:%s,cols:%s,values:%s.&quot; %(table, cols, values)
+            sql = &quot;insert into %s (%s) values(%s)&quot; % (table, cols, values)
+          #  print &quot;sql:&quot;,sql
+            result = self.cur.execute(sql)
+            self.db.commit()
+            if result:
+                return 1
+            else:
+                return 0
+        except MySQLdb.Error as e:
+            self.db.rollback()
+            if &quot;key 'PRIMARY'&quot; in e.args[1]:
+                print Fore.RED + self.get_current_time(), &quot;数据已存在，未插入数据&quot;
+            else:
+                print Fore.RED + self.get_current_time(), &quot;插入数据失败，原因 %d: %s&quot; % (e.args[0], e.args[1])
+    except MySQLdb.Error as e:
+        print Fore.RED + self.get_current_time(), &quot;数据库错误，原因%d: %s&quot; % (e.args[0], e.args[1])
+
+def query_data(self,sql):
+    try:
+        try:
+            result = self.cur.execute(sql)
+            self.db.commit()
+            if result:
+                return 1
+            else:
+                return 0
+        except MySQLdb.Error as e:
+            self.db.rollback()
+            if &quot;key 'PRIMARY'&quot; in e.args[1]:
+                print Fore.RED + self.get_current_time(), &quot;数据已存在，未插入数据&quot;
+            else:
+                print Fore.RED + self.get_current_time(), &quot;插入数据失败，原因 %d: %s&quot; % (e.args[0], e.args[1])
+        pass
+    except MySQLdb.Error as e:
+        print Fore.RED + self.get_current_time(), &quot;数据库错误，原因%d: %s&quot; % (e.args[0], e.args[1])
+        </code></pre>
+<p>DATABASES = { ‘default’: { ‘ENGINE’: ‘django.db.backends.mysql’, ‘NAME’: ‘xxx’, ‘HOST’: ‘10.x.x5’, ‘USER’: ‘wxspider’, ‘PASSWORD’: ‘wxxxl235’, ‘PORT’: 3306 } }</p>
+<p>if <strong>name</strong> == ‘<strong>main</strong>’: host = DATABASES[‘default’][‘HOST’] user = DATABASES[‘default’][‘USER’] passwd = DATABASES[‘default’][‘PASSWORD’] db = DATABASES[‘default’][‘NAME’] port = DATABASES[‘default’][‘PORT’] mysql = Mysql(host, user, passwd, db, port) created_time = mysql.get_current_time() print created_time dicts = OrderedDict() dicts[‘id’]=‘2’ dicts[‘name’]=‘python’ tname=‘test’ # 测试插入数据 result = mysql.insert_data(tname, dicts) if result: print Fore.GREEN + “article_table：数据保存成功！” else: print Fore.RED + “article_table：数据保存失败！”</p>
+<pre><code>sql = 'select * from test'
+#     测试查询数据
+result = mysql.query_data(sql)
+if result:
+    print Fore.GREEN + &quot;：成功！&quot;
+    tp = mysql.cur.fetchall()
+    print type(tp)
+    print tp
+else:
+    print Fore.RED + &quot;：失败！&quot;
+print result</code></pre>
+<p>```</p>
+
+        </div>
+        <script type="text/javascript">
+
+                var favicon=new Favico({
+                    bgColor : '#5CB85C',
+                    textColor : '#ff0',
+                });
+                favicon.badge(921);
+        </script>
+        </div>
+
+     
+ <footer class="footer">
+        <div class="fcontainer">
+            <div class="site-title-wrapper">
+                <h1 class="site-title-another "><a title="首页" href="../">首页</a><span>|</span></h1>
+                <h1 class="site-title-another "><a title="咖啡" href="../">咖啡</a><span>|</span></h1>
+                <h1 class="site-title-another "><a title="博客" href="http://smile921.github.io/ruhaskell/">博客</a></h1>
+            </div>
+
+            <p class="footer-copyright">© 2015 / smile921,&nbsp;&nbsp;ALL RIGHTS RESERVED.&nbsp;&nbsp;PUBLISHED WITH  <a href="http://jaspervdj.be/hakyll">Hakyll</a></p>
+        </div>
+</footer>
+    </body>
+</html>

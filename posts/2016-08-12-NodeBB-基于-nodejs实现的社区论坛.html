@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <title>NodeBB 基于 nodejs实现的社区论坛</title>
+        <script type="text/javascript" src="../js/favico-0.3.9.min.js"></script>
+        <link rel="stylesheet" href="../css/default-highlight.css">
+		<link rel="stylesheet" type="text/css" href="../css/default.css" />
+        <link rel="shortcut icon" type="image/x-icon" href="../images/favicon.ico"> 
+       <!-- <link rel="stylesheet" href="/css/school-book.css"> -->
+        
+        <script type="text/javascript" src="../js/highlight-pack.js"></script>
+        <script>hljs.initHighlightingOnLoad();</script>
+    </head>
+    <body>
+     <header id="hd-block">
+    <h1 id="adage">不为有趣之事，何以遣无涯之生</h1>
+     </header>
+    <div class="container-1">
+        <div id="header">
+            <div id="logo">
+                <a href="../">曾经的脚印</a>
+            </div>
+            <div id="navigation">
+                <a href="../">Home</a>
+                <a href="../about.html">About</a>
+                <a href="../contact.html">Contact</a>
+                <a href="../archive.html">Archive</a>
+            </div>
+        </div>
+
+        <div id="content">
+            <h1>NodeBB 基于 nodejs实现的社区论坛</h1>
+
+            <div class="info">
+    Posted on August 12, 2016
+    
+</div>
+
+<h2 id="node.js-based-forum-software-built-for-the-modern-web-httpwww.nodebb.org">Node.js based forum software built for the modern web http://www.nodebb.org</h2>
+<p><a href="https://nodebb.org"><strong>NodeBB Forum Software</strong></a> is powered by Node.js and built on either a Redis or MongoDB database. It utilizes web sockets for instant interactions and real-time notifications. NodeBB has many modern features out of the box such as social network integration and streaming discussions, while still making sure to be compatible with older browsers.</p>
+<p>Additional functionality is enabled through the use of third-party plugins.</p>
+<ul>
+<li><a href="http://www.nodebb.org/" title="NodeBB">Get NodeBB</a></li>
+<li><a href="http://community.nodebb.org">Demo &amp; Meta Discussion</a></li>
+<li><a href="http://docs.nodebb.org">Documentation &amp; Installation Instructions</a></li>
+<li><a href="https://www.transifex.com/projects/p/nodebb/">Help translate NodeBB</a></li>
+<li><a href="http://blog.nodebb.org">NodeBB Blog</a></li>
+<li><a href="https://kiwiirc.com/client/irc.freenode.net/nodebb">Join us on IRC</a> - #nodebb on Freenode</li>
+<li><a href="http://www.twitter.com/NodeBB/" title="NodeBB Twitter">Follow us on Twitter</a></li>
+<li><a href="http://www.facebook.com/NodeBB/" title="NodeBB Facebook">Like us on Facebook</a></li>
+</ul>
+<h2 id="nodebb-dockerfile">NodeBB Dockerfile</h2>
+<pre><code># The base image is the latest 4.x node (LTS) on jessie (debian)
+# -onbuild will install the node dependencies found in the project package.json
+# and copy its content in /usr/src/app, its WORKDIR
+FROM node:4-onbuild
+
+ENV NODE_ENV=production \
+    daemon=false \
+    silent=false
+
+# nodebb setup will ask you for connection information to a redis (default), mongodb then run the forum
+# nodebb upgrade is not included and might be desired
+CMD node app --setup &amp;&amp; npm start
+
+# the default port for NodeBB is exposed outside the container
+EXPOSE 4567</code></pre>
+<h1 id="example-forum-user-nodebb">Example Forum user nodebb</h1>
+<p><a href="https://uchain.org/">区块链开发者社区</a> <img src="images/nodebb-chain.png" alt="nodebb" /></p>
+
+        </div>
+        <script type="text/javascript">
+
+                var favicon=new Favico({
+                    bgColor : '#5CB85C',
+                    textColor : '#ff0',
+                });
+                favicon.badge(921);
+        </script>
+        </div>
+
+     
+ <footer class="footer">
+        <div class="fcontainer">
+            <div class="site-title-wrapper">
+                <h1 class="site-title-another "><a title="首页" href="../">首页</a><span>|</span></h1>
+                <h1 class="site-title-another "><a title="咖啡" href="../">咖啡</a><span>|</span></h1>
+                <h1 class="site-title-another "><a title="博客" href="http://smile921.github.io/ruhaskell/">博客</a></h1>
+            </div>
+
+            <p class="footer-copyright">© 2015 / smile921,&nbsp;&nbsp;ALL RIGHTS RESERVED.&nbsp;&nbsp;PUBLISHED WITH  <a href="http://jaspervdj.be/hakyll">Hakyll</a></p>
+        </div>
+</footer>
+    </body>
+</html>

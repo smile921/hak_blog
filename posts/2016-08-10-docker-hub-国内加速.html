@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <title>docker hub 国内加速</title>
+        <script type="text/javascript" src="../js/favico-0.3.9.min.js"></script>
+        <link rel="stylesheet" href="../css/default-highlight.css">
+		<link rel="stylesheet" type="text/css" href="../css/default.css" />
+        <link rel="shortcut icon" type="image/x-icon" href="../images/favicon.ico"> 
+       <!-- <link rel="stylesheet" href="/css/school-book.css"> -->
+        
+        <script type="text/javascript" src="../js/highlight-pack.js"></script>
+        <script>hljs.initHighlightingOnLoad();</script>
+    </head>
+    <body>
+     <header id="hd-block">
+    <h1 id="adage">不为有趣之事，何以遣无涯之生</h1>
+     </header>
+    <div class="container-1">
+        <div id="header">
+            <div id="logo">
+                <a href="../">曾经的脚印</a>
+            </div>
+            <div id="navigation">
+                <a href="../">Home</a>
+                <a href="../about.html">About</a>
+                <a href="../contact.html">Contact</a>
+                <a href="../archive.html">Archive</a>
+            </div>
+        </div>
+
+        <div id="content">
+            <h1>docker hub 国内加速</h1>
+
+            <div class="info">
+    Posted on August 10, 2016
+    
+</div>
+
+<p><a href="https://www.daocloud.io/mirror">DaoCloud 加速器</a>是广受欢迎的 Docker 工具，解决了国内用户访问 Docker Hub 缓慢的问题。DaoCloud 加速器结合国内的 CDN 服务与协议层优化，成倍的提升了下载速度。</p>
+<h1 id="配置加速器">配置加速器</h1>
+<p>请先确定您的 Docker 版本在 1.8 及以上。 登陆<a href="https://www.daocloud.io/mirror#accelerator-doc">加速器页面</a>可以获取 mirror 地址。 配置好后，您可以像往常一样使用docker pull命令，在拉取 Docker Hub 镜像时会自动采用加速器的镜像服务。</p>
+<h2 id="linux">Linux</h2>
+<h3 id="自动配置-docker-加速器">自动配置 Docker 加速器</h3>
+<p><em>适用于 Ubuntu14.04、Debian、CentOS6 、CentOS7</em></p>
+<pre><code>curl -sSL https://get.daocloud.io/daotools/set_mirror.sh | sh -s http://aa62783f.m.daocloud.io  </code></pre>
+<p>该脚本可以将 –registry-mirror 加入到你的 Docker 配置文件 /etc/default/docker 中。适用于 Ubuntu14.04、Debian、CentOS6 、CentOS7，其他版本可能有细微不同。更多详情请访问文档。</p>
+<p>登陆后参考<a href="https://www.daocloud.io/mirror#accelerator-doc">配置命令</a> 此命令会帮助您配置 registry-mirror 并重启 Docker Daemon。</p>
+<h3 id="手动配置-docker-加速器">手动配置 Docker 加速器</h3>
+<p><em>适用于各种 Linux 发行版</em></p>
+<p>您可以找到 Docker 配置文件，一般配置文件在<code>/etc/default/docker</code> ，在配置文件中的<code>DOCKER_OPTS</code>加入 CentOS 7 在 /lib/systemd/system/docker.service 中</p>
+<pre><code>--registry-mirror=加速地址</code></pre>
+<p>重启Docker，一般可以用下面命令重启</p>
+<pre><code>service docker restart</code></pre>
+
+        </div>
+        <script type="text/javascript">
+
+                var favicon=new Favico({
+                    bgColor : '#5CB85C',
+                    textColor : '#ff0',
+                });
+                favicon.badge(921);
+        </script>
+        </div>
+
+     
+ <footer class="footer">
+        <div class="fcontainer">
+            <div class="site-title-wrapper">
+                <h1 class="site-title-another "><a title="首页" href="../">首页</a><span>|</span></h1>
+                <h1 class="site-title-another "><a title="咖啡" href="../">咖啡</a><span>|</span></h1>
+                <h1 class="site-title-another "><a title="博客" href="http://smile921.github.io/ruhaskell/">博客</a></h1>
+            </div>
+
+            <p class="footer-copyright">© 2015 / smile921,&nbsp;&nbsp;ALL RIGHTS RESERVED.&nbsp;&nbsp;PUBLISHED WITH  <a href="http://jaspervdj.be/hakyll">Hakyll</a></p>
+        </div>
+</footer>
+    </body>
+</html>

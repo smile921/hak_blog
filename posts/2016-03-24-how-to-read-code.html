@@ -1,0 +1,390 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <title>How To Read Source Code!</title>
+        <script type="text/javascript" src="../js/favico-0.3.9.min.js"></script>
+        <link rel="stylesheet" href="../css/default-highlight.css">
+		<link rel="stylesheet" type="text/css" href="../css/default.css" />
+        <link rel="shortcut icon" type="image/x-icon" href="../images/favicon.ico"> 
+       <!-- <link rel="stylesheet" href="/css/school-book.css"> -->
+        
+        <script type="text/javascript" src="../js/highlight-pack.js"></script>
+        <script>hljs.initHighlightingOnLoad();</script>
+    </head>
+    <body>
+     <header id="hd-block">
+    <h1 id="adage">不为有趣之事，何以遣无涯之生</h1>
+     </header>
+    <div class="container-1">
+        <div id="header">
+            <div id="logo">
+                <a href="../">曾经的脚印</a>
+            </div>
+            <div id="navigation">
+                <a href="../">Home</a>
+                <a href="../about.html">About</a>
+                <a href="../contact.html">Contact</a>
+                <a href="../archive.html">Archive</a>
+            </div>
+        </div>
+
+        <div id="content">
+            <h1>How To Read Source Code!</h1>
+
+            <div class="info">
+    Posted on March 24, 2016
+    
+</div>
+
+<h1 id="如何阅读源代码">如何阅读源代码</h1>
+<p>原题目：<a href="https://github.com/aredridel/how-to-read-code/blob/master/how-to-read-code.md">How To Read Source Code</a>，原作者：Aria Stewart</p>
+<p>中文翻译：</p>
+<p>这篇文章基于我在Oneshot Nodeconf Christchurch的一个演讲。</p>
+<p>我本来没有想要写这篇文章。程序员不读源代码听起来似乎是很荒谬的。然后我真遇到了一群不读源代码的程序员。接着我又跟更多的人进行了交谈，发现他们除了读代码示例或测试脚本之外什么也不看。最重要的是，我遇到过很多新手程序员，对他们来说，找到从哪个地方开始阅读是非常困难的。</p>
+<h4 id="当我们说读源代码的时候我们要表达什么意思">当我们说读源代码的时候，我们要表达什么意思？</h4>
+<p>我们是为了什么去读源代码？为了理解它。为了找bug，为了知道这些代码和系统中的其他软件是怎样交互的。我们还会为了回顾、品评而去读。为了找出其中的接口信息，为了理解和找到不同模块之间的界线，为了学习，我们都会去读源代码。</p>
+<h4 id="读代码不是一个线性过程">读代码不是一个线性过程</h4>
+<p>读代码的过程不是线性的。人们往往认为读源代码就像读一本书一样：先搞定简介或者README，然后从第一章开始一章一章的读，直到结束。其实并不是这样的。我们甚至都不能确定一个程序有没有结束，很多程序是不会终止的。我们应该在章节、模块之间跳转，反复阅读。我们也可以选择通读单个模块，但是这样我们就无法理解这个模块所引用的其他模块的代码。我们也可以根据程序的执行顺序去阅读，但是我们最后并不会清楚程序会向哪里执行。</p>
+<h4 id="读的顺序">读的顺序</h4>
+<p>要从一个库的入口开始读吗？对于Node库来说，即从<code>index.js</code>或者主脚本开始？</p>
+<p>在浏览器中的情况呢？即使是找到程序入口，弄清楚载入了哪些文件，是怎样载入的都是一个很关键的事情。去研究文件之间是怎样关联起来的是一个很好的着手点。</p>
+<p>除此之外，还可以从最大的一个源文件开始读。或者尝试在debugger中设置一个“浅”断点，通过函数调用去追溯源代码。亦或在某些复杂晦涩的地方设置一个深断点，然后去读函数调用栈里面的每一个函数。</p>
+<h4 id="代码的分类">代码的分类</h4>
+<p>我通常习惯于以语言去区分源代码，如Javascript, C++, ES6, Befunge, Forth或者LISP。熟悉的语言读起来相对更容易，对于不太熟悉的语言，我们往往就不会去看了。</p>
+<p>这里还有另外一种看待源代码的方法，就是基于每一的模块的功能去分类：</p>
+<ul>
+<li>连接类代码（Glue）</li>
+<li>接口定义类代码</li>
+<li>实现类</li>
+<li>算法类</li>
+<li>配置类</li>
+<li>任务类</li>
+</ul>
+<p>关于算法类的代码已经有很多研究了，因为学术界就是干这个的。算法就是用数学模型去处理一件事情的方法。其他种类的代码就要模糊很多了，但是我认为它们更加有趣。它们才是绝大多数人在编程的时候写的代码。</p>
+<p>当然，很多时候一个模块可以同时做以上的很多事情。而读代码首先要做的事情之一恰恰就是弄清楚每一个部分是在做什么。</p>
+<h4 id="什么是连接类代码">什么是连接类代码</h4>
+<p>并不是所有的接口都能很好的工作在一起。连接类代码是将各模块连在一起的管道。中间件、Promise和绑定回调函数的代码、将参数导入object中或者解析object的代码，这些都属于连接类代码。</p>
+<h4 id="怎样阅读连接类代码">怎样阅读连接类代码</h4>
+<p>关键要弄清楚两个接口是怎样以不同方式构建起来的，以及它们共通的地方。</p>
+<p>下面的例子来自于Ben Drucker的<code>stream-to-promise</code></p>
+<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="va">internals</span>.<span class="at">writable</span> <span class="op">=</span> <span class="kw">function</span> (stream) <span class="op">{</span>
+  <span class="cf">return</span> <span class="kw">new</span> <span class="at">Promise</span>(<span class="kw">function</span> (resolve<span class="op">,</span> reject) <span class="op">{</span>
+    <span class="va">stream</span>.<span class="at">once</span>(<span class="st">'finish'</span><span class="op">,</span> resolve)<span class="op">;</span>
+    <span class="va">stream</span>.<span class="at">once</span>(<span class="st">'error'</span><span class="op">,</span> reject)<span class="op">;</span>
+  <span class="op">}</span>)<span class="op">;</span>
+<span class="op">};</span></code></pre></div>
+<p>可以看到，上面两个接口分别是Node的stream和Promise接口。</p>
+<p>它们的共同点在于两者完成的时候都会执行一个操作，在Node中通过事件（event）来实现，而在Promise中通过调用resolve函数实现。</p>
+<p>可以看到，Promise只能执行一次，但是stream可以发出同样的事件很多次。</p>
+<p>更多连接类代码的例子：</p>
+<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="kw">var</span> record <span class="op">=</span> <span class="op">{</span>
+    <span class="dt">name</span><span class="op">:</span> (<span class="va">input</span>.<span class="at">name</span> <span class="op">||</span> <span class="st">''</span>).<span class="at">trim</span>()<span class="op">,</span>
+    <span class="dt">age</span><span class="op">:</span> <span class="at">isNaN</span>(<span class="at">Number</span>(<span class="va">input</span>.<span class="at">age</span>)) <span class="op">?</span> <span class="kw">null</span> : <span class="at">Number</span>(<span class="va">input</span>.<span class="at">age</span>)<span class="op">,</span>
+    <span class="dt">email</span><span class="op">:</span> <span class="at">validateEmail</span>(<span class="va">input</span>.<span class="va">email</span>.<span class="at">trim</span>())
+<span class="op">}</span></code></pre></div>
+<p>在读连接类代码的时候，还可以思考的是报错情况下的处理。</p>
+<p>一段程序会抛出错误吗？能删除坏值吗？或者可以将其强制转换成可以接受的值？对于它们执行的环境来说，这些是正确的选择吗？类型转换是否是有损的？这些问题都是很值得思考的。</p>
+<h4 id="什么是接口定义类代码">什么是接口定义类代码</h4>
+<p>可能你写过一些只在一两个地方用得到的模块，它们基本是在内部使用的，你不希望有人费很大劲去读这些模块。</p>
+<p>而接口定义类代码却恰恰和上述情况相反。它们是模块之间泾渭分明的边界线。</p>
+<p>下面的例子来自于Node的<code>events.js</code>：</p>
+<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="va">exports</span>.<span class="at">usingDomains</span> <span class="op">=</span> <span class="kw">false</span><span class="op">;</span>
+
+<span class="kw">function</span> <span class="at">EventEmitter</span>() <span class="op">{</span> <span class="op">}</span>
+<span class="va">exports</span>.<span class="at">EventEmitter</span> <span class="op">=</span> EventEmitter<span class="op">;</span>
+
+<span class="va">EventEmitter</span>.<span class="va">prototype</span>.<span class="at">setMaxListeners</span> <span class="op">=</span> <span class="kw">function</span> <span class="at">setMaxListeners</span>(n) <span class="op">{</span> <span class="op">};</span>
+<span class="va">EventEmitter</span>.<span class="va">prototype</span>.<span class="at">emit</span> <span class="op">=</span> <span class="kw">function</span> <span class="at">emit</span>(type) <span class="op">{</span> <span class="op">};</span>
+<span class="va">EventEmitter</span>.<span class="va">prototype</span>.<span class="at">addListener</span> <span class="op">=</span> <span class="kw">function</span> <span class="at">addListener</span>(type<span class="op">,</span> listener) <span class="op">{</span> <span class="op">};</span>
+<span class="va">EventEmitter</span>.<span class="va">prototype</span>.<span class="at">on</span> <span class="op">=</span> <span class="va">EventEmitter</span>.<span class="va">prototype</span>.<span class="at">addListener</span><span class="op">;</span>
+<span class="va">EventEmitter</span>.<span class="va">prototype</span>.<span class="at">once</span> <span class="op">=</span> <span class="kw">function</span> <span class="at">once</span>(type<span class="op">,</span> listener) <span class="op">{</span> <span class="op">};</span>
+<span class="va">EventEmitter</span>.<span class="va">prototype</span>.<span class="at">removeListener</span> <span class="op">=</span> <span class="kw">function</span> <span class="at">removeListener</span>(type<span class="op">,</span> listener) <span class="op">{</span> <span class="op">};</span>
+<span class="va">EventEmitter</span>.<span class="va">prototype</span>.<span class="at">removeAllListeners</span> <span class="op">=</span> <span class="kw">function</span> <span class="at">removeAllListeners</span>(type) <span class="op">{};</span>
+<span class="va">EventEmitter</span>.<span class="va">prototype</span>.<span class="at">listeners</span> <span class="op">=</span> <span class="kw">function</span> <span class="at">listeners</span>(type) <span class="op">{</span> <span class="op">};</span>
+<span class="va">EventEmitter</span>.<span class="at">listenerCount</span> <span class="op">=</span> <span class="kw">function</span>(emitter<span class="op">,</span> type) <span class="op">{</span> <span class="op">};</span></code></pre></div>
+<p>上面的代码在定义<code>EventEmitter</code>的接口。</p>
+<p>关于这类代码可以思考的问题包括：它们是否完全？能提供哪些保证？内部的细节信息会暴露给用户吗？</p>
+<p>在一个有严格接口定义的架构中，上面就是这类代码应该出现的地方。</p>
+<p>就像连接类代码一样，我们可以思考它是怎样处理错误和报错的。处理方法前后一致吗？能区分出因为内部不一致而出现的错误和因为用户使用不当而出现的错误吗？</p>
+<h4 id="实现类代码">实现类代码</h4>
+<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript">startRouting<span class="op">:</span> <span class="kw">function</span>() <span class="op">{</span>
+  <span class="kw">this</span>.<span class="at">router</span> <span class="op">=</span> <span class="kw">this</span>.<span class="at">router</span> <span class="op">||</span> <span class="kw">this</span>.<span class="va">constructor</span>.<span class="at">map</span>(K)<span class="op">;</span>
+
+  <span class="kw">var</span> router <span class="op">=</span> <span class="kw">this</span>.<span class="at">router</span><span class="op">;</span>
+  <span class="kw">var</span> location <span class="op">=</span> <span class="at">get</span>(<span class="kw">this</span><span class="op">,</span> <span class="st">'location'</span>)<span class="op">;</span>
+  <span class="kw">var</span> container <span class="op">=</span> <span class="kw">this</span>.<span class="at">container</span><span class="op">;</span>
+  <span class="kw">var</span> self <span class="op">=</span> <span class="kw">this</span><span class="op">;</span>
+  <span class="kw">var</span> initialURL <span class="op">=</span> <span class="at">get</span>(<span class="kw">this</span><span class="op">,</span> <span class="st">'initialURL'</span>)<span class="op">;</span>
+  <span class="kw">var</span> initialTransition<span class="op">;</span>
+
+  <span class="co">// Allow the Location class to cancel the router setup while it refreshes</span>
+  <span class="co">// the page</span>
+  <span class="cf">if</span> (<span class="at">get</span>(location<span class="op">,</span> <span class="st">'cancelRouterSetup'</span>)) <span class="op">{</span>
+    <span class="cf">return</span><span class="op">;</span>
+  <span class="op">}</span>
+
+  <span class="kw">this</span>.<span class="at">_setupRouter</span>(router<span class="op">,</span> location)<span class="op">;</span>
+
+  <span class="va">container</span>.<span class="at">register</span>(<span class="st">'view:default'</span><span class="op">,</span> _MetamorphView)<span class="op">;</span>
+  <span class="va">container</span>.<span class="at">register</span>(<span class="st">'view:toplevel'</span><span class="op">,</span> <span class="va">EmberView</span>.<span class="at">extend</span>())<span class="op">;</span>
+
+  <span class="va">location</span>.<span class="at">onUpdateURL</span>(<span class="kw">function</span>(url) <span class="op">{</span>
+    <span class="va">self</span>.<span class="at">handleURL</span>(url)<span class="op">;</span>
+  <span class="op">}</span>)<span class="op">;</span>
+
+  <span class="cf">if</span> (<span class="kw">typeof</span> initialURL <span class="op">===</span> <span class="st">&quot;undefined&quot;</span>) <span class="op">{</span>
+    initialURL <span class="op">=</span> <span class="va">location</span>.<span class="at">getURL</span>()<span class="op">;</span>
+  <span class="op">}</span>
+  initialTransition <span class="op">=</span> <span class="kw">this</span>.<span class="at">handleURL</span>(initialURL)<span class="op">;</span>
+  <span class="cf">if</span> (initialTransition <span class="op">&amp;&amp;</span> <span class="va">initialTransition</span>.<span class="at">error</span>) <span class="op">{</span>
+    <span class="cf">throw</span> <span class="va">initialTransition</span>.<span class="at">error</span><span class="op">;</span>
+  <span class="op">}</span>
+<span class="op">},</span></code></pre></div>
+<p>上面的示例取自<code>Ember.Router</code>。</p>
+<p>这里往往是需要在“为什么”上作更多说明的地方。</p>
+<p>读这类代码的时候应着重思考它是怎样跟更大的整体相融合的。</p>
+<p>从公共接口中传入的值是怎样的？哪些需要验证(validation)？包含我们认为该有的值吗？会影响到其他哪些部分？当需要改写以加入新功能的时候会有哪些潜在危险？可能会导致程序崩溃的地方有哪些？有测试代码来对其进行测试吗？变量的生命周期是什么？</p>
+<h4 id="算法">算法</h4>
+<p>算法类代码是实现类代码的一种，通常是封装起来不对外暴露的。它可以说是程序的血肉。也是一款软件的业务逻辑和主进程所在。</p>
+<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="kw">function</span> <span class="at">Grammar</span>(rules) <span class="op">{</span>
+  <span class="co">// Processing The Grammar</span>
+  <span class="co">//</span>
+  <span class="co">// Here we begin defining a grammar given the raw rules, terminal</span>
+  <span class="co">// symbols, and symbolic references to rules</span>
+  <span class="co">//</span>
+  <span class="co">// The input is a list of rules.</span>
+  <span class="co">//</span>
+  <span class="co">// The input grammar is amended with a final rule, the 'accept' rule,</span>
+  <span class="co">// which if it spans the parse chart, means the entire grammar was</span>
+  <span class="co">// accepted. This is needed in the case of a nulling start symbol.</span>
+  <span class="va">rules</span>.<span class="at">push</span>(<span class="at">Rule</span>(<span class="st">'_accept'</span><span class="op">,</span> [<span class="at">Ref</span>(<span class="st">'start'</span>)]))<span class="op">;</span>
+  <span class="va">rules</span>.<span class="at">acceptRule</span> <span class="op">=</span> <span class="va">rules</span>.<span class="at">length</span> <span class="op">-</span> <span class="dv">1</span><span class="op">;</span></code></pre></div>
+<p>上面的代码出自一个叫做<code>lotsawa</code>的解析引擎。</p>
+<p>人们常说好的注释应该告诉读者为什么这件事情要这样来做，而不是一段代码在做什么。算法类代码通常需要更多的解释，因为如果是一个很简单的算法的话，那通常它就已经被吸纳进标准库中了。</p>
+<p>下面这段代码是计算机系学生喜欢的（或者有糟糕记忆的）：</p>
+<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="co">// Build a list of all the symbols used in the grammar so they can be numbered instead of referred to</span>
+<span class="co">// by name, and therefore their presence can be represented by a single bit in a set.</span>
+  <span class="kw">function</span> <span class="at">censusSymbols</span>() <span class="op">{</span>
+    <span class="kw">var</span> out <span class="op">=</span> []<span class="op">;</span>
+    <span class="va">rules</span>.<span class="at">forEach</span>(<span class="kw">function</span>(r) <span class="op">{</span>
+      <span class="cf">if</span> (<span class="op">!~</span><span class="va">out</span>.<span class="at">indexOf</span>(<span class="va">r</span>.<span class="at">name</span>)) <span class="va">out</span>.<span class="at">push</span>(<span class="va">r</span>.<span class="at">name</span>)<span class="op">;</span>
+
+      <span class="va">r</span>.<span class="va">symbols</span>.<span class="at">forEach</span>(<span class="kw">function</span>(s<span class="op">,</span> i) <span class="op">{</span>
+        <span class="kw">var</span> symNo <span class="op">=</span> <span class="va">out</span>.<span class="at">indexOf</span>(<span class="va">s</span>.<span class="at">name</span>)<span class="op">;</span>
+        <span class="cf">if</span> (<span class="op">!~</span><span class="va">out</span>.<span class="at">indexOf</span>(<span class="va">s</span>.<span class="at">name</span>)) <span class="op">{</span>
+          symNo <span class="op">=</span> <span class="va">out</span>.<span class="at">length</span><span class="op">;</span>
+          <span class="va">out</span>.<span class="at">push</span>(<span class="va">s</span>.<span class="at">name</span>)<span class="op">;</span>
+        <span class="op">}</span>
+
+        <span class="va">r</span>.<span class="at">symbols</span>[i] <span class="op">=</span> symNo<span class="op">;</span>
+      <span class="op">}</span>)<span class="op">;</span>
+
+      <span class="va">r</span>.<span class="at">sym</span> <span class="op">=</span> <span class="va">out</span>.<span class="at">indexOf</span>(<span class="va">r</span>.<span class="at">name</span>)<span class="op">;</span>
+    <span class="op">}</span>)<span class="op">;</span>
+
+    <span class="cf">return</span> out<span class="op">;</span>
+  <span class="op">}</span>
+
+  <span class="va">rules</span>.<span class="at">symbols</span> <span class="op">=</span> <span class="at">censusSymbols</span>()<span class="op">;</span></code></pre></div>
+<p>读起来像是数学论文，对吗？</p>
+<p>在读算法类代码的时候需要关注的事情之一就是其运用的数据结构。上面的程序建了一个符号列表，并确保其中没有重复元素。</p>
+<p>读的时候同时也要注意有关程序时间复杂度的线索。上面的代码中，有两个循环。用大O来记的话，时间复杂度就是O(n * m)。但已经有人注意到，循环之中还有<code>indexOf</code>的调用。这在Javascript中也是循环操作。因此这又在时间复杂度上加了一个因子。还好这段代码并不是该算法的主要部分。</p>
+<h4 id="配置">配置</h4>
+<p>源代码和配置文件之间的界线非常的窄。对配置文件来说，表达力强、可读性强和直接之间永远是冲突的。</p>
+<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="va">app</span>.<span class="at">configure</span>(<span class="st">'production'</span><span class="op">,</span> <span class="st">'staging'</span><span class="op">,</span> <span class="kw">function</span>() <span class="op">{</span>
+  <span class="va">app</span>.<span class="at">enable</span>(<span class="st">'emails'</span>)<span class="op">;</span>
+<span class="op">}</span>)<span class="op">;</span>
+
+<span class="va">app</span>.<span class="at">configure</span>(<span class="st">'test'</span><span class="op">,</span> <span class="kw">function</span>() <span class="op">{</span>
+  <span class="va">app</span>.<span class="at">disable</span>(<span class="st">'emails'</span>)<span class="op">;</span>
+<span class="op">}</span>)<span class="op">;</span></code></pre></div>
+<p>上面是一个用Javascript进行配置的例子。</p>
+<p>在这里可能会遇到的问题是不同选项的组合爆炸性增长。应该配置多少个环境？在每一个环境实例中又配置哪些东西？我们很容易就会过度配置，去考虑所有的情况，但是bug可能只出现于其中一种情况中。时刻注意配置文件给我们多少自由度是非常有用的。</p>
+<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="st">&quot;express&quot;</span><span class="op">:</span> <span class="op">{</span>
+    <span class="st">&quot;env&quot;</span><span class="op">:</span> <span class="st">&quot;&quot;</span><span class="op">,</span> <span class="co">// NOTE: `env` is managed by the framework. This value will be overwritten.</span>
+    <span class="st">&quot;x-powered-by&quot;</span><span class="op">:</span> <span class="kw">false</span><span class="op">,</span>
+    <span class="st">&quot;views&quot;</span><span class="op">:</span> <span class="st">&quot;path:./views&quot;</span><span class="op">,</span>
+    <span class="st">&quot;mountpath&quot;</span><span class="op">:</span> <span class="st">&quot;/&quot;</span>
+<span class="op">},</span>
+
+<span class="st">&quot;middleware&quot;</span><span class="op">:</span> <span class="op">{</span>
+
+    <span class="st">&quot;compress&quot;</span><span class="op">:</span> <span class="op">{</span>
+        <span class="st">&quot;enabled&quot;</span><span class="op">:</span> <span class="kw">false</span><span class="op">,</span>
+        <span class="st">&quot;priority&quot;</span><span class="op">:</span> <span class="dv">10</span><span class="op">,</span>
+        <span class="st">&quot;module&quot;</span><span class="op">:</span> <span class="st">&quot;compression&quot;</span>
+    <span class="op">},</span>
+
+    <span class="st">&quot;favicon&quot;</span><span class="op">:</span> <span class="op">{</span>
+        <span class="st">&quot;enabled&quot;</span><span class="op">:</span> <span class="kw">false</span><span class="op">,</span>
+        <span class="st">&quot;priority&quot;</span><span class="op">:</span> <span class="dv">30</span><span class="op">,</span>
+        <span class="st">&quot;module&quot;</span><span class="op">:</span> <span class="op">{</span>
+            <span class="st">&quot;name&quot;</span><span class="op">:</span> <span class="st">&quot;serve-favicon&quot;</span><span class="op">,</span>
+            <span class="st">&quot;arguments&quot;</span><span class="op">:</span> [ <span class="st">&quot;resolve:kraken-js/public/favicon.ico&quot;</span> ]
+        <span class="op">}</span>
+    <span class="op">},</span></code></pre></div>
+<p>上面是一小段<code>kraken</code>的配置文件。</p>
+<p>Kraken采取了“低功耗(low power)语言”的路，其配置文件采用JSON。更多一点“配置”，而相对少一点“源代码”。其目的之一就是让可选择项的数目可控。很多工具都采用简单的key-value对或者ini类的文件来做配置是有道理的，即使这样会使配置文件的表达力受限。</p>
+<p>配置类的代码有如下一些值得思考的有趣而独特的限制：</p>
+<ul>
+<li>生命周期</li>
+<li>机器可写性</li>
+<li>对一段代码负有责任的人会多很多</li>
+<li>怎样适用在一些奇怪的地方，比如环境变量</li>
+<li>往往有涉及安全的敏感信息</li>
+</ul>
+<h4 id="任务类">任务类</h4>
+<p>对50张信用卡计费，用编译器和其他构建工具开发一个复杂的软件，发出100封电子邮件。这些事情有什么共同点？</p>
+<p>事务性。通常一个系统的某一部分只需严格执行一次，而遇到错误的话则完全不执行。编译器遗留下的错误构建文件是bug的一大来源。对客户重复收费是很糟糕的。因为重试而向用户邮箱滥发邮件也很可怕。</p>
+<p>重启性。能根据系统状态，在之前退出的地方继续运行。</p>
+<p>序列性。对于不是严格线性的程序，通常都有一个方向明晰的执行流程。循环是其中一大块。</p>
+<h4 id="阅读杂乱代码">阅读杂乱代码</h4>
+<p>一般人会怎样入手下面的一段代码：</p>
+<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript">      <span class="va">DuplexCombination</span>.<span class="va">prototype</span>.<span class="at">on</span> <span class="op">=</span> <span class="kw">function</span>(ev<span class="op">,</span> fn) <span class="op">{</span>
+    <span class="cf">switch</span> (ev) <span class="op">{</span>
+  <span class="cf">case</span> <span class="st">'data'</span><span class="op">:</span>
+  <span class="cf">case</span> <span class="st">'end'</span><span class="op">:</span>
+  <span class="cf">case</span> <span class="st">'readable'</span><span class="op">:</span>
+<span class="kw">this</span>.<span class="va">reader</span>.<span class="at">on</span>(ev<span class="op">,</span> fn)<span class="op">;</span>
+<span class="cf">return</span> <span class="kw">this</span>
+  <span class="cf">case</span> <span class="st">'drain'</span><span class="op">:</span>
+  <span class="cf">case</span> <span class="st">'finish'</span><span class="op">:</span>
+<span class="kw">this</span>.<span class="va">writer</span>.<span class="at">on</span>(ev<span class="op">,</span> fn)<span class="op">;</span>
+<span class="cf">return</span> <span class="kw">this</span>
+  <span class="dt">default</span><span class="op">:</span>
+<span class="cf">return</span> <span class="va">Duplex</span>.<span class="va">prototype</span>.<span class="va">on</span>.<span class="at">call</span>(<span class="kw">this</span><span class="op">,</span> ev<span class="op">,</span> fn)<span class="op">;</span>
+<span class="op">}</span>
+<span class="op">};</span></code></pre></div>
+<p>对，这就是反向缩进，要怪就怪Issac吧。</p>
+<h4 id="美化一下">美化一下！</h4>
+<p><code>standard -F dc.js</code></p>
+<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="va">DuplexCombination</span>.<span class="va">prototype</span>.<span class="at">on</span> <span class="op">=</span> <span class="kw">function</span> (ev<span class="op">,</span> fn) <span class="op">{</span>
+  <span class="cf">switch</span> (ev) <span class="op">{</span>
+    <span class="cf">case</span> <span class="st">'data'</span><span class="op">:</span>
+    <span class="cf">case</span> <span class="st">'end'</span><span class="op">:</span>
+    <span class="cf">case</span> <span class="st">'readable'</span><span class="op">:</span>
+      <span class="kw">this</span>.<span class="va">reader</span>.<span class="at">on</span>(ev<span class="op">,</span> fn)
+      <span class="cf">return</span> <span class="kw">this</span>
+    <span class="cf">case</span> <span class="st">'drain'</span><span class="op">:</span>
+    <span class="cf">case</span> <span class="st">'finish'</span><span class="op">:</span>
+      <span class="kw">this</span>.<span class="va">writer</span>.<span class="at">on</span>(ev<span class="op">,</span> fn)
+      <span class="cf">return</span> <span class="kw">this</span>
+    <span class="dt">default</span><span class="op">:</span>
+      <span class="cf">return</span> <span class="va">Duplex</span>.<span class="va">prototype</span>.<span class="va">on</span>.<span class="at">call</span>(<span class="kw">this</span><span class="op">,</span> ev<span class="op">,</span> fn)
+  <span class="op">}</span>
+<span class="op">}</span></code></pre></div>
+<p>读代码的时候使用工具是很好的。</p>
+<p>又比如下面这段代码：</p>
+<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript">(<span class="kw">function</span>(t<span class="op">,</span>e)<span class="op">{</span><span class="cf">if</span>(<span class="kw">typeof</span> define<span class="op">===</span><span class="st">&quot;function&quot;</span><span class="op">&amp;&amp;</span><span class="va">define</span>.<span class="at">amd</span>)<span class="op">{</span><span class="at">define</span>([<span class="st">&quot;underscore&quot;</span><span class="op">,</span><span class="st">&quot;</span>
+jquery<span class="st">&quot;,&quot;</span>exports<span class="st">&quot;],function(i,r,s){t.Backbone=e(t,s,i,r)})}else if(typeof export</span>
+s<span class="op">!==</span><span class="st">&quot;undefined&quot;</span>)<span class="op">{</span><span class="kw">var</span> i<span class="op">=</span><span class="at">require</span>(<span class="st">&quot;underscore&quot;</span>)<span class="op">;</span><span class="at">e</span>(t<span class="op">,</span>exports<span class="op">,</span>i)<span class="op">}</span><span class="cf">else</span><span class="op">{</span><span class="va">t</span>.<span class="at">Backbone</span><span class="op">=</span><span class="at">e</span>(t<span class="op">,</span>
+<span class="op">{},</span><span class="va">t</span>.<span class="at">_</span><span class="op">,</span><span class="va">t</span>.<span class="at">jQuery</span><span class="op">||</span><span class="va">t</span>.<span class="at">Zepto</span><span class="op">||</span><span class="va">t</span>.<span class="at">ender</span><span class="op">||</span><span class="va">t</span>.<span class="at">$</span>)<span class="op">}}</span>)(<span class="kw">this</span><span class="op">,</span><span class="kw">function</span>(t<span class="op">,</span>e<span class="op">,</span>i<span class="op">,</span>r)<span class="op">{</span><span class="kw">var</span> s<span class="op">=</span><span class="va">t</span>.<span class="at">Backbo</span>
+ne<span class="op">;</span><span class="kw">var</span> n<span class="op">=</span>[]<span class="op">;</span><span class="kw">var</span> a<span class="op">=</span><span class="va">n</span>.<span class="at">push</span><span class="op">;</span><span class="kw">var</span> o<span class="op">=</span><span class="va">n</span>.<span class="at">slice</span><span class="op">;</span><span class="kw">var</span> h<span class="op">=</span><span class="va">n</span>.<span class="at">splice</span><span class="op">;</span><span class="va">e</span>.<span class="at">VERSION</span><span class="op">=</span><span class="st">&quot;1.1.2&quot;</span><span class="op">;</span><span class="va">e</span>.<span class="at">$</span><span class="op">=</span>r<span class="op">;</span><span class="va">e</span>.
+noConflict<span class="op">=</span><span class="kw">function</span>()<span class="op">{</span><span class="va">t</span>.<span class="at">Backbone</span><span class="op">=</span>s<span class="op">;</span><span class="cf">return</span> <span class="kw">this</span><span class="op">};</span><span class="va">e</span>.<span class="at">emulateHTTP</span><span class="op">=</span><span class="kw">false</span><span class="op">;</span><span class="va">e</span>.<span class="at">emulateJSO</span>
+N<span class="op">=</span><span class="kw">false</span><span class="op">;</span><span class="kw">var</span> u<span class="op">=</span><span class="va">e</span>.<span class="at">Events</span><span class="op">={</span><span class="dt">on</span><span class="op">:</span><span class="kw">function</span>(t<span class="op">,</span>e<span class="op">,</span>i)<span class="op">{</span><span class="cf">if</span>(<span class="op">!</span><span class="at">c</span>(<span class="kw">this</span><span class="op">,</span><span class="st">&quot;on&quot;</span><span class="op">,</span>t<span class="op">,</span>[e<span class="op">,</span>i])<span class="op">||!</span>e)<span class="cf">return</span> t
+his<span class="op">;</span><span class="kw">this</span>.<span class="at">_events</span><span class="op">||</span>(<span class="kw">this</span>.<span class="at">_events</span><span class="op">={}</span>)<span class="op">;</span><span class="kw">var</span> r<span class="op">=</span><span class="kw">this</span>.<span class="at">_events</span>[t]<span class="op">||</span>(<span class="kw">this</span>.<span class="at">_events</span>[t]<span class="op">=</span>[])<span class="op">;</span>
+<span class="va">r</span>.<span class="at">push</span>(<span class="op">{</span><span class="dt">callback</span><span class="op">:</span>e<span class="op">,</span><span class="dt">context</span><span class="op">:</span>i<span class="op">,</span><span class="dt">ctx</span><span class="op">:</span>i<span class="op">||</span><span class="kw">this</span><span class="op">}</span>)<span class="op">;</span><span class="cf">return</span> <span class="kw">this</span><span class="op">},</span><span class="dt">once</span><span class="op">:</span><span class="kw">function</span>(t<span class="op">,</span>e<span class="op">,</span>r)<span class="op">{</span><span class="cf">if</span>(
+<span class="op">!</span><span class="at">c</span>(<span class="kw">this</span><span class="op">,</span><span class="st">&quot;once&quot;</span><span class="op">,</span>t<span class="op">,</span>[e<span class="op">,</span>r])<span class="op">||!</span>e)<span class="cf">return</span> <span class="kw">this</span><span class="op">;</span><span class="kw">var</span> s<span class="op">=</span><span class="kw">this</span><span class="op">;</span><span class="kw">var</span> n<span class="op">=</span><span class="va">i</span>.<span class="at">once</span>(<span class="kw">function</span>()<span class="op">{</span><span class="va">s</span>.<span class="at">off</span>
+(t<span class="op">,</span>n)<span class="op">;</span><span class="va">e</span>.<span class="at">apply</span>(<span class="kw">this</span><span class="op">,</span>arguments)<span class="op">}</span>)<span class="op">;</span><span class="va">n</span>.<span class="at">_callback</span><span class="op">=</span>e<span class="op">;</span><span class="cf">return</span> <span class="kw">this</span>.<span class="at">on</span>(t<span class="op">,</span>n<span class="op">,</span>r)<span class="op">},</span><span class="dt">off</span><span class="op">:</span>functio
+<span class="at">n</span>(t<span class="op">,</span>e<span class="op">,</span>r)<span class="op">{</span><span class="kw">var</span> s<span class="op">,</span>n<span class="op">,</span>a<span class="op">,</span>o<span class="op">,</span>h<span class="op">,</span>u<span class="op">,</span>l<span class="op">,</span>f<span class="op">;</span><span class="cf">if</span>(<span class="op">!</span><span class="kw">this</span>.<span class="at">_events</span><span class="op">||!</span><span class="at">c</span>(<span class="kw">this</span><span class="op">,</span><span class="st">&quot;off&quot;</span><span class="op">,</span>t<span class="op">,</span>[e<span class="op">,</span>r]))<span class="cf">return</span> thi
+s<span class="op">;</span><span class="cf">if</span>(<span class="op">!</span>t<span class="op">&amp;&amp;!</span>e<span class="op">&amp;&amp;!</span>r)<span class="op">{</span><span class="kw">this</span>.<span class="at">_events</span><span class="op">=</span><span class="kw">void</span> <span class="dv">0</span><span class="op">;</span><span class="cf">return</span> <span class="kw">this</span><span class="op">}</span>o<span class="op">=</span>t<span class="op">?</span>[t]:<span class="va">i</span>.<span class="at">keys</span>(<span class="kw">this</span>.<span class="at">_events</span>)<span class="op">;</span>fo
+<span class="at">r</span>(h<span class="op">=</span><span class="dv">0</span><span class="op">,</span>u<span class="op">=</span><span class="va">o</span>.<span class="at">length</span><span class="op">;</span>h<span class="op">&lt;</span>u<span class="op">;</span>h<span class="op">++</span>)<span class="op">{</span>t<span class="op">=</span>o[h]<span class="op">;</span><span class="cf">if</span>(a<span class="op">=</span><span class="kw">this</span>.<span class="at">_events</span>[t])<span class="op">{</span><span class="kw">this</span>.<span class="at">_events</span>[t]<span class="op">=</span>s<span class="op">=</span>[]<span class="op">;</span><span class="cf">if</span>(e
+<span class="op">||</span>r)<span class="op">{</span><span class="cf">for</span>(l<span class="op">=</span><span class="dv">0</span><span class="op">,</span>f<span class="op">=</span><span class="va">a</span>.<span class="at">length</span><span class="op">;</span>l<span class="op">&lt;</span>f<span class="op">;</span>l<span class="op">++</span>)<span class="op">{</span>n<span class="op">=</span>a[l]<span class="op">;</span><span class="cf">if</span>(e<span class="op">&amp;&amp;</span>e<span class="op">!==</span><span class="va">n</span>.<span class="at">callback</span><span class="op">&amp;&amp;</span>e<span class="op">!==</span><span class="va">n</span>.<span class="va">callback</span>.<span class="at">_ca</span>
+llback<span class="op">||</span>r<span class="op">&amp;&amp;</span>r<span class="op">!==</span><span class="va">n</span>.<span class="at">context</span>)<span class="op">{</span><span class="va">s</span>.<span class="at">push</span>(n)<span class="op">}}}</span><span class="cf">if</span>(<span class="op">!</span><span class="va">s</span>.<span class="at">length</span>)<span class="kw">delete</span> <span class="kw">this</span>.<span class="at">_events</span>[t]<span class="op">}}</span>retur
+n <span class="kw">this</span><span class="op">},</span><span class="dt">trigger</span><span class="op">:</span><span class="kw">function</span>(t)<span class="op">{</span><span class="cf">if</span>(<span class="op">!</span><span class="kw">this</span>.<span class="at">_events</span>)<span class="cf">return</span> <span class="kw">this</span><span class="op">;</span><span class="kw">var</span> e<span class="op">=</span><span class="va">o</span>.<span class="at">call</span>(arguments<span class="op">,</span>
+<span class="dv">1</span>)<span class="op">;</span><span class="cf">if</span>(<span class="op">!</span><span class="at">c</span>(<span class="kw">this</span><span class="op">,</span><span class="st">&quot;trigger&quot;</span><span class="op">,</span>t<span class="op">,</span>e))<span class="cf">return</span> <span class="kw">this</span><span class="op">;</span><span class="kw">var</span> i<span class="op">=</span><span class="kw">this</span>.<span class="at">_events</span>[t]<span class="op">;</span><span class="kw">var</span> r<span class="op">=</span><span class="kw">this</span>.<span class="at">_event</span>
+<span class="va">s</span>.<span class="at">all</span><span class="op">;</span><span class="cf">if</span>(i)<span class="at">f</span>(i<span class="op">,</span>e)<span class="op">;</span><span class="cf">if</span>(r)<span class="at">f</span>(r<span class="op">,</span>arguments)<span class="op">;</span><span class="cf">return</span> <span class="kw">this</span><span class="op">},</span><span class="dt">stopListening</span><span class="op">:</span><span class="kw">function</span>(t<span class="op">,</span>e<span class="op">,</span>r)
+<span class="op">{</span><span class="kw">var</span> s<span class="op">=</span><span class="kw">this</span>.<span class="at">_listeningTo</span><span class="op">;</span><span class="cf">if</span>(<span class="op">!</span>s)<span class="cf">return</span> <span class="kw">this</span><span class="op">;</span><span class="kw">var</span> n<span class="op">=!</span>e<span class="op">&amp;&amp;!</span>r<span class="op">;</span><span class="cf">if</span>(<span class="op">!</span>r<span class="op">&amp;&amp;</span><span class="kw">typeof</span> e<span class="op">===</span><span class="st">&quot;objec&quot;</span></code></pre></div>
+<p><code>uglifyjs -b &lt; backbone-min.js</code></p>
+<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript">(<span class="kw">function</span>(t<span class="op">,</span> e) <span class="op">{</span>
+    <span class="cf">if</span> (<span class="kw">typeof</span> define <span class="op">===</span> <span class="st">&quot;function&quot;</span> <span class="op">&amp;&amp;</span> <span class="va">define</span>.<span class="at">amd</span>) <span class="op">{</span>
+        <span class="at">define</span>([ <span class="st">&quot;underscore&quot;</span><span class="op">,</span> <span class="st">&quot;jquery&quot;</span><span class="op">,</span> <span class="st">&quot;exports&quot;</span> ]<span class="op">,</span> <span class="kw">function</span>(i<span class="op">,</span> r<span class="op">,</span> s) <span class="op">{</span>
+            <span class="va">t</span>.<span class="at">Backbone</span> <span class="op">=</span> <span class="at">e</span>(t<span class="op">,</span> s<span class="op">,</span> i<span class="op">,</span> r)<span class="op">;</span>
+        <span class="op">}</span>)<span class="op">;</span>
+    <span class="op">}</span> <span class="cf">else</span> <span class="cf">if</span> (<span class="kw">typeof</span> exports <span class="op">!==</span> <span class="st">&quot;undefined&quot;</span>) <span class="op">{</span>
+        <span class="kw">var</span> i <span class="op">=</span> <span class="at">require</span>(<span class="st">&quot;underscore&quot;</span>)<span class="op">;</span>
+        <span class="at">e</span>(t<span class="op">,</span> exports<span class="op">,</span> i)<span class="op">;</span>
+    <span class="op">}</span> <span class="cf">else</span> <span class="op">{</span>
+        <span class="va">t</span>.<span class="at">Backbone</span> <span class="op">=</span> <span class="at">e</span>(t<span class="op">,</span> <span class="op">{},</span> <span class="va">t</span>.<span class="at">_</span><span class="op">,</span> <span class="va">t</span>.<span class="at">jQuery</span> <span class="op">||</span> <span class="va">t</span>.<span class="at">Zepto</span> <span class="op">||</span> <span class="va">t</span>.<span class="at">ender</span> <span class="op">||</span> <span class="va">t</span>.<span class="at">$</span>)<span class="op">;</span>
+    <span class="op">}</span>
+<span class="op">}</span>)(<span class="kw">this</span><span class="op">,</span> <span class="kw">function</span>(t<span class="op">,</span> e<span class="op">,</span> i<span class="op">,</span> r) <span class="op">{</span>
+    <span class="kw">var</span> s <span class="op">=</span> <span class="va">t</span>.<span class="at">Backbone</span><span class="op">;</span>
+    <span class="kw">var</span> n <span class="op">=</span> []<span class="op">;</span>
+    <span class="kw">var</span> a <span class="op">=</span> <span class="va">n</span>.<span class="at">push</span><span class="op">;</span>
+    <span class="kw">var</span> o <span class="op">=</span> <span class="va">n</span>.<span class="at">slice</span><span class="op">;</span>
+    <span class="kw">var</span> h <span class="op">=</span> <span class="va">n</span>.<span class="at">splice</span><span class="op">;</span>
+    <span class="va">e</span>.<span class="at">VERSION</span> <span class="op">=</span> <span class="st">&quot;1.1.2&quot;</span><span class="op">;</span>
+    <span class="va">e</span>.<span class="at">$</span> <span class="op">=</span> r<span class="op">;</span>
+    <span class="va">e</span>.<span class="at">noConflict</span> <span class="op">=</span> <span class="kw">function</span>() <span class="op">{</span></code></pre></div>
+<h4 id="人的部分">人的部分</h4>
+<p>猜测代码作者的意图有很多的方法。</p>
+<h4 id="找guards和coercions">找guards和coercions</h4>
+<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="cf">if</span> (<span class="kw">typeof</span> arg <span class="op">!=</span> <span class="st">'number'</span>) <span class="cf">throw</span> <span class="kw">new</span> <span class="at">TypeError</span>(<span class="st">&quot;arg must be a number&quot;</span>)<span class="op">;</span></code></pre></div>
+<p>看上去函数的定义域是数值型。</p>
+<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript">arg <span class="op">=</span> <span class="at">Number</span>(arg)</code></pre></div>
+<p>强制转换为数值类型。和前面的一样，只是不再抛出错误。可能会有<code>NaN</code>出现。</p>
+<h4 id="找默认值">找默认值</h4>
+<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript">arg <span class="op">=</span> arg <span class="op">||</span> <span class="op">{}</span></code></pre></div>
+<p>默认为空。</p>
+<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript">arg <span class="op">=</span> (arg <span class="op">==</span> <span class="kw">null</span> <span class="op">?</span> <span class="kw">true</span> : arg)</code></pre></div>
+<p>如果没有相关参数传进来的话，则默认为true。</p>
+<h4 id="找层layers">找层（layers）</h4>
+<p>Express中的<code>req</code>和<code>res</code>是跟web相连的。它们会作用到哪一层呢？能够找到接口的边界吗？</p>
+<h4 id="找轨迹tracing">找轨迹（tracing）</h4>
+<p>有检查点吗？有debug日志吗？它们是一个完整的功能，还是之前的bug残留下来的呢？</p>
+<h4 id="找自反性reflexivity">找自反性（reflexivity）</h4>
+<p>识别符是动态生成的吗？有<code>eval</code>、元编程和新函数定义吗？<code>func.toString()</code>是一个很好的切入点。</p>
+<h4 id="找生命周期">找生命周期</h4>
+<ul>
+<li>被谁初始化的</li>
+<li>什么时候会改变</li>
+<li>被谁改变</li>
+<li>上述信息会在其他地方出现吗</li>
+<li>会出现不一致性吗</li>
+</ul>
+<p>某个时间，某个人输入了一个值。在另外的某个地方，某个时候这个值会对其他人产生影响，他们是谁？是什么或者谁来决定的？这个值会改变吗？由谁来改变？</p>
+<h4 id="找隐藏状态机hidden-state-machines">找隐藏状态机（hidden state machines）</h4>
+<p>有时候布尔变量会被当作解构了的状态机使用。</p>
+<p>例如，变量<code>isReadied</code>和<code>isFinished</code>可能隐含如下状态：</p>
+<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="kw">var</span> isReadied <span class="op">=</span> <span class="kw">false</span><span class="op">;</span>
+<span class="kw">var</span> isFinished <span class="op">=</span> <span class="kw">false</span><span class="op">;</span></code></pre></div>
+<p>或： <code>START -&gt; READY -&gt; FINISHED</code></p>
+<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript">isReadied <span class="op">|</span> isFinished <span class="op">|</span> state
+<span class="op">----------|------------|------------</span>
+<span class="kw">false</span>     <span class="op">|</span> <span class="kw">false</span>      <span class="op">|</span> START
+<span class="kw">false</span>     <span class="op">|</span> <span class="kw">true</span>       <span class="op">|</span> invalid
+<span class="kw">true</span>      <span class="op">|</span> <span class="kw">false</span>      <span class="op">|</span> READY
+<span class="kw">true</span>      <span class="op">|</span> <span class="kw">true</span>       <span class="op">|</span> FINISHED</code></pre></div>
+<h4 id="找构造composition和继承">找构造（composition)和继承</h4>
+<p>这段代码有我认识的部分吗？它们有名字吗？</p>
+<h4 id="找相同的操作">找相同的操作</h4>
+<p><code>map</code>, <code>reduce</code>, cross-join。</p>
+<p>是时候开始读源代码了，Enjoy！</p>
+
+        </div>
+        <script type="text/javascript">
+
+                var favicon=new Favico({
+                    bgColor : '#5CB85C',
+                    textColor : '#ff0',
+                });
+                favicon.badge(921);
+        </script>
+        </div>
+
+     
+ <footer class="footer">
+        <div class="fcontainer">
+            <div class="site-title-wrapper">
+                <h1 class="site-title-another "><a title="首页" href="../">首页</a><span>|</span></h1>
+                <h1 class="site-title-another "><a title="咖啡" href="../">咖啡</a><span>|</span></h1>
+                <h1 class="site-title-another "><a title="博客" href="http://smile921.github.io/ruhaskell/">博客</a></h1>
+            </div>
+
+            <p class="footer-copyright">© 2015 / smile921,&nbsp;&nbsp;ALL RIGHTS RESERVED.&nbsp;&nbsp;PUBLISHED WITH  <a href="http://jaspervdj.be/hakyll">Hakyll</a></p>
+        </div>
+</footer>
+    </body>
+</html>

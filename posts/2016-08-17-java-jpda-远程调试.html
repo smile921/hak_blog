@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <title>java jpda 远程调试</title>
+        <script type="text/javascript" src="../js/favico-0.3.9.min.js"></script>
+        <link rel="stylesheet" href="../css/default-highlight.css">
+		<link rel="stylesheet" type="text/css" href="../css/default.css" />
+        <link rel="shortcut icon" type="image/x-icon" href="../images/favicon.ico"> 
+       <!-- <link rel="stylesheet" href="/css/school-book.css"> -->
+        
+        <script type="text/javascript" src="../js/highlight-pack.js"></script>
+        <script>hljs.initHighlightingOnLoad();</script>
+    </head>
+    <body>
+     <header id="hd-block">
+    <h1 id="adage">不为有趣之事，何以遣无涯之生</h1>
+     </header>
+    <div class="container-1">
+        <div id="header">
+            <div id="logo">
+                <a href="../">曾经的脚印</a>
+            </div>
+            <div id="navigation">
+                <a href="../">Home</a>
+                <a href="../about.html">About</a>
+                <a href="../contact.html">Contact</a>
+                <a href="../archive.html">Archive</a>
+            </div>
+        </div>
+
+        <div id="content">
+            <h1>java jpda 远程调试</h1>
+
+            <div class="info">
+    Posted on August 17, 2016
+    
+</div>
+
+<h2 id="java-platform-debugger-architecturejpdajava平台调试架构-由java虚拟机后端和调试平台前端组成">Java Platform Debugger Architecture(JPDA:Java平台调试架构) 由Java虚拟机后端和调试平台前端组成</h2>
+<h2 id="对-执行java-或者java--jar-进行远程调试">对 执行java 或者java -jar 进行远程调试</h2>
+<h3 id="添加--agentlibjdwptransportdt_socketaddress9000serverysuspendn-即可">添加 -agentlib:jdwp=transport=dt_socket,address=9000,server=y,suspend=n 即可</h3>
+<ul>
+<li>注意一 transport=dt_socket 不可随意更改</li>
+<li>注意二 address 是端口，不是ip地址或者host地址</li>
+</ul>
+<p>例子 java MainClass ,这里MainClass是要运行的class名字包括包名称 &gt; “C:Files1.6.0_45.exe”<br />
+&gt; -agentlib:jdwp=transport=dt_socket,address=9000,server=y,suspend=n<br />
+&gt; -classpath .;“:1.0_ZJ”<br />
+&gt; “-Djava.ext.dirs=:1.0_ZJ” MainClass &gt; rem Listening for transport dt_socket at address: 9000 &gt; rem jpda program started</p>
+<h2 id="tomcat-远程调试">Tomcat 远程调试</h2>
+<p>不改文件进行远程调试,可以通过命令“catalia.bat jpda start”，用调试状态启动tomcat，</p>
+<pre><code>
+linux则是&quot;./catalia.sh jpda start&quot;。看catalia.bat 和 catalia.sh的区别,大致相同jpda参数是   
+  
+JPDA_TRANSPORT  (Optional) JPDA transport used when the &quot;jpda start&quot;   
+                command is executed. The default is &quot;dt_socket&quot;.   
+  
+JPDA_ADDRESS    (Optional) Java runtime options used when the &quot;jpda start&quot;   
+                command is executed. The default is 8000.   
+  
+JPDA_SUSPEND    (Optional) Java runtime options used when the &quot;jpda start&quot;   
+                command is executed. Specifies whether JVM should suspend   
+                execution immediately after startup. Default is &quot;n&quot;.   </code></pre>
+<p>这里默认的jpda端口号为8000</p>
+<blockquote>
+<p>E:-tomcat-6.0.44&gt;start “Tomcat” “D:Files1.8.0_51.exe”<br />
+-Djava.util.logging.config.file=“E:-tomcat-6.0.44.properties”<br />
+-Djava.util.logging.manager=org.apache.juli.ClassLoaderLogManager<br />
+-agentlib:jdwp=transport=dt_socket,address=8000,server=y,suspend=n<br />
+-Djava.endorsed.dirs=“E:-tomcat-6.0.44”<br />
+-classpath “E:-tomcat-6.0.44.jar”<br />
+-Dcatalina.base=“E:-tomcat-6.0.44” -Dcatalina.home=“E:-tomcat-6.0.44”<br />
+-Djava.io.tmpdir=“E:-tomcat-6.0.44”<br />
+org.apache.catalina.startup.Bootstrap start</p>
+</blockquote>
+<h2 id="sun-官方文档说明">Sun 官方文档说明</h2>
+<h3 id="description">DESCRIPTION</h3>
+<p>The Java Debugger, jdb, is a simple command-line debugger for Java classes. It is a demonstration of the Java Platform Debugger Architecture that provides inspection and debugging of a local or remote Java Virtual Machine.</p>
+<h3 id="starting-a-jdb-session">Starting a jdb Session</h3>
+<p>There are many ways to start a jdb session. The most frequently used way is to have jdb launch a new Java Virtual Machine (VM) with the main class of the application to be debugged. This is done by substituting the command jdb for java in the command line. For example, if your application’s main class is MyClass, you use the following command to debug it under JDB:</p>
+<blockquote>
+<p>C:&gt; jdb MyClass</p>
+</blockquote>
+<p>When started this way, jdb invokes a second Java VM with any specified parameters, loads the specified class, and stops the VM before executing that class’s first instruction.</p>
+<p>Another way to use jdb is by attaching it to a Java VM that is already running. A VM that is to be debugged with jdb must be started with the following options. These options load in-process debugging libraries and specify the kind of connection to be made.</p>
+<blockquote>
+<p>-agentlib:jdwp=transport=dt_shmem,server=y,suspend=n</p>
+</blockquote>
+<p>For example, the following command will run the MyClass application, and allow jdb to connect to it at a later time.</p>
+<blockquote>
+<p>C:&gt; java -agentlib:jdwp=transport=dt_shmem,address=jdbconn,server=y,suspend=n MyClass</p>
+</blockquote>
+<p>You can then attach jdb to the VM with the following commmand:</p>
+<blockquote>
+<p>C:&gt; jdb -attach jdbconn</p>
+</blockquote>
+<p>…</p>
+<blockquote>
+<p>Note that “MyClass” is not specified in the jdb command line in this case because jdb is connecting to an existing VM instead of launching a new one.</p>
+</blockquote>
+<p>There are many other ways to connect the debugger to a VM, and all of them are supported by jdb. The Java Platform Debugger Architecture has additional documentation on these connection options. For information on starting a J2SE 1.4.2 or early VM for use with jdb see 1.4.2 documentation</p>
+
+        </div>
+        <script type="text/javascript">
+
+                var favicon=new Favico({
+                    bgColor : '#5CB85C',
+                    textColor : '#ff0',
+                });
+                favicon.badge(921);
+        </script>
+        </div>
+
+     
+ <footer class="footer">
+        <div class="fcontainer">
+            <div class="site-title-wrapper">
+                <h1 class="site-title-another "><a title="首页" href="../">首页</a><span>|</span></h1>
+                <h1 class="site-title-another "><a title="咖啡" href="../">咖啡</a><span>|</span></h1>
+                <h1 class="site-title-another "><a title="博客" href="http://smile921.github.io/ruhaskell/">博客</a></h1>
+            </div>
+
+            <p class="footer-copyright">© 2015 / smile921,&nbsp;&nbsp;ALL RIGHTS RESERVED.&nbsp;&nbsp;PUBLISHED WITH  <a href="http://jaspervdj.be/hakyll">Hakyll</a></p>
+        </div>
+</footer>
+    </body>
+</html>

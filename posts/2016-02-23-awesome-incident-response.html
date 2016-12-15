@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <title>awesome-incident-response!</title>
+        <script type="text/javascript" src="../js/favico-0.3.9.min.js"></script>
+        <link rel="stylesheet" href="../css/default-highlight.css">
+		<link rel="stylesheet" type="text/css" href="../css/default.css" />
+        <link rel="shortcut icon" type="image/x-icon" href="../images/favicon.ico"> 
+       <!-- <link rel="stylesheet" href="/css/school-book.css"> -->
+        
+        <script type="text/javascript" src="../js/highlight-pack.js"></script>
+        <script>hljs.initHighlightingOnLoad();</script>
+    </head>
+    <body>
+     <header id="hd-block">
+    <h1 id="adage">不为有趣之事，何以遣无涯之生</h1>
+     </header>
+    <div class="container-1">
+        <div id="header">
+            <div id="logo">
+                <a href="../">曾经的脚印</a>
+            </div>
+            <div id="navigation">
+                <a href="../">Home</a>
+                <a href="../about.html">About</a>
+                <a href="../contact.html">Contact</a>
+                <a href="../archive.html">Archive</a>
+            </div>
+        </div>
+
+        <div id="content">
+            <h1>awesome-incident-response!</h1>
+
+            <div class="info">
+    Posted on February 23, 2016
+    
+</div>
+
+<h1 id="awesome-incident-response">awesome-incident-response</h1>
+<p>A curated list of tools and resources for security incident response, aimed to help security analysts and <a href="http://www.acronymfinder.com/Digital-Forensics%2c-Incident-Response-(DFIR).html">DFIR</a> teams.</p>
+<p><a href="https://github.com/sindresorhus/awesome"><img src="https://cdn.rawgit.com/sindresorhus/awesome/d7305f38d29fed78fa85652e3a63e154dd8e8829/media/badge.svg" alt="Awesome" /></a></p>
+<ul>
+<li><a href="#disk-image-creation-tools">Disk Image Creation Tools</a></li>
+<li><a href="#memory-analysis-tools">Memory Analysis Tools</a></li>
+<li><a href="#memory-imaging-tools">Memory Imaging Tools</a></li>
+<li><a href="#process-dump-tools">Process Dump Tools</a></li>
+<li><a href="#timeline-tools">Timeline tools</a></li>
+<li><a href="#all-in-one-tools">All in one tools</a></li>
+<li><a href="#incident-management">Incident Management</a></li>
+<li><a href="#windows-evidence-collection">Windows Evidence Collection</a></li>
+<li><a href="#osx-evidence-collection">OSX Evidence Collection</a></li>
+<li><a href="#sandboxingreversing-tools">Sandboxing/reversing tools</a></li>
+<li><a href="#other-tools">Other tools</a></li>
+<li><a href="#videos">Videos</a></li>
+<li><a href="#books">Books</a></li>
+</ul>
+<h2 id="ir-tools-collection">IR tools Collection</h2>
+<h3 id="disk-image-creation-tools">Disk Image Creation Tools</h3>
+<ul>
+<li><a href="http://www.forensicimager.com/">GetData Forensic Imager</a> - GetData Forensic Imager is a Windows based program that will acquire, convert, or verify a forensic image in one of the following common forensic file formats</li>
+<li><a href="http://guymager.sourceforge.net">Guymager</a> - Guymager is a free forensic imager for media acquisition on Linux</li>
+<li><a href="http://accessdata.com/support/adownloads#FTKImager">AccessData FTK Imager</a> - AccessData FTK Imager is a forensics tool whose main purpose is to preview recoverable data from a disk of any kind. FTK Imager can also acquire live memory and paging file on 32bit and 64bit systems</li>
+</ul>
+<h3 id="memory-analysis-tools">Memory Analysis Tools</h3>
+<ul>
+<li><a href="https://github.com/volatilityfoundation/volatility">Volatility</a> - An advanced memory forensics framework</li>
+<li><a href="https://github.com/JamesHabben/evolve">Evolve</a> - Web interface for the Volatility Memory Forensics Framework</li>
+<li><a href="http://www.windowsscope.com/index.php?page=shop.product_details&amp;flypage=flypage.tpl&amp;product_id=35&amp;category_id=3&amp;option=com_virtuemart">WindowsSCOPE</a> - another memory forensics and reverse engineering tool used for analyzing volatile memory. It is basically used for reverse engineering of malwares. It provides the capability of analyzing the Windows kernel, drivers, DLLs, virtual and physical memory</li>
+<li><a href="http://www.countertack.com/responder-pro">Responder PRO</a> - Responder PRO is the industry standard physical memory and automated malware analysis solution</li>
+<li><a href="http://www.gmgsystemsinc.com/knttools/">KnTList</a> - Computer memory analysis tools</li>
+<li><a href="http://www.rekall-forensic.com/">Rekall</a> - Open source tool (and library) for the extraction of digital artifacts from volatile memory (RAM) samples</li>
+<li><a href="https://www.fireeye.com/services/freeware/memoryze.html">Memoryze</a> - Memoryze by Mandiant is a free memory forensic software that helps incident responders find evil in live memory. Memoryze can acquire and/or analyze memory images, and on live systems, can include the paging file in its analysis.</li>
+<li><a href="https://www.fireeye.com/services/freeware/memoryze-for-the-mac.html">Memoryze for Mac</a> - Memoryze for Mac is Memoryze but then for Macs. A lower number of features, however.</li>
+</ul>
+<h3 id="memory-imaging-tools">Memory Imaging Tools</h3>
+<ul>
+<li><a href="http://www.osforensics.com/">OSForensics</a> - OSForensics can acquire live memory on 32bit and 64bit systems. A dump of an individual process’s memory space or physical memory dump can be done</li>
+<li><a href="http://forensic.belkasoft.com/en/ram-capturer">Belkasoft Live RAM Capturer</a> - A tiny free forensic tool to reliably extract the entire content of the computer’s volatile memory – even if protected by an active anti-debugging or anti-dumping system</li>
+</ul>
+<h3 id="process-dump-tools">Process Dump Tools</h3>
+<ul>
+<li><a href="http://ntsecurity.nu/toolbox/pmdump/">PMDump</a> - PMDump is a tool that lets you dump the memory contents of a process to a file without stopping the process</li>
+<li><a href="http://www.microsoft.com/en-us/download/details.aspx?id=4060">Microsoft User Mode Process Dumper</a> - The User Mode Process Dumper (userdump) dumps any running Win32 processes memory image on the fly</li>
+</ul>
+<h3 id="timeline-tools">Timeline tools</h3>
+<ul>
+<li><a href="https://github.com/log2timeline/plaso">Plaso</a> - a Python-based backend engine for the tool log2timeline</li>
+<li><a href="https://github.com/google/timesketch">Timesketch</a> -open source tool for collaborative forensic timeline analysis</li>
+<li><a href="https://www.fireeye.com/services/freeware/highlighter.html">Highlighter</a> - Free Tool available from Fire/Mandiant that will depict log/text file that can highlight areas on the graphic, that corresponded to a key word or phrase. Good for time lining an infection and what was done post compromise.</li>
+</ul>
+<h3 id="all-in-one-tools">All in one Tools</h3>
+<ul>
+<li><a href="http://www.x-ways.net/forensics/">X-Ways Forensics</a> - X-Ways is a forensics tool for Disk cloning and imaging. It can be used to find deleted files and disk analysis</li>
+<li><a href="http://www.sleuthkit.org">The Sleuth Kit &amp; Autopsy</a> - The Sleuth Kit is a Unix and Windows based tool which helps in forensic analysis of computers. It comes with various tools which helps in digital forensics. These tools help in analyzing disk images, performing in-depth analysis of file systems, and various other things</li>
+<li><a href="http://sourceforge.net/projects/ocfa/">Open Computer Forensics Architecture</a> - Open Computer Forensics Architecture (OCFA) is another popular distributed open-source computer forensics framework. This framework was built on Linux platform and uses postgreSQL database for storing data</li>
+<li><a href="http://www.arxsys.fr/discover/">Digital Forensics Framework</a> - DFF is an Open Source computer forensics platform built on top of a dedicated Application Programming Interface (API). DFF proposes an alternative to the aging digital forensics solutions used today. Designed for simple use and automation, the DFF interface guides the user through the main steps of a digital investigation so it can be used by both professional and non-expert to quickly and easily conduct a digital investigations and perform incident response</li>
+<li><a href="https://osquery.io/">Osquery</a> - with osquery you can easily ask questions about your Linux and OSX infrastructure. Whether your goal is intrusion detection, infrastructure reliability, or compliance, osquery gives you the ability to empower and inform a broad set of organizations within your company. Queries in the <em>incident-response pack</em> help you detect and respond to breaches.</li>
+<li><a href="https://github.com/jeffbryner/MozDef">MozDef</a> - The Mozilla Defense Platform (MozDef) seeks to automate the security incident handling process and facilitate the real-time activities of incident handlers.</li>
+<li><a href="https://github.com/google/grr">GRR Rapid Response</a> - GRR Rapid Response is an incident response framework focused on remote live forensics. It consists of a python agent (client) that is installed on target systems, and a python server infrastructure that can manage and talk to the agent.</li>
+<li><a href="http://mig.mozilla.org/">MIG</a> - Mozilla Investigator (MIG) is a platform to perform investigative surgery on remote endpoints. It enables investigators to obtain information from large numbers of systems in parallel, thus accelerating investigation of incidents and day-to-day operations security.</li>
+<li><a href="https://github.com/Netflix/Fido">FIDO</a> - Fully Integrated Defense Operation (FIDO) by Netflix is an orchestration layer used to automate the incident response process by evaluating, assessing and responding to malware. FIDO’s primary purpose is to handle the heavy manual effort needed to evaluate threats coming from today’s security stack and the large number of alerts generated by them.</li>
+<li><a href="https://www.fireeye.com/services/freeware/redline.html">Redline</a> - provides host investigative capabilities to users to find signs of malicious activity through memory and file analysis, and the development of a threat assessment profile.</li>
+</ul>
+<h3 id="incident-management">Incident Management</h3>
+<ul>
+<li><a href="https://github.com/certsocietegenerale/FIR/">FIR</a> - Fast Incident Response (FIR) is an cybersecurity incident management platform designed with agility and speed in mind. It allows for easy creation, tracking, and reporting of cybersecurity incidents and is useful for CSIRTs, CERTs and SOCs alike.</li>
+<li><a href="http://getscot.sandia.gov/">SCOT</a> - Sandia Cyber Omni Tracker (SCOT) is an Incident Response collaboration and knowledge capture tool focused on flexibility and ease of use. Our goal is to add value to the incident response process without burdening the user.</li>
+<li><a href="https://www.bestpractical.com/rtir/">RTIR</a> - Request Tracker for Incident Response (RTIR) is the premier open source incident handling system targeted for computer security teams. We worked with over a dozen CERT and CSIRT teams around the world to help you handle the ever-increasing volume of incident reports. RTIR builds on all the features of Request Tracker.</li>
+</ul>
+<h3 id="windows-evidence-collection">Windows Evidence Collection</h3>
+<ul>
+<li><a href="https://github.com/jipegit/FECT">FECT</a> - Fast Evidence Collector Toolkit (FECT) is a light incident response toolkit to collect evidences on a suspicious Windows computer. Basically it is intended to be used by non-tech savvy people working with a journeyman Incident Handler.</li>
+<li><a href="https://github.com/gfoss/PSRecon/">PSRecon</a> - PSRecon gathers data from a remote Windows host using PowerShell (v2 or later), organizes the data into folders, hashes all extracted data, hashes PowerShell and various system properties, and sends the data off to the security team. The data can be pushed to a share, sent over email, or retained locally.</li>
+<li><a href="https://github.com/SekoiaLab/Fastir_Collector">FastIR Collector</a> - FastIR Collector is a tool that collects different artefacts on live Windows systems and records the results in csv files. With the analyses of these artefacts, an early compromise can be detected.</li>
+<li><a href="http://www.moonsols.com/resources/">DumpIt</a> - DumpIt is used to generate a physical memory dump of Windows machines. It works with both x86 (32-bits) and x64 (64-bits) machines.</li>
+<li><a href="https://github.com/OMENScan/AChoir">AChoir</a> - Achoir is a framework/scripting tool to standardize and simplify the process of scripting live acquisition utilities for Windows.</li>
+<li><a href="https://code.google.com/p/regripper/wiki/RegRipper">RegRipper</a> - Regripper is an open source tool, written in Perl, for extracting/parsing information (keys, values, data) from the Registry and presenting it for analysis.</li>
+<li><a href="https://www.fireeye.com/services/freeware/ioc-finder.html">IOC Finder</a> - IOC Finder is a free tool from Mandiant for collecting host system data and reporting the presence of Indicators of Compromise (IOCs). Supports for Windows only.</li>
+</ul>
+<h3 id="osx-evidence-collection">OSX Evidence Collection</h3>
+<ul>
+<li><a href="https://github.com/jipegit/OSXAuditor">OSX Auditor</a> - OSX Auditor is a free Mac OS X computer forensics tool</li>
+</ul>
+<h3 id="sandboxingreversing-tools">Sandboxing/reversing tools</h3>
+<ul>
+<li><a href="https://github.com/cuckoobox">Cuckoo</a> - Open Source Highly configurable sandboxing tool</li>
+<li><a href="https://github.com/KoreLogicSecurity/mastiff">Mastiff</a> - MASTIFF is a static analysis framework that automates the process of extracting key characteristics from a number of different file formats.</li>
+<li><a href="https://github.com/viper-framework/viper">Viper</a> - Viper is a python based binary analysis and management framework, that works well with Cuckoo and YARA.</li>
+<li><a href="https://virustotal.com">Virustotal</a> - Virustotal, a subsidiary of Google, is a free online service that analyzes files and URLs enabling the identification of viruses, worms, trojans and other kinds of malicious content detected by antivirus engines and website scanners</li>
+<li><a href="https://malwr.com">Malwr</a> - Malwr is a free online malware analysis service and community, which is powered by the Cuckoo Sandbox</li>
+</ul>
+<h3 id="other-tools">Other Tools</h3>
+<ul>
+<li><a href="https://github.com/obsidianforensics/hindsight">Hindsight</a> - Internet history forensics for Google Chrome/Chromium</li>
+<li><a href="https://github.com/davehull/Kansa/">Kansa</a> - Kansa is a modular incident response framework in Powershell.</li>
+<li><a href="https://www.percona.com/doc/percona-toolkit/2.2/pt-stalk.html">Stalk</a> - Collect forensic data about MySQL when problems occur.</li>
+</ul>
+<h3 id="videos">Videos</h3>
+<ul>
+<li><a href="https://www.demisto.com/category/videos/">Demisto IR video resources</a> - Video Resources for Incident Response and Forensics Tools</li>
+<li><a href="https://www.youtube.com/watch?v=bDcx4UNpKNc">The Future of Incident Response</a> - Presented by Bruce Schneier at OWASP AppSecUSA 2015.</li>
+</ul>
+<h3 id="books">Books</h3>
+<ul>
+<li><a href="http://www.amazon.com/gp/product/1593275099">The Practice of Network Security Monitoring: Understanding Incident Detection and Response</a> - Richard Bejtlich’s book on IR</li>
+</ul>
+
+        </div>
+        <script type="text/javascript">
+
+                var favicon=new Favico({
+                    bgColor : '#5CB85C',
+                    textColor : '#ff0',
+                });
+                favicon.badge(921);
+        </script>
+        </div>
+
+     
+ <footer class="footer">
+        <div class="fcontainer">
+            <div class="site-title-wrapper">
+                <h1 class="site-title-another "><a title="首页" href="../">首页</a><span>|</span></h1>
+                <h1 class="site-title-another "><a title="咖啡" href="../">咖啡</a><span>|</span></h1>
+                <h1 class="site-title-another "><a title="博客" href="http://smile921.github.io/ruhaskell/">博客</a></h1>
+            </div>
+
+            <p class="footer-copyright">© 2015 / smile921,&nbsp;&nbsp;ALL RIGHTS RESERVED.&nbsp;&nbsp;PUBLISHED WITH  <a href="http://jaspervdj.be/hakyll">Hakyll</a></p>
+        </div>
+</footer>
+    </body>
+</html>

@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <title>Android 开发最佳实践</title>
+        <script type="text/javascript" src="../js/favico-0.3.9.min.js"></script>
+        <link rel="stylesheet" href="../css/default-highlight.css">
+		<link rel="stylesheet" type="text/css" href="../css/default.css" />
+        <link rel="shortcut icon" type="image/x-icon" href="../images/favicon.ico"> 
+       <!-- <link rel="stylesheet" href="/css/school-book.css"> -->
+        
+        <script type="text/javascript" src="../js/highlight-pack.js"></script>
+        <script>hljs.initHighlightingOnLoad();</script>
+    </head>
+    <body>
+     <header id="hd-block">
+    <h1 id="adage">不为有趣之事，何以遣无涯之生</h1>
+     </header>
+    <div class="container-1">
+        <div id="header">
+            <div id="logo">
+                <a href="../">曾经的脚印</a>
+            </div>
+            <div id="navigation">
+                <a href="../">Home</a>
+                <a href="../about.html">About</a>
+                <a href="../contact.html">Contact</a>
+                <a href="../archive.html">Archive</a>
+            </div>
+        </div>
+
+        <div id="content">
+            <h1>Android 开发最佳实践</h1>
+
+            <div class="info">
+    Posted on August 18, 2016
+    
+</div>
+
+<h2 id="总结">总结</h2>
+<h4 id="使用-gradle-和他推荐的工程结构">使用 Gradle 和他推荐的工程结构</h4>
+<h4 id="把密码和敏感数据放在-gradle.properties-配置文件中">把密码和敏感数据放在 gradle.properties 配置文件中</h4>
+<h4 id="使用-jackson-库解析-json-数据">使用 Jackson 库解析 JSON 数据</h4>
+<h4 id="不要自己实现-http-client-使用-volley-库或者-okhttp-库">不要自己实现 Http client 使用 Volley 库或者 OkHttp 库</h4>
+<h4 id="避免使用-guava-库由于-65k-方法限制使用其他少数库">避免使用 Guava 库，由于 65k 方法限制使用其他少数库</h4>
+<h4 id="在选择-activities-和-fragments-时特别小心">在选择 Activities 和 Fragments 时特别小心</h4>
+<h4 id="布局xml也是代码请也好好组织编排">布局XML也是代码，请也好好组织编排</h4>
+<h4 id="使用样式避免布局的xml中有重复多余的属性">使用样式避免布局的XML中有重复多余的属性</h4>
+<h4 id="使用多个样式文件避免单个大文件样式">使用多个样式文件避免单个大文件样式</h4>
+<h4 id="保持你的颜色定义xml简短整洁甚至定义一个调色板">保持你的颜色定义xml简短整洁，甚至定义一个调色板</h4>
+<h4 id="do-not-make-a-deep-hierarchy-of-viewgroups">Do not make a deep hierarchy of ViewGroups</h4>
+<h4 id="避免客户端处理-webviews-特别小心内存泄漏">避免客户端处理 WebViews 特别小心内存泄漏</h4>
+<h4 id="使用-robolectric-做单元测试robotium-做ui-测试">使用 Robolectric 做单元测试，Robotium 做UI 测试</h4>
+<h4 id="使用-genymotion-作为你的模拟器">使用 Genymotion 作为你的模拟器</h4>
+<h4 id="使用-proguard-或者-dexguard">使用 ProGuard 或者 DexGuard</h4>
+<h4 id="使用-sharedpreferences-做简单的持久化否则使用-contentproviders">使用 SharedPreferences 做简单的持久化，否则使用 ContentProviders</h4>
+<h4 id="使用-stetho-调试你的应用">使用 Stetho 调试你的应用</h4>
+<h2 id="android-sdk">Android SDK</h2>
+<p>把你的Android SDK 放到你的Home目录或者应用的独立目录，不要和IDE放在一起，避免某些原因IDE升级或者重装导致长时间的SDK重新下载安装。 ## 编译系统 你的默认编译工具应该是 Gradle</p>
+
+        </div>
+        <script type="text/javascript">
+
+                var favicon=new Favico({
+                    bgColor : '#5CB85C',
+                    textColor : '#ff0',
+                });
+                favicon.badge(921);
+        </script>
+        </div>
+
+     
+ <footer class="footer">
+        <div class="fcontainer">
+            <div class="site-title-wrapper">
+                <h1 class="site-title-another "><a title="首页" href="../">首页</a><span>|</span></h1>
+                <h1 class="site-title-another "><a title="咖啡" href="../">咖啡</a><span>|</span></h1>
+                <h1 class="site-title-another "><a title="博客" href="http://smile921.github.io/ruhaskell/">博客</a></h1>
+            </div>
+
+            <p class="footer-copyright">© 2015 / smile921,&nbsp;&nbsp;ALL RIGHTS RESERVED.&nbsp;&nbsp;PUBLISHED WITH  <a href="http://jaspervdj.be/hakyll">Hakyll</a></p>
+        </div>
+</footer>
+    </body>
+</html>

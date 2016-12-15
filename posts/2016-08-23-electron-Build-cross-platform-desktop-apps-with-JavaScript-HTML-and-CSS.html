@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <title>electron Build cross platform desktop apps with JavaScript, HTML, and CSS</title>
+        <script type="text/javascript" src="../js/favico-0.3.9.min.js"></script>
+        <link rel="stylesheet" href="../css/default-highlight.css">
+		<link rel="stylesheet" type="text/css" href="../css/default.css" />
+        <link rel="shortcut icon" type="image/x-icon" href="../images/favicon.ico"> 
+       <!-- <link rel="stylesheet" href="/css/school-book.css"> -->
+        
+        <script type="text/javascript" src="../js/highlight-pack.js"></script>
+        <script>hljs.initHighlightingOnLoad();</script>
+    </head>
+    <body>
+     <header id="hd-block">
+    <h1 id="adage">不为有趣之事，何以遣无涯之生</h1>
+     </header>
+    <div class="container-1">
+        <div id="header">
+            <div id="logo">
+                <a href="../">曾经的脚印</a>
+            </div>
+            <div id="navigation">
+                <a href="../">Home</a>
+                <a href="../about.html">About</a>
+                <a href="../contact.html">Contact</a>
+                <a href="../archive.html">Archive</a>
+            </div>
+        </div>
+
+        <div id="content">
+            <h1>electron Build cross platform desktop apps with JavaScript, HTML, and CSS</h1>
+
+            <div class="info">
+    Posted on August 23, 2016
+    
+</div>
+
+<h1 id="快速入门">快速入门</h1>
+<p>Electron 可以让你使用纯 JavaScript 调用丰富的原生 APIs 来创造桌面应用。你可以把它看作一个专注于桌面应用的 Node.js 的变体，而不是 Web 服务器。</p>
+<p>这不意味着 Electron 是绑定了 GUI 库的 JavaScript。相反，Electron 使用 web 页面作为它的 GUI，所以你能把它看作成一个被 JavaScript 控制的，精简版的 Chromium 浏览器。</p>
+<h2 id="主进程">主进程</h2>
+<p>在 Electron 里，运行 <code>package.json</code> 里 <code>main</code> 脚本的进程被称为<strong>主进程</strong>。在主进程运行的脚本可以以创建 web 页面的形式展示 GUI。</p>
+<h2 id="渲染进程">渲染进程</h2>
+<p>由于 Electron 使用 Chromium 来展示页面，所以 Chromium 的多进程结构也被充分利用。每个 Electron 的页面都在运行着自己的进程，这样的进程我们称之为<strong>渲染进程</strong>。</p>
+<p>在一般浏览器中，网页通常会在沙盒环境下运行，并且不允许访问原生资源。然而，Electron 用户拥有在网页中调用 Node.js 的 APIs 的能力，可以与底层操作系统直接交互。</p>
+<h2 id="主进程与渲染进程的区别">主进程与渲染进程的区别</h2>
+<p>主进程使用 <code>BrowserWindow</code> 实例创建页面。每个 <code>BrowserWindow</code> 实例都在自己的渲染进程里运行页面。当一个 <code>BrowserWindow</code> 实例被销毁后，相应的渲染进程也会被终止。</p>
+<p>主进程管理所有页面和与之对应的渲染进程。每个渲染进程都是相互独立的，并且只关心他们自己的页面。</p>
+<p>由于在页面里管理原生 GUI 资源是非常危险而且容易造成资源泄露，所以在页面调用 GUI 相关的 APIs 是不被允许的。如果你想在网页里使用 GUI 操作，其对应的渲染进程必须与主进程进行通讯，请求主进程进行相关的 GUI 操作。</p>
+<p>在 Electron，我们提供几种方法用于主进程和渲染进程之间的通讯。像 <a href="https://github.com/electron/electron/blob/v1.1.3/docs/api/ipc-renderer.md">ipcRenderer</a> 和 <a href="https://github.com/electron/electron/blob/v1.1.3/docs/api/ipc-main.md">ipcMain</a> 模块用于发送消息， <a href="https://github.com/electron/electron/blob/v1.1.3/docs/api/remote.md">remote</a> 模块用于 RPC 方式通讯。这些内容都可以在一个 FAQ 中查看 <a href="https://github.com/electron/electron/blob/v1.1.3/docs/faq/electron-faq.md#how-to-share-data-between-web-pages">how to share data between web pages</a>。</p>
+<h1 id="打造你第一个-electron-应用">打造你第一个 Electron 应用</h1>
+<p>大体上，一个 Electron 应用的目录结构如下：</p>
+<pre><code>your-app/
+├── package.json
+├── main.js
+└── index.html</code></pre>
+<p><code>package.json</code>的格式和 Node 的完全一致，并且那个被 <code>main</code> 字段声明的脚本文件是你的应用的启动脚本，它运行在主进程上。你应用里的 <code>package.json</code> 看起来应该像：</p>
+<div class="sourceCode"><pre class="sourceCode json"><code class="sourceCode json"><span class="fu">{</span>
+  <span class="dt">&quot;name&quot;</span>    <span class="fu">:</span> <span class="st">&quot;your-app&quot;</span><span class="fu">,</span>
+  <span class="dt">&quot;version&quot;</span> <span class="fu">:</span> <span class="st">&quot;0.1.0&quot;</span><span class="fu">,</span>
+  <span class="dt">&quot;main&quot;</span>    <span class="fu">:</span> <span class="st">&quot;main.js&quot;</span>
+<span class="fu">}</span></code></pre></div>
+<p><strong>注意</strong>：如果 <code>main</code> 字段没有在 <code>package.json</code> 声明，Electron会优先加载 <code>index.js</code>。</p>
+<p><code>main.js</code> 应该用于创建窗口和处理系统事件，一个典型的例子如下：</p>
+<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="kw">const</span> electron <span class="op">=</span> <span class="at">require</span>(<span class="st">'electron'</span>)<span class="op">;</span>
+<span class="co">// 控制应用生命周期的模块。</span>
+<span class="kw">const</span> <span class="op">{</span>app<span class="op">}</span> <span class="op">=</span> electron<span class="op">;</span>
+<span class="co">// 创建原生浏览器窗口的模块。</span>
+<span class="kw">const</span> <span class="op">{</span>BrowserWindow<span class="op">}</span> <span class="op">=</span> electron<span class="op">;</span>
+
+<span class="co">// 保持一个对于 window 对象的全局引用，如果你不这样做，</span>
+<span class="co">// 当 JavaScript 对象被垃圾回收， window 会被自动地关闭</span>
+<span class="kw">let</span> mainWindow<span class="op">;</span>
+
+<span class="kw">function</span> <span class="at">createWindow</span>() <span class="op">{</span>
+  <span class="co">// 创建浏览器窗口。</span>
+  mainWindow <span class="op">=</span> <span class="kw">new</span> <span class="at">BrowserWindow</span>(<span class="op">{</span><span class="dt">width</span><span class="op">:</span> <span class="dv">800</span><span class="op">,</span> <span class="dt">height</span><span class="op">:</span> <span class="dv">600</span><span class="op">}</span>)<span class="op">;</span>
+
+  <span class="co">// 加载应用的 index.html。</span>
+  <span class="va">mainWindow</span>.<span class="at">loadURL</span>(<span class="vs">`file://</span><span class="sc">${</span>__dirname<span class="sc">}</span><span class="vs">/index.html`</span>)<span class="op">;</span>
+
+  <span class="co">// 启用开发工具。</span>
+  <span class="va">mainWindow</span>.<span class="va">webContents</span>.<span class="at">openDevTools</span>()<span class="op">;</span>
+
+  <span class="co">// 当 window 被关闭，这个事件会被触发。</span>
+  <span class="va">mainWindow</span>.<span class="at">on</span>(<span class="st">'closed'</span><span class="op">,</span> () <span class="op">=&gt;</span> <span class="op">{</span>
+    <span class="co">// 取消引用 window 对象，如果你的应用支持多窗口的话，</span>
+    <span class="co">// 通常会把多个 window 对象存放在一个数组里面，</span>
+    <span class="co">// 与此同时，你应该删除相应的元素。</span>
+    mainWindow <span class="op">=</span> <span class="kw">null</span><span class="op">;</span>
+  <span class="op">}</span>)<span class="op">;</span>
+<span class="op">}</span>
+
+<span class="co">// Electron 会在初始化后并准备</span>
+<span class="co">// 创建浏览器窗口时，调用这个函数。</span>
+<span class="co">// 部分 API 在 ready 事件触发后才能使用。</span>
+<span class="va">app</span>.<span class="at">on</span>(<span class="st">'ready'</span><span class="op">,</span> createWindow)<span class="op">;</span>
+
+<span class="co">// 当全部窗口关闭时退出。</span>
+<span class="va">app</span>.<span class="at">on</span>(<span class="st">'window-all-closed'</span><span class="op">,</span> () <span class="op">=&gt;</span> <span class="op">{</span>
+  <span class="co">// 在 macOS 上，除非用户用 Cmd + Q 确定地退出，</span>
+  <span class="co">// 否则绝大部分应用及其菜单栏会保持激活。</span>
+  <span class="cf">if</span> (<span class="va">process</span>.<span class="at">platform</span> <span class="op">!==</span> <span class="st">'darwin'</span>) <span class="op">{</span>
+    <span class="va">app</span>.<span class="at">quit</span>()<span class="op">;</span>
+  <span class="op">}</span>
+<span class="op">}</span>)<span class="op">;</span>
+
+<span class="va">app</span>.<span class="at">on</span>(<span class="st">'activate'</span><span class="op">,</span> () <span class="op">=&gt;</span> <span class="op">{</span>
+  <span class="co">// 在 macOS 上，当点击 dock 图标并且该应用没有打开的窗口时，</span>
+  <span class="co">// 绝大部分应用会重新创建一个窗口。</span>
+  <span class="cf">if</span> (mainWindow <span class="op">===</span> <span class="kw">null</span>) <span class="op">{</span>
+    <span class="at">createWindow</span>()<span class="op">;</span>
+  <span class="op">}</span>
+<span class="op">}</span>)<span class="op">;</span>
+
+<span class="co">// 在这文件，你可以续写应用剩下主进程代码。</span>
+<span class="co">// 也可以拆分成几个文件，然后用 require 导入。</span></code></pre></div>
+<p>最后，你想展示的 <code>index.html</code> ：</p>
+<div class="sourceCode"><pre class="sourceCode html"><code class="sourceCode html"><span class="dt">&lt;!DOCTYPE </span>html<span class="dt">&gt;</span>
+<span class="kw">&lt;html&gt;</span>
+  <span class="kw">&lt;head&gt;</span>
+    <span class="kw">&lt;meta</span><span class="ot"> charset=</span><span class="st">&quot;UTF-8&quot;</span><span class="kw">&gt;</span>
+    <span class="kw">&lt;title&gt;</span>Hello World!<span class="kw">&lt;/title&gt;</span>
+  <span class="kw">&lt;/head&gt;</span>
+  <span class="kw">&lt;body&gt;</span>
+    <span class="kw">&lt;h1&gt;</span>Hello World!<span class="kw">&lt;/h1&gt;</span>
+    We are using node <span class="kw">&lt;script&gt;</span><span class="va">document</span>.<span class="at">write</span>(<span class="va">process</span>.<span class="va">versions</span>.<span class="at">node</span>)<span class="op">&lt;</span><span class="ss">/script&gt;,</span>
+<span class="ss">    Chrome &lt;script&gt;document.write</span><span class="sc">(</span><span class="ss">process.versions.chrome</span><span class="sc">)</span><span class="ss">&lt;/script</span><span class="op">&gt;,</span>
+    and Electron <span class="op">&lt;</span>script<span class="op">&gt;</span><span class="va">document</span>.<span class="at">write</span>(<span class="va">process</span>.<span class="va">versions</span>.<span class="at">electron</span>)<span class="op">&lt;</span><span class="ss">/script&gt;.</span>
+<span class="ss">  &lt;/body</span><span class="op">&gt;</span>
+<span class="op">&lt;</span><span class="ss">/html&gt;</span></code></pre></div>
+<h1 id="运行你的应用">运行你的应用</h1>
+<p>一旦你创建了最初的 <code>main.js</code>， <code>index.html</code> 和 <code>package.json</code> 这几个文件，你可能会想尝试在本地运行并测试，看看是不是和期望的那样正常运行。</p>
+<h2 id="electron-prebuilt">electron-prebuilt</h2>
+<p><a href="https://github.com/electron-userland/electron-prebuilt">electron-prebuilt</a> 是一个 <code>npm</code> 模块，包含所使用的 Electron 预编译版本。 如果你已经用 <code>npm</code> 全局安装了它，你只需要按照如下方式直接运行你的应用：</p>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">electron</span> .</code></pre></div>
+<p>如果你是局部安装，那运行：</p>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">./node_modules/.bin/electron</span> .</code></pre></div>
+<h2 id="手工下载-electron-二进制文件">手工下载 Electron 二进制文件</h2>
+<p>如果你手工下载了 Electron 的二进制文件，你也可以直接使用其中的二进制文件直接运行你的应用。 ### Windows</p>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash">$ <span class="kw">.</span>\electron\electron.exe your-app\</code></pre></div>
+<h3 id="linux">Linux</h3>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash">$ <span class="kw">./electron/electron</span> your-app/</code></pre></div>
+<h3 id="macos">macOS</h3>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash">$ <span class="kw">./Electron.app/Contents/MacOS/Electron</span> your-app/</code></pre></div>
+<p><code>Electron.app</code> 里面是 Electron 发布包，你可以在 <a href="https://github.com/electron/electron/releases">这里</a> 下载到。</p>
+<h1 id="以发行版本运行">以发行版本运行</h1>
+<p>在你完成了你的应用后，你可以按照 <a href="https://github.com/electron/electron/blob/v1.1.3/docs/tutorial/application-distribution.md">应用部署</a> 指导发布一个版本，并且以已经打包好的形式运行应用。</p>
+<h1 id="参照下面例子">参照下面例子</h1>
+<p>复制并且运行这个库 <a href="https://github.com/electron/electron-quick-start">electron/electron-quick-start</a>。</p>
+<p><em>注意：</em>运行时需要你的系统已经安装了 <a href="https://git-scm.com/">Git</a> 和 <a href="https://nodejs.org/en/download/">Node.js</a>（包含 <a href="https://www.npmjs.com/">npm</a>）。</p>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="co"># 克隆这仓库</span>
+$ <span class="kw">git</span> clone https://github.com/electron/electron-quick-start
+<span class="co"># 进入仓库</span>
+$ <span class="kw">cd</span> electron-quick-start
+<span class="co"># 安装依赖库并运行应用</span>
+$ <span class="kw">npm</span> install <span class="kw">&amp;&amp;</span> <span class="kw">npm</span> start</code></pre></div>
+
+        </div>
+        <script type="text/javascript">
+
+                var favicon=new Favico({
+                    bgColor : '#5CB85C',
+                    textColor : '#ff0',
+                });
+                favicon.badge(921);
+        </script>
+        </div>
+
+     
+ <footer class="footer">
+        <div class="fcontainer">
+            <div class="site-title-wrapper">
+                <h1 class="site-title-another "><a title="首页" href="../">首页</a><span>|</span></h1>
+                <h1 class="site-title-another "><a title="咖啡" href="../">咖啡</a><span>|</span></h1>
+                <h1 class="site-title-another "><a title="博客" href="http://smile921.github.io/ruhaskell/">博客</a></h1>
+            </div>
+
+            <p class="footer-copyright">© 2015 / smile921,&nbsp;&nbsp;ALL RIGHTS RESERVED.&nbsp;&nbsp;PUBLISHED WITH  <a href="http://jaspervdj.be/hakyll">Hakyll</a></p>
+        </div>
+</footer>
+    </body>
+</html>

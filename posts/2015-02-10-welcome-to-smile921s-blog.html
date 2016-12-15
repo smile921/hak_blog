@@ -5,9 +5,13 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
         <title>Welcome to smile921's blog!</title>
         <script type="text/javascript" src="../js/favico-0.3.9.min.js"></script>
-        <link rel="stylesheet" type="text/css" href="../css/default.css" />
+        <link rel="stylesheet" href="../css/default-highlight.css">
+		<link rel="stylesheet" type="text/css" href="../css/default.css" />
         <link rel="shortcut icon" type="image/x-icon" href="../images/favicon.ico"> 
- 
+       <!-- <link rel="stylesheet" href="/css/school-book.css"> -->
+        
+        <script type="text/javascript" src="../js/highlight-pack.js"></script>
+        <script>hljs.initHighlightingOnLoad();</script>
     </head>
     <body>
      <header id="hd-block">
@@ -34,7 +38,8 @@
     
 </div>
 
-<p>TODO</p>
+<h3 id="awesome-数据可视化收集">awesome 数据可视化收集</h3>
+<p>数据可视化的类型 <a href="http://www.datavizcatalogue.com/" class="uri">http://www.datavizcatalogue.com/</a> 文本可视化案例集 <a href="http://textvis.lnu.se/" class="uri">http://textvis.lnu.se/</a> 时间型数据可视化案例集 <a href="http://survey.timeviz.net/" class="uri">http://survey.timeviz.net/</a> 树的可视化案例集 <a href="http://vcg.informatik.uni-rostock.de/~hs162/treeposter/poster.html" class="uri">http://vcg.informatik.uni-rostock.de/~hs162/treeposter/poster.html</a> 弦的可视化案例集 <a href="http://www.datavizcatalogue.com/" class="uri">http://www.datavizcatalogue.com/</a> Mike bostock<a href="http://bost.ocks.org/mike/" class="uri">http://bost.ocks.org/mike/</a> TODO</p>
 <p>代码高亮</p>
 <p>{% highlight ruby %} # -<em>-coding:utf-8-</em>- file_object = open(‘oo.txt’,‘r’) headerFiles = open(‘out.txt’,‘w’) try: #all_the_text = file_object.read( ) #读每行 #list_of_all_the_lines = file_object.readlines( ) #如果文件是文本文件，还可以直接遍历文件对象获取每行： i = 5; for line in file_object: #print line ii = ‘%d’ %i; i = i + 1 line_alt = ‘’+ii+’. <a href>‘+line.strip()+’</a>’ headerFiles.write(line_alt)<br />
 finally: file_object.close() headerFiles.close() {% endhighlight %}</p>

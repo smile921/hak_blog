@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <title>gitlab 实战笔记</title>
+        <script type="text/javascript" src="../js/favico-0.3.9.min.js"></script>
+        <link rel="stylesheet" href="../css/default-highlight.css">
+		<link rel="stylesheet" type="text/css" href="../css/default.css" />
+        <link rel="shortcut icon" type="image/x-icon" href="../images/favicon.ico"> 
+       <!-- <link rel="stylesheet" href="/css/school-book.css"> -->
+        
+        <script type="text/javascript" src="../js/highlight-pack.js"></script>
+        <script>hljs.initHighlightingOnLoad();</script>
+    </head>
+    <body>
+     <header id="hd-block">
+    <h1 id="adage">不为有趣之事，何以遣无涯之生</h1>
+     </header>
+    <div class="container-1">
+        <div id="header">
+            <div id="logo">
+                <a href="../">曾经的脚印</a>
+            </div>
+            <div id="navigation">
+                <a href="../">Home</a>
+                <a href="../about.html">About</a>
+                <a href="../contact.html">Contact</a>
+                <a href="../archive.html">Archive</a>
+            </div>
+        </div>
+
+        <div id="content">
+            <h1>gitlab 实战笔记</h1>
+
+            <div class="info">
+    Posted on August  5, 2016
+    
+</div>
+
+<h2 id="gitlab-是一个用于仓库管理系统的开源项目">GitLab 是一个用于仓库管理系统的开源项目。</h2>
+<p>集代码托管，测试，部署于一体。 New integration! Koding + GitLab: one-click to build every project, issue, and merge request in a complete IDE! <img src="images/gitlab.png" alt="image" /></p>
+<h2 id="gitlab-ci-runner">GitLab CI Runner</h2>
+<p>Gitlab 代码持续集成插件</p>
+<pre><code>openssl genrsa -des3 -out ca.key 1024
+openssl rsa -in ca.key -out ca.key
+openssl req -new -x509 -key ca.key -out ca.crt -days 999</code></pre>
+<pre><code>https://10.88.1.241:20443/
+http://10.88.1.241:20080</code></pre>
+<p>建立SSL目录,然后拷贝你的证书到SSL目录:</p>
+<pre><code># mkdir /etc/gitlab/ssl
+# chmod 700 /etc/gitlab/ssl
+# cp ca.crt ca.key /etc/gitlab/ssl/
+编辑 /etc/gitlab/gitlab.rb 文件,修改成:</code></pre>
+<pre><code>external_url &quot;https://www.abc.com&quot;
+nginx['redirect_http_to_https']=true
+nginx['ssl_certificate']=&quot;/etc/gitlab/ssl/luck.crt&quot;
+nginx['ssl_certificate_key']=&quot;/etc/gitlab/ssl/luck.key&quot;</code></pre>
+<p>之后使用gitlab-ctlreconfigure重建配置,再修改Nginx配置文件/var/opt/gitlab/nginx/conf/gitlab-http.conf里的默认设置:</p>
+<p>listen *:443 default_server; ssl on; ssl_certificate /etc/gitlab/ssl/ca.crt; ssl_certificate_key /etc/gitlab/ssl/ca.key;</p>
+<p>接着再创建一个 /var/opt/gitlab/nginx/conf/index.conf文件用来HTTP跳转HTTPS:</p>
+<p>server{ listen *:80; server_name www.abc.com;</p>
+<p>rewrite ^(.*)$ https://$host$1; } 最后修改/var/opt/gitlab/nginx/conf/nginx.conf配置文件,在其中加入以下内容,来载入index.conf:</p>
+<p>include/var/opt/gitlab/nginx/conf/index.conf; include/var/opt/gitlab/nginx/conf/gitlab-http.conf;</p>
+
+        </div>
+        <script type="text/javascript">
+
+                var favicon=new Favico({
+                    bgColor : '#5CB85C',
+                    textColor : '#ff0',
+                });
+                favicon.badge(921);
+        </script>
+        </div>
+
+     
+ <footer class="footer">
+        <div class="fcontainer">
+            <div class="site-title-wrapper">
+                <h1 class="site-title-another "><a title="首页" href="../">首页</a><span>|</span></h1>
+                <h1 class="site-title-another "><a title="咖啡" href="../">咖啡</a><span>|</span></h1>
+                <h1 class="site-title-another "><a title="博客" href="http://smile921.github.io/ruhaskell/">博客</a></h1>
+            </div>
+
+            <p class="footer-copyright">© 2015 / smile921,&nbsp;&nbsp;ALL RIGHTS RESERVED.&nbsp;&nbsp;PUBLISHED WITH  <a href="http://jaspervdj.be/hakyll">Hakyll</a></p>
+        </div>
+</footer>
+    </body>
+</html>
