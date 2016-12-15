@@ -3,7 +3,7 @@
 
 
 
-* .  to build this site  `ghc --make -threaded site.hs` 
+* .  to build this site  ghc --make -threaded site.hs 
 
 * .  ./site build
 

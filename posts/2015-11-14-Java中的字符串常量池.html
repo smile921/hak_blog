@@ -5,11 +5,10 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
         <title>Java中的字符串常量池</title>
         <script type="text/javascript" src="../js/favico-0.3.9.min.js"></script>
-        <link rel="stylesheet" href="../css/default-highlight.css">
-		<link rel="stylesheet" type="text/css" href="../css/default.css" />
+        <link rel="stylesheet" type="text/css" href="../css/default.css" />
         <link rel="shortcut icon" type="image/x-icon" href="../images/favicon.ico"> 
-       <!-- <link rel="stylesheet" href="/css/school-book.css"> -->
-        
+        <link rel="stylesheet" href="../css/school-book.css">
+        <!-- <link rel="stylesheet" href="/css/default-highlight.css"> -->
         <script type="text/javascript" src="../js/highlight-pack.js"></script>
         <script>hljs.initHighlightingOnLoad();</script>
     </head>
@@ -58,7 +57,7 @@
 <h2 id="疑难问题">疑难问题</h2>
 <h2 id="前提条件">前提条件？</h2>
 <p>字符串常量池实现的前提条件就是Java中String对象是不可变的，这样可以安全保证多个变量共享同一个对象。如果Java中的String对象可变的话，一个引用操作改变了对象的值，那么其他的变量也会受到影响，显然这样是不合理的。 ##引用 or 对象 字符串常量池中存放的时引用还是对象，这个问题是最常见的。字符串常量池存放的是对象引用，不是对象。<strong>在Java中，对象都创建在堆内存中</strong>。 更新验证，收到的很多评论也在讨论这个问题，我简单的进行了验证。 验证环境</p>
-<table style="width:5%;">
+<table>
 <colgroup>
 <col width="5%" />
 </colgroup>
