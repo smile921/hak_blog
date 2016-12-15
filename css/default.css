@@ -188,8 +188,24 @@ pre {
     font-family: Consolas, Monaco, 'Andale Mono', monospace;
     -moz-border-radius: 1em;
     -webkit-border-radius: 1em;
-    border-radius: 1em;
+    border-radius: 5em;
+
   }
+
+code {
+	background-color: #c7abef !important;
+    background-image: -moz-radial-gradient(50% 50%,circle cover,#ddd,#c7abef 60%)!important;
+    background-image: -ms-radial-gradient(50% 50%,circle cover,#ddd,#c7abef 60%)!important;
+    background-image: -webkit-radial-gradient(50% 50%,circle cover,#ddd,#c7abef 60%)!important;
+    background-image: radial-gradient(50% 50%,circle cover,#ddd,#c7abef 60%)!important;
+}  
+#notes {
+	background-color: #c7abef ;
+    background-image: -moz-radial-gradient(50% 50%,circle cover,#ddd,#c7abef 60%);
+    background-image: -ms-radial-gradient(50% 50%,circle cover,#ddd,#c7abef 60%);
+    background-image: -webkit-radial-gradient(50% 50%,circle cover,#ddd,#c7abef 60%);
+    background-image: radial-gradient(50% 50%,circle cover,#ddd,#c7abef 60%);
+}  
 
 
 .footer {

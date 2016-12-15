@@ -6,7 +6,7 @@ tags:
   - spcaemacs
   - note
 ---
-   1. gg moves to the beginning of the buffer.
+  1. gg moves to the beginning of the buffer.
       G  moves to the end of the buffer.
       :  followed by a line number the <enter> moves to that line number .
       
